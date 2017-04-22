@@ -20,6 +20,9 @@ public class Bullet : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    GameManager gm = GameManager.Instance();
+    if (gm.gameOver) { return; }
+
     mobile.Move(speed);
 
 
@@ -30,9 +33,10 @@ public class Bullet : MonoBehaviour {
           var pMob = p.GetComponent<Mobile>();
           ColliderDistance2D d = stepCol.Distance(pCol);
           var v = d.pointB-d.pointA;
-          var angle = Mathf.Acos(Vector2.Dot(v.normalized, mobile.getNormal())) * Mathf.Rad2Deg;
-          pMob.fromCartesian(pMob.toCartesian() - v*2f);
+          var a = (stepCol.attachedRigidbody.worldCenterOfMass - pCol.attachedRigidbody.worldCenterOfMass).normalized;
+          var angle = Mathf.Acos(Vector2.Dot(a, mobile.getNormal())) * Mathf.Rad2Deg;
           if (angle > 100) {
+            pMob.fromCartesian(pMob.toCartesian() + mobile.getNormal()*0.06f);
             p.onSomething = true;
             p.vSpeed = 0;
             return;
@@ -43,14 +47,20 @@ public class Bullet : MonoBehaviour {
 
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
+      print("!");
       foreach (Player p in GameManager.Instance().players) {
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
-          Debug.LogFormat("{0}",p.name);
+          p.playerLives--;
           gameObject.SetActive(false);
 
           mobile.direction = 0;
           mobile.radius = 0;
           mobile.angle = 0;
+
+          if (p.playerLives < 0) {
+            gm.gameOver = true;
+            gm.Finish();
+          }
         }
       }
     }

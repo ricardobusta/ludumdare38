@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +14,11 @@ public class GameManager : MonoBehaviour {
 
   public float planetRadius = 10;
 
+  public Text winnerText;
+  public Image gameOverImage;
+
+  public bool gameOver = false;
+
   [HideInInspector]
   public Player[] players;
 
@@ -19,15 +26,6 @@ public class GameManager : MonoBehaviour {
 
   public static GameManager Instance() {
     return _instance;
-  }
-
-  public Bullet GetFreeBullet() {
-    for (int i = 0; i < bulletPoolSize; i++) {
-      if (!bulletPool[i].gameObject.activeSelf) {
-        return bulletPool[i];
-      }
-    }
-    return null;
   }
 
   // Use this for initialization
@@ -41,5 +39,34 @@ public class GameManager : MonoBehaviour {
       b.gameObject.SetActive(false);
       bulletPool.Add(b);
     }
+
+    gameOverImage.gameObject.SetActive(false);
+  }
+
+  public Bullet GetFreeBullet() {
+    for (int i = 0; i < bulletPoolSize; i++) {
+      if (!bulletPool[i].gameObject.activeSelf) {
+        return bulletPool[i];
+      }
+    }
+    return null;
+  }
+
+  public void Finish() {
+    gameOverImage.gameObject.SetActive(true);
+    bool draw = true;
+    foreach (Player p in players) {
+      if (p.playerLives > 0) {
+        winnerText.text = "Player " + p.playerN + " wins!";
+        draw = false; 
+      }
+    }
+    if (draw) {
+      winnerText.text = "Draw Game!";
+    }
+  }
+
+  public void Restart() {
+    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }
 }
