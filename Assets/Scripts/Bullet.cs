@@ -7,6 +7,8 @@ public class Bullet : MonoBehaviour {
   public float speed;
   Mobile mobile;
 
+  const float bulletAngleOffset = 2;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
   }
@@ -17,10 +19,8 @@ public class Bullet : MonoBehaviour {
 	}
 
   public void Activate(Mobile mob) {
-    Debug.Log(mob.angle);
     mobile.angle = mob.angle;
     mobile.radius = mob.radius;
-    Debug.Log(mobile.radius + " " + mob.radius);
     mobile.direction = mob.direction;
     speed = speed * mob.direction;
   }

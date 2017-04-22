@@ -69,11 +69,8 @@ public class Player : MonoBehaviour {
 
   void HandleCollision() {
     int n = collider.GetContacts(obstacles);
-    print(n);
     for (int i = 0; i < n; i++) {
-      Debug.Log(obstacles[i]);
       ColliderDistance2D d = collider.Distance(obstacles[i]);
-      Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA - d.pointB;
       mobile.fromCartesian(mobile.toCartesian() - v);
     }

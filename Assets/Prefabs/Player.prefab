@@ -119,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerN: 0
-  speed: 90
+  speed: 180
   maxVSpeed: 3
   gravity: 0.1
   fireCD: 0.5
@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b8ac1dc361683149941369aac0efe8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 4
-  angle: 90
+  radius: 0
+  angle: 0
   direction: 1
 --- !u!212 &212904064847208234
 SpriteRenderer:

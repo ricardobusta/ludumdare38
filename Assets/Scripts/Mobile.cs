@@ -25,7 +25,7 @@ public class Mobile : MonoBehaviour {
       transform.localScale = s;
     }
 
-    angle += speed * Time.deltaTime;
+    angle += speed * Time.deltaTime / radius;
 
     if (angle > 360) {
       angle -= 360;
