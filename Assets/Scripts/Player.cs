@@ -101,11 +101,6 @@ public class Player : MonoBehaviour {
     GameManager gm = GameManager.Instance();
     if (gm.gameOver) { return; }
 
-    if (playerLives < 0) {
-      gm.Finish();
-      return;
-    }
-
     float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 

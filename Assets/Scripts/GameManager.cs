@@ -53,11 +53,16 @@ public class GameManager : MonoBehaviour {
   }
 
   public void Finish() {
-    foreach(Player p in players) {
+    gameOverImage.gameObject.SetActive(true);
+    bool draw = true;
+    foreach (Player p in players) {
       if (p.playerLives > 0) {
-        gameOverImage.gameObject.SetActive(true);
         winnerText.text = "Player " + p.playerN + " wins!";
+        draw = false; 
       }
+    }
+    if (draw) {
+      winnerText.text = "Draw Game!";
     }
   }
 

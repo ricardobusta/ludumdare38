@@ -28,13 +28,17 @@ public class Bullet : MonoBehaviour {
       foreach (Player p in gm.players) {
         if (col.IsTouching(p.GetComponent<Collider2D>())){
           p.playerLives--;
+
           gameObject.SetActive(false);
 
           mobile.direction = 0;
           mobile.radius = 0;
           mobile.angle = 0;
 
-
+          if (p.playerLives < 0) {
+            gm.gameOver = true;
+            gm.Finish();
+          }
         }
       }
     }
