@@ -37,8 +37,7 @@ public class Bullet : MonoBehaviour {
   public void Activate(Mobile mob) {
     mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
-    mobile.direction = mob.direction;
-    speed = speed * mob.direction;
+    speed = Mathf.Abs(speed) * mob.direction;
     print(mob.direction);
   }
 }
