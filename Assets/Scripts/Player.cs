@@ -43,6 +43,8 @@ public class Player : MonoBehaviour {
   public float fireCD = 1;
   float currentFireCD = 0;
 
+  public float playerHeightOffset = 0.6f;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
   }
@@ -69,9 +71,9 @@ public class Player : MonoBehaviour {
     }
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
-    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + 0.6f);
+    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
 
-    // Código para pulo
+
     if (onGround && Input.GetKeyDown(keys[playerN].jump)) {
       vSpeed = maxVSpeed;
       onGround = false;
@@ -80,7 +82,7 @@ public class Player : MonoBehaviour {
     if (onGround) {
       // // Se está no chão, deixe o personagem no chão
       vSpeed = 0;
-      mobile.radius = rPlaneta + 0.6f;
+      mobile.radius = rPlaneta + playerHeightOffset;
     } else {
       // Senão, aplique gravidade
       vSpeed -= gravity;
