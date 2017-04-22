@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PlayerKeybind {
   // Representa os keybinds de um player
-  public string axis;
+  public string axis_h;
+  public string axis_v;
   public KeyCode shoot;
   public KeyCode jump;
+  public KeyCode dash;
+  public KeyCode duck;
 
-  public PlayerKeybind(string axis, KeyCode shoot, KeyCode jump) {
-    this.axis = axis;
+  public PlayerKeybind(string axis_h, string axis_v, KeyCode shoot, KeyCode jump, KeyCode dash) {
+    this.axis_h = axis_h;
+    this.axis_v = axis_v;
     this.shoot = shoot;
     this.jump = jump;
+    this.dash = dash;
   }
 }
 
@@ -19,8 +24,9 @@ public class Player : MonoBehaviour {
 
   // FIXME - Arrumar um lugar melhor pra guardar esses dados
   static PlayerKeybind[] keys = {
-    new PlayerKeybind("P1_Horizontal",KeyCode.U,KeyCode.I),
-    new PlayerKeybind("P2_Horizontal",KeyCode.Keypad0,KeyCode.KeypadPeriod)};
+    new PlayerKeybind("P1_Horizontal","P1_Vertical",KeyCode.U,KeyCode.I,KeyCode.Y),
+    new PlayerKeybind("P2_Horizontal","P2_Vertical",KeyCode.Keypad0,KeyCode.KeypadPeriod,KeyCode.KeypadEnter)
+  };
 
   // Qual o número desse player
   public int playerN;
@@ -31,6 +37,7 @@ public class Player : MonoBehaviour {
   // Player está no chão?
   bool onGround = false;
   bool goDown = true;
+  bool ducking = false;
 
   // FIXME - Arrumar um lugar melhor pra guardar esse raio
   const float rPlaneta = 2;
@@ -58,7 +65,9 @@ public class Player : MonoBehaviour {
 
   // Update is called once per frame
   void Update () {
-    float h = Input.GetAxis(keys[playerN].axis);
+    float h = Input.GetAxis(keys[playerN].axis_h);
+    float v = Input.GetAxis(keys[playerN].axis_v);
+    bool jumping = Input.GetKeyDown(keys[playerN].jump) || (v > 0);
 
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
@@ -75,7 +84,10 @@ public class Player : MonoBehaviour {
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
-
+    ducking = false;
+    if (onGround && h==0 && v<0) {
+      ducking = true;
+    }
     if (onGround) {
       // // Se está no chão, deixe o personagem no chão
       animator.SetBool("jumping", false);
@@ -83,7 +95,8 @@ public class Player : MonoBehaviour {
       mobile.radius = rPlaneta + playerHeightOffset;
       goDown = false;
 
-      if (Input.GetKeyDown(keys[playerN].jump)) {
+      if (jumping) {
+        ducking = false;
         animator.SetBool("jumping", true);
         vSpeed = maxVSpeed;
         onGround = false;
@@ -95,6 +108,7 @@ public class Player : MonoBehaviour {
       goDown = true;
     }
     animator.SetFloat("vertical_speed", vSpeed);
+    animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
     if (Input.GetKeyUp(keys [playerN].jump)) {
