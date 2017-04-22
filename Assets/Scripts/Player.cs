@@ -55,6 +55,7 @@ public class Player : MonoBehaviour {
   public float playerHeightOffset = 0.6f;
 
   new Collider2D collider;
+  ContactFilter2D playerFilter = new ContactFilter2D();
   Collider2D[] obstacles = new Collider2D[10];
 
   private void Awake() {
@@ -64,11 +65,12 @@ public class Player : MonoBehaviour {
   }
 
   private void Start() {
-
+    playerFilter.SetLayerMask(-257);
+    playerFilter.useLayerMask = true;
   }
 
   void HandleCollision() {
-    if (collider.GetContacts(obstacles) > 0) {
+    if (collider.GetContacts(playerFilter,obstacles) > 0) {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA-d.pointB;
@@ -78,7 +80,8 @@ public class Player : MonoBehaviour {
       onGround = false;
       goDown = true;
       var angle = Mathf.Acos(Vector2.Dot(v.normalized,obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
-      if (angle > 90.9) {
+      if (angle > 100) {
+        print(angle);
         vSpeed = 0;
       }
     }
