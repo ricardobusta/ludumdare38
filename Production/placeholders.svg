@@ -26,9 +26,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35355339"
-     inkscape:cx="-741.66637"
-     inkscape:cy="624.52405"
+     inkscape:zoom="0.5"
+     inkscape:cx="189.43702"
+     inkscape:cy="990.49079"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -55,9 +55,149 @@
      inkscape:label="Camada 1"
      inkscape:groupmode="layer"
      id="layer1">
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4697"
+       width="48.351921"
+       height="48.297356"
+       x="-105.83878"
+       y="-82.57618"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="-82.57618"
+       x="-56.803013"
+       height="48.297356"
+       width="48.351921"
+       id="rect4707"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="-33.595798"
+       x="-105.83878"
+       height="48.297356"
+       width="48.351921"
+       id="rect4717"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4719"
+       width="48.351921"
+       height="48.297356"
+       x="-56.803013"
+       y="-33.595798"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4737"
+       width="48.351921"
+       height="48.297356"
+       x="-105.83878"
+       y="15.384583"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="15.384583"
+       x="-56.803013"
+       height="48.297356"
+       width="48.351921"
+       id="rect4739"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="64.36496"
+       x="-105.83878"
+       height="48.297356"
+       width="48.351921"
+       id="rect4765"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4767"
+       width="48.351921"
+       height="48.297356"
+       x="-56.803013"
+       y="64.36496"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4769"
+       width="48.351921"
+       height="48.297356"
+       x="-105.83878"
+       y="162.32573"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="162.32573"
+       x="-56.803013"
+       height="48.297356"
+       width="48.351921"
+       id="rect4771"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="211.30612"
+       x="-105.83878"
+       height="48.297356"
+       width="48.351921"
+       id="rect4773"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4775"
+       width="48.351921"
+       height="48.297356"
+       x="-56.803013"
+       y="211.30612"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect4845"
+       width="48.351921"
+       height="48.297356"
+       x="-105.83878"
+       y="113.34534"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       y="113.34534"
+       x="-56.803013"
+       height="48.297356"
+       width="48.351921"
+       id="rect4847"
+       style="opacity:1;fill:#008000;fill-opacity:1;stroke:none;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
     <image
-       y="-65.142921"
-       x="-625.55817"
+       y="-64.01844"
+       x="-631.70972"
        id="image5223"
        xlink:href="data:image/jpeg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAA8AAD/4QMvaHR0cDov
 L25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENl
@@ -2273,72 +2413,12 @@ E90gKXdwFcFAFhqrgDPUm4VQLLwpmgK4AkRZXAYVpGQCZWYCOQgU05lCmNtCUJUUXABzaeTYCHjX
        transform="matrix(0.89871929,-0.43852438,0.43994427,0.89802508,0,0)"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4697"
-       width="48.351921"
-       height="48.297356"
-       x="-105.83878"
-       y="-82.57618"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="-82.57618"
-       x="-56.803013"
-       height="48.297356"
-       width="48.351921"
-       id="rect4707"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="-33.595798"
-       x="-105.83878"
-       height="48.297356"
-       width="48.351921"
-       id="rect4717"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4719"
-       width="48.351921"
-       height="48.297356"
-       x="-56.803013"
-       y="-33.595798"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <path
        style="fill:#cccccc;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="m -91.08287,38.939462 2.32878,9.748755 c 5.44415,-3.324189 9.59959,-7.164954 15.68888,-8.986905 -5.96203,-0.80585 -12.01193,-0.625077 -18.01766,-0.76185 z"
        id="path5025"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cccc"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4737"
-       width="48.351921"
-       height="48.297356"
-       x="-105.83878"
-       y="15.384583"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="15.384583"
-       x="-56.803013"
-       height="48.297356"
-       width="48.351921"
-       id="rect4739"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -2386,32 +2466,12 @@ E90gKXdwFcFAFhqrgDPUm4VQLLwpmgK4AkRZXAYVpGQCZWYCOQgU05lCmNtCUJUUXABzaeTYCHjX
          x="-151.54182"
          id="tspan4753"
          sodipodi:role="line">jump</tspan></text>
-    <rect
-       y="64.36496"
-       x="-105.83878"
-       height="48.297356"
-       width="48.351921"
-       id="rect4765"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <path
        sodipodi:nodetypes="cccc"
        inkscape:connector-curvature="0"
        id="path5031"
        d="m -36.76455,98.248371 7.61542,-0.0916 c -1.55333,-4.58219 -3.67257,-10.94647 -4.10991,-17.28085 -2.10072,5.63131 -2.39964,12.95388 -3.50551,17.3725 z"
        style="fill:#cccccc;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4767"
-       width="48.351921"
-       height="48.297356"
-       x="-56.803013"
-       y="64.36496"
        inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -2531,46 +2591,6 @@ E90gKXdwFcFAFhqrgDPUm4VQLLwpmgK4AkRZXAYVpGQCZWYCOQgU05lCmNtCUJUUXABzaeTYCHjX
          x="-173.45793"
          id="tspan4761"
          sodipodi:role="line">dash duck</tspan></text>
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4769"
-       width="48.351921"
-       height="48.297356"
-       x="-105.83878"
-       y="162.32573"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="162.32573"
-       x="-56.803013"
-       height="48.297356"
-       width="48.351921"
-       id="rect4771"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="211.30612"
-       x="-105.83878"
-       height="48.297356"
-       width="48.351921"
-       id="rect4773"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4775"
-       width="48.351921"
-       height="48.297356"
-       x="-56.803013"
-       y="211.30612"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <path
        sodipodi:nodetypes="ccccc"
        inkscape:connector-curvature="0"
@@ -2618,26 +2638,6 @@ E90gKXdwFcFAFhqrgDPUm4VQLLwpmgK4AkRZXAYVpGQCZWYCOQgU05lCmNtCUJUUXABzaeTYCHjX
          x="-151.54182"
          y="112.31138"
          style="stroke-width:0.26458332px">jump</tspan></text>
-    <rect
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="rect4845"
-       width="48.351921"
-       height="48.297356"
-       x="-105.83878"
-       y="113.34534"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       y="113.34534"
-       x="-56.803013"
-       height="48.297356"
-       width="48.351921"
-       id="rect4847"
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#cccccc;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\placeholder_animation.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
     <ellipse
        ry="4.842823"
        rx="4.8197327"
@@ -3354,6 +3354,42 @@ E90gKXdwFcFAFhqrgDPUm4VQLLwpmgK4AkRZXAYVpGQCZWYCOQgU05lCmNtCUJUUXABzaeTYCHjX
          d="m -103.41326,-45.839985 8.372216,0.748352 -3.227279,3.274052 z"
          id="path5211"
          inkscape:connector-curvature="0" />
+    </g>
+    <path
+       style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m -95.256233,-103.37311 a 1.4552083,1.4552084 0 0 1 1.4552,1.45521 1.4552083,1.4552084 0 0 1 -1.4552,1.4552 1.4552083,1.4552084 0 0 1 -0.1323,-0.007 v 0.007 h -3.175 v -2.91041 h 3.175 v 0.007 a 1.4552083,1.4552084 0 0 1 0.1323,-0.007 z"
+       id="path5226"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\bullet.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <g
+       id="g5242"
+       transform="matrix(-0.80384185,-0.59484307,-0.59484307,0.80384185,-188.68542,-237.54705)"
+       inkscape:export-filename="D:\Projects\Ludum-Dare-38\Assets\Sprites\pistol.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         transform="rotate(37.514262)"
+         y="184.17566"
+         x="-199.53674"
+         height="2.2489583"
+         width="6.2177081"
+         id="rect5231"
+         style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path5237"
+         d="m -266.76614,32.548958 -0.39687,1.322917 1.25677,0.926041 -0.26459,1.322917 0.79375,0.859895 3.3073,-0.859895 -0.26459,-1.322917 1.85209,-3.175 -2.05052,-1.058333 z"
+         style="fill:#cccccc;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+      <rect
+         transform="rotate(37.514262)"
+         y="183.59265"
+         x="-193.98129"
+         height="4.8286457"
+         width="4.9609375"
+         id="rect5233"
+         style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:0.52916664;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
     </g>
   </g>
 </svg>
