@@ -13,8 +13,6 @@ public class Mobile : MonoBehaviour {
   }
 
   public void Move(float speed) {
-    Debug.Log(speed);
-
     if (speed != 0) {
       Vector3 s = transform.localScale;
       s.x = Mathf.Sign(speed) * Mathf.Abs(s.x);
