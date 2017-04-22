@@ -4,18 +4,26 @@ using UnityEngine;
 
 public class Mobile : MonoBehaviour {
 
-  public float r = 0;
-  public float a = 0;
+  public float radius = 0;
+  public float angle = 0;
 
   // Use this for initialization
   void Start() {
 
   }
 
+  public void Move(float speed) {
+    if (speed > 0) {
+
+    }
+  }
+
   // Update is called once per frame
   void Update() {
-    Vector3 p = new Vector3(r * Mathf.Cos(a * Mathf.Deg2Rad), r * Mathf.Sin(a * Mathf.Deg2Rad), 0);
+    Vector3 p = new Vector3(radius * Mathf.Cos(-angle * Mathf.Deg2Rad), radius * Mathf.Sin(-angle * Mathf.Deg2Rad), 0);
     transform.position = p;
-    transform.localRotation = Quaternion.Euler(0, 0, a);
+    transform.localRotation = Quaternion.Euler(0, 0, -angle);
   }
 }
+
+//tá me ouvindo?
