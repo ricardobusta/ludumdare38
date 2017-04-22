@@ -8,6 +8,9 @@ public class Player : MonoBehaviour {
 
   public float speed = 1;
 
+  public float fireCD = 1;
+  float currentFireCD = 0;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
   }
@@ -16,14 +19,19 @@ public class Player : MonoBehaviour {
 	void Update () {
     float h = Input.GetAxis("Horizontal");
 
-    mobile.Move(h * speed * Time.deltaTime);
+    mobile.Move(h * speed);
 
-    float fire = Input.GetAxis("Fire1");
-    if(fire > 0) {
-      Bullet b = GameManager.Instance().GetFreeBullet();
-      if (b != null) {
-        b.Activate(mobile);
-        b.gameObject.SetActive(true);
+    if (currentFireCD > 0) {
+      currentFireCD -= Time.deltaTime;
+    } else {
+      float fire = Input.GetAxis("Fire1");
+      if (fire > 0) {
+        Bullet b = GameManager.Instance().GetFreeBullet();
+        if (b != null) {
+          b.gameObject.SetActive(true);
+          b.Activate(mobile);
+          currentFireCD = fireCD;
+        }
       }
     }
 	}
