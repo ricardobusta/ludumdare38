@@ -29,13 +29,14 @@ public class Player : MonoBehaviour {
 
   // Player está no chão?
   bool onGround = false;
+  bool goDown = true;
 
   // FIXME - Arrumar um lugar melhor pra guardar esse raio
   const float rPlaneta = 2;
 
-  public float speed = 1;
+  public float speed = 90;
   public float maxVSpeed = 3;
-  public float gravity = 0.1f;
+  public float gravity = 0.2f;
 
   // Essa é a velocidade atual vertical
   private float vSpeed = 0;
@@ -73,19 +74,26 @@ public class Player : MonoBehaviour {
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
 
-
-    if (onGround && Input.GetKeyDown(keys[playerN].jump)) {
-      vSpeed = maxVSpeed;
-      onGround = false;
-    }
-
     if (onGround) {
       // // Se está no chão, deixe o personagem no chão
       vSpeed = 0;
       mobile.radius = rPlaneta + playerHeightOffset;
-    } else {
+      goDown = false;
+
+      if (Input.GetKeyDown(keys[playerN].jump)) {
+        vSpeed = maxVSpeed;
+        onGround = false;
+      }
+    //                    << TODO arrumar esses valores de pulo aqui                 >>
+    } else if (goDown || (Mathf.Abs(mobile.radius) >= rPlaneta + 2*playerHeightOffset)) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
+      goDown = true;
+    }
+  
+    // Gravide aplica quando o botão solta
+    if (Input.GetKeyUp(keys [playerN].jump)) {
+      goDown = true;
     }
 
     // Cálculo de posição vertical e horizontal
@@ -93,6 +101,6 @@ public class Player : MonoBehaviour {
     mobile.Move(h * speed);
 
 
-    Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
+    //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
 	}
 }
