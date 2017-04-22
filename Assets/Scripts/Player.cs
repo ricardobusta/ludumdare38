@@ -77,7 +77,10 @@ public class Player : MonoBehaviour {
       mobile.fromCartesian(mobile.toCartesian() - v);
       onGround = false;
       goDown = true;
-      vSpeed = 0;
+      var angle = Mathf.Acos(Vector2.Dot(v.normalized,obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
+      if (angle > 90.9) {
+        vSpeed = 0;
+      }
     }
   }
 
