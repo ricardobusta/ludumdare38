@@ -7,19 +7,31 @@ public class Bullet : MonoBehaviour {
   public float speed;
   Mobile mobile;
 
-  const float bulletAngleOffset = 2;
+  const float bulletAngleOffset = 20;
+
+  Collider2D col;
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
+    col = GetComponent<Collider2D>();
   }
-	
-	// Update is called once per frame
-	void Update () {
+
+  // Update is called once per frame
+  void Update() {
     mobile.Move(speed);
-	}
+
+
+    if (col.IsTouchingLayers(LayerMask.GetMask("Player"))) {
+      foreach (Player p in GameManager.Instance().players) {
+        if (col.IsTouching(p.GetComponent<Collider2D>())){
+          print(p.name);
+        }
+      }
+    }
+  }
 
   public void Activate(Mobile mob) {
-    mobile.angle = mob.angle;
+    mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
     mobile.direction = mob.direction;
     speed = speed * mob.direction;

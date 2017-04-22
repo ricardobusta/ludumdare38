@@ -54,6 +54,6 @@ public class Mobile : MonoBehaviour {
   void Update() {
     Vector3 p = toCartesian();
     transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
-    transform.position = p;  
+    transform.position = p;
   }
 }
