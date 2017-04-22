@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerKeybind {
+  // Representa os keybinds de um player
   public string axis;
   public KeyCode shoot;
   public KeyCode jump;
@@ -16,20 +17,29 @@ public class PlayerKeybind {
 
 public class Player : MonoBehaviour {
 
+  // FIXME - Arrumar um lugar melhor pra guardar esses dados
   static PlayerKeybind[] keys = {
     new PlayerKeybind("P1_Horizontal",KeyCode.U,KeyCode.I),
     new PlayerKeybind("P2_Horizontal",KeyCode.Keypad0,KeyCode.KeypadPeriod)};
 
+  // Qual o número desse player
   public int playerN;
 
   Animator animator;
   Mobile mobile;
+
+  // Player está no chão?
   bool onGround = false;
+  bool goDown = true;
+
+  // FIXME - Arrumar um lugar melhor pra guardar esse raio
   const float rPlaneta = 2;
 
-  public float speed = 1;
+  public float speed = 90;
   public float maxVSpeed = 3;
-  public float gravity = 0.1f;
+  public float gravity = 0.2f;
+
+  // Essa é a velocidade atual vertical
   private float vSpeed = 0;
 
   public float fireCD = 1;
@@ -49,39 +59,54 @@ public class Player : MonoBehaviour {
   // Update is called once per frame
   void Update () {
     float h = Input.GetAxis(keys[playerN].axis);
-    animator.SetBool("horizontal_moving", Mathf.Abs(h)>0);
-    mobile.Move(h * speed);
 
     if (currentFireCD > 0) {
+      // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else {
-      //float fire = Input.GetAxis("Fire1");
-      float fire = Input.GetKeyDown(keys[playerN].shoot)?1:0;
-      if (fire > 0) {
-        Bullet b = GameManager.Instance().GetFreeBullet();
-        if (b != null) {
-          b.gameObject.SetActive(true);
-          b.Activate(mobile);
-          currentFireCD = fireCD;
-        }
+    } else if (Input.GetKeyDown(keys[playerN].shoot)) {
+      // Senão, deixe o jogador atirar
+      Bullet b = GameManager.Instance().GetFreeBullet();
+      if (b != null) {
+        b.gameObject.SetActive(true);
+        b.Activate(mobile);
+        currentFireCD = fireCD;
       }
     }
 
+    // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
+
     if (onGround) {
-      mobile.radius = rPlaneta+playerHeightOffset;
+      // // Se está no chão, deixe o personagem no chão
+      animator.SetBool("jumping", false);
+      vSpeed = 0;
+      mobile.radius = rPlaneta + playerHeightOffset;
+      goDown = false;
+
       if (Input.GetKeyDown(keys[playerN].jump)) {
+        animator.SetBool("jumping", true);
         vSpeed = maxVSpeed;
         onGround = false;
       }
+    //                    << TODO arrumar esses valores de pulo aqui                 >>
+    } else if (goDown || (Mathf.Abs(mobile.radius) >= rPlaneta + 2*playerHeightOffset)) {
+      // Senão, aplique gravidade
+      vSpeed -= gravity;
+      goDown = true;
+    }
+    animator.SetFloat("vertical_speed", vSpeed);
+
+    // Gravide aplica quando o botão solta
+    if (Input.GetKeyUp(keys [playerN].jump)) {
+      goDown = true;
     }
 
-    if (onGround)
-      vSpeed = 0;
-    else
-      vSpeed -= gravity;
-    
+    // Cálculo de posição vertical e horizontal
     mobile.radius += vSpeed * Time.deltaTime;
-    Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
-	}
+    mobile.Move(h * speed);
+    // Animar na horizontal se ele estiver se movendo
+    animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
+
+    //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
+  }
 }
