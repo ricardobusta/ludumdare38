@@ -6,12 +6,12 @@ public class Player : MonoBehaviour {
 
   Mobile mobile;
   bool onGround = false;
-  const float r_planeta = 3;
+  const float rPlaneta = 3;
 
   public float speed = 1;
-  public float max_vspeed = 3;
+  public float maxVSpeed = 3;
   public float gravity = 0.1f;
-  private float vspeed = 0;
+  private float vSpeed = 0;
 
   public float fireCD = 1;
   float currentFireCD = 0;
@@ -44,19 +44,19 @@ public class Player : MonoBehaviour {
       }
     }
 
-    onGround = (Mathf.Abs(mobile.radius) <= r_planeta + 0.6);
+    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + 0.6);
 
     if (onGround && Input.GetKeyDown(KeyCode.X)) {
-      vspeed = max_vspeed;
+      vSpeed = maxVSpeed;
       onGround = false;
     }
 
     if (onGround)
-      vspeed = 0;
+      vSpeed = 0;
     else
-      vspeed -= gravity;
+      vSpeed -= gravity;
     
-    mobile.radius += vspeed * Time.deltaTime;
-    Debug.LogFormat("Player: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vspeed,h * speed);
+    mobile.radius += vSpeed * Time.deltaTime;
+    Debug.LogFormat("Player: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed);
 	}
 }
