@@ -18,18 +18,23 @@ public class Bullet : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    GameManager gm = GameManager.Instance();
+    if (gm.gameOver) { return; }
+
     mobile.Move(speed);
 
 
     if (col.IsTouchingLayers(LayerMask.GetMask("Player"))) {
-      foreach (Player p in GameManager.Instance().players) {
+      foreach (Player p in gm.players) {
         if (col.IsTouching(p.GetComponent<Collider2D>())){
-          Debug.LogFormat("{0} {1}",this,p.name);
+          p.playerLives--;
           gameObject.SetActive(false);
 
           mobile.direction = 0;
           mobile.radius = 0;
           mobile.angle = 0;
+
+
         }
       }
     }

@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
-    return "P" + (playerID + 1) + "_Horizontal";
+    return "P" + (playerID) + "_Horizontal";
   }
   public static string GetVertical(int playerID) {
-    return "P" + (playerID + 1) + "_Vertical";
+    return "P" + (playerID) + "_Vertical";
   }
   public static string GetJump(int playerID) {
-    return "P" + (playerID + 1) + "_Jump";
+    return "P" + (playerID) + "_Jump";
   }
   public static string GetFire(int playerID) {
-    return "P" + (playerID + 1) + "_Fire";
+    return "P" + (playerID) + "_Fire";
   }
   public static string GetDash(int playerID) {
-    return "P" + (playerID + 1) + "_Dash";
+    return "P" + (playerID) + "_Dash";
   }
 }
 
 public class Player : MonoBehaviour {
   // Qual o número desse player
   public int playerN;
+
+  public int playerLives = 3;
 
   Animator animator;
   Mobile mobile;
@@ -96,6 +98,14 @@ public class Player : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    GameManager gm = GameManager.Instance();
+    if (gm.gameOver) { return; }
+
+    if (playerLives < 0) {
+      gm.Finish();
+      return;
+    }
+
     float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 
@@ -106,7 +116,7 @@ public class Player : MonoBehaviour {
       print(playerN);
     }
 
-    float planetR = GameManager.Instance().planetRadius;
+    float planetR = gm.planetRadius;
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
