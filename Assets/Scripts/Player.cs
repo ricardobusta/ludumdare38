@@ -22,6 +22,7 @@ public class Player : MonoBehaviour {
 
   public int playerN;
 
+  Animator animator;
   Mobile mobile;
   bool onGround = false;
   const float rPlaneta = 2;
@@ -38,6 +39,7 @@ public class Player : MonoBehaviour {
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
+    animator = GetComponent<Animator>();
   }
 
   private void Start() {
@@ -47,6 +49,7 @@ public class Player : MonoBehaviour {
   // Update is called once per frame
   void Update () {
     float h = Input.GetAxis(keys[playerN].axis);
+    animator.SetBool("horizontal_moving", Mathf.Abs(h)>0);
     mobile.Move(h * speed);
 
     if (currentFireCD > 0) {
