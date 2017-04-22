@@ -121,7 +121,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4329635332141260, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.2434907
+      value: 7.59
       objectReference: {fileID: 0}
     - target: {fileID: 4329635332141260, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -187,7 +187,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4329635332141260, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.18
+      value: -7.77
       objectReference: {fileID: 0}
     - target: {fileID: 4329635332141260, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -270,7 +270,7 @@ GameObject:
   - component: {fileID: 1329251295}
   - component: {fileID: 1329251294}
   m_Layer: 0
-  m_Name: New Sprite
+  m_Name: Planet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,7 +308,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 11132d9ba3dab14448e668813e1d1db8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57df9bcf5465eb149871c5dcdd08dd3c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -389,7 +389,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -447,6 +447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 114937657968952510, guid: c1b3b850105ef9d47b2c053a529f29c4,
     type: 2}
+  planetRadius: 6.5
   players: []
   bulletPoolSize: 10
 --- !u!4 &1867045886

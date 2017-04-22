@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 
   List<Bullet> bulletPool = new List<Bullet>();
 
+  public float planetRadius = 10;
+
   [HideInInspector]
   public Player[] players;
 
