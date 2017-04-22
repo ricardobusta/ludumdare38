@@ -6,20 +6,25 @@ public class Player : MonoBehaviour {
 
   Mobile mobile;
 
-  public float speed = 30000;
+  public float speed = 1;
 
-  	// Use this for initialization
-	void Start () {
+  private void Awake() {
     mobile = GetComponent<Mobile>();
-    mobile.fromCartesian (transform.position);
-	}
-	
+  }
+
 	// Update is called once per frame
 	void Update () {
     float h = Input.GetAxis("Horizontal");
 
-    Debug.Log(h + " " + speed + " " + Time.deltaTime);
-
     mobile.Move(h * speed * Time.deltaTime);
+
+    float fire = Input.GetAxis("Fire1");
+    if(fire > 0) {
+      Bullet b = GameManager.Instance().GetFreeBullet();
+      if (b != null) {
+        b.Activate(mobile);
+        b.gameObject.SetActive(true);
+      }
+    }
 	}
 }

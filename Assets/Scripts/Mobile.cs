@@ -6,22 +6,22 @@ public class Mobile : MonoBehaviour {
 
   public float radius = 0;
   public float angle = 0;
+  public float direction = 1;
 
   // Use this for initialization
   void Start() {
-
+    fromCartesian(transform.position);
   }
 
   public void Move(float speed) {
-    Debug.Log(speed);
-
     if (speed != 0) {
       Vector3 s = transform.localScale;
-      s.x = Mathf.Sign(speed) * Mathf.Abs(s.x);
+      direction = Mathf.Sign(speed);
+      s.x = direction * Mathf.Abs(s.x);
       transform.localScale = s;
     }
     
-    angle += speed;
+    angle += speed * Time.deltaTime;
 
     if(angle > 360) {
       angle -= 360;
