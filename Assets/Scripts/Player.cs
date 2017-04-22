@@ -3,31 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerKeybind {
-  // Representa os keybinds de um player
-  public string axis_h;
-  public string axis_v;
-  public KeyCode shoot;
-  public KeyCode jump;
-  public KeyCode dash;
-  public KeyCode duck;
-
-  public PlayerKeybind(string axis_h, string axis_v, KeyCode shoot, KeyCode jump, KeyCode dash) {
-    this.axis_h = axis_h;
-    this.axis_v = axis_v;
-    this.shoot = shoot;
-    this.jump = jump;
-    this.dash = dash;
+  public static string GetHorizontal(int playerID) {
+    return "P" + (playerID+1) + "_Horizontal";
+  }
+  public static string GetVertical(int playerID) {
+    return "P" + (playerID+1) + "_Vertical";
+  }
+  public static string GetJump(int playerID) {
+    return "P" + (playerID + 1) + "_Jump";
+  }
+  public static string GetFire(int playerID) {
+    return "P" + (playerID + 1) + "_Fire";
+  }
+  public static string GetDash(int playerID) {
+    return "P" + (playerID + 1) + "_Dash";
   }
 }
 
 public class Player : MonoBehaviour {
-
-  // FIXME - Arrumar um lugar melhor pra guardar esses dados
-  static PlayerKeybind[] keys = {
-    new PlayerKeybind("P1_Horizontal","P1_Vertical",KeyCode.U,KeyCode.I,KeyCode.Y),
-    new PlayerKeybind("P2_Horizontal","P2_Vertical",KeyCode.Keypad0,KeyCode.KeypadPeriod,KeyCode.KeypadEnter)
-  };
-
   // Qual o número desse player
   public int playerN;
 
@@ -38,9 +31,6 @@ public class Player : MonoBehaviour {
   public bool onGround = false;
   bool goDown = true;
   bool ducking = false;
-
-  // FIXME - Arrumar um lugar melhor pra guardar esse raio
-  const float rPlaneta = 2;
 
   public float speed = 90;
   public float maxVSpeed = 3;
@@ -83,14 +73,17 @@ public class Player : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    float h = Input.GetAxisRaw(keys[playerN].axis_h);
-    float v = Input.GetAxisRaw(keys[playerN].axis_v);
-    bool jumping = Input.GetKeyDown(keys[playerN].jump) || (v > 0);
+    float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
+    float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
+    
+    bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (v > 0);
+
+    float planetR = GameManager.Instance().planetRadius;
 
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (Input.GetKey(keys[playerN].shoot)) {
+    } else if (Input.GetButton(PlayerKeybind.GetFire(playerN))) {
       // Senão, deixe o jogador atirar
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
@@ -101,7 +94,7 @@ public class Player : MonoBehaviour {
     }
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
-    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
+    onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
     ducking = false;
     if (onGround && h == 0 && v < 0) {
       ducking = true;
@@ -110,7 +103,7 @@ public class Player : MonoBehaviour {
       // // Se está no chão, deixe o personagem no chão
       animator.SetBool("jumping", false);
       vSpeed = 0;
-      mobile.radius = rPlaneta + playerHeightOffset;
+      mobile.radius = planetR + playerHeightOffset;
       goDown = false;
 
       if (jumping) {
@@ -120,7 +113,7 @@ public class Player : MonoBehaviour {
         onGround = false;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if (goDown || (Mathf.Abs(mobile.radius) >= rPlaneta + 2 * playerHeightOffset)) {
+    } else if (goDown || (Mathf.Abs(mobile.radius) >= planetR + 2 * playerHeightOffset)) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
       goDown = true;
@@ -129,7 +122,7 @@ public class Player : MonoBehaviour {
     animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
-    if (Input.GetKeyUp(keys[playerN].jump)) {
+    if (Input.GetButtonUp(PlayerKeybind.GetJump(playerN))) {
       goDown = true;
     }
 
