@@ -11,6 +11,7 @@ public class Player : MonoBehaviour {
   	// Use this for initialization
 	void Start () {
     mobile = GetComponent<Mobile>();
+    mobile.fromCartesian (transform.position);
 	}
 	
 	// Update is called once per frame
