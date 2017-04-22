@@ -8,9 +8,13 @@ public class Mobile : MonoBehaviour {
   public float angle = 0;
   public float direction = 1;
 
+  private void Awake() {
+    fromCartesian(transform.position);
+  }
+
   // Use this for initialization
   void Start() {
-    fromCartesian(transform.position);
+
   }
 
   public void Move(float speed) {

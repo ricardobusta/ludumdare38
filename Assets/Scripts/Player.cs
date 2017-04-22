@@ -15,8 +15,12 @@ public class Player : MonoBehaviour {
     mobile = GetComponent<Mobile>();
   }
 
-	// Update is called once per frame
-	void Update () {
+  private void Start() {
+
+  }
+
+  // Update is called once per frame
+  void Update () {
     float h = Input.GetAxis("Horizontal");
 
     mobile.Move(h * speed);
