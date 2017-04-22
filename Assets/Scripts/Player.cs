@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
   public float fireCD = 1;
   float currentFireCD = 0;
 
+  public float playerHeightOffset = 0.6f;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
   }
@@ -62,11 +64,13 @@ public class Player : MonoBehaviour {
       }
     }
 
-    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + 0.6);
-
-    if (onGround && Input.GetKeyDown(keys[playerN].jump)) {
-      vSpeed = maxVSpeed;
-      onGround = false;
+    onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
+    if (onGround) {
+      mobile.radius = rPlaneta+playerHeightOffset;
+      if (Input.GetKeyDown(keys[playerN].jump)) {
+        vSpeed = maxVSpeed;
+        onGround = false;
+      }
     }
 
     if (onGround)
