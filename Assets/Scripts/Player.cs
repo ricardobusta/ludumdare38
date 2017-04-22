@@ -88,6 +88,7 @@ public class Player : MonoBehaviour {
         b.gameObject.SetActive(true);
         b.Activate(mobile);
         currentFireCD = fireCD;
+        AudioManager.Instance().PlayFire();
       }
     }
   }
@@ -123,6 +124,7 @@ public class Player : MonoBehaviour {
         ducking = false;
         animator.SetBool("jumping", true);
         vSpeed = maxVSpeed;
+        AudioManager.Instance().PlayJump();
         onGround = false;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
