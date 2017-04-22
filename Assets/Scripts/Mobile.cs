@@ -51,10 +51,19 @@ public class Mobile : MonoBehaviour {
     return new Vector2(radius * Mathf.Cos(-angle * Mathf.Deg2Rad), radius * Mathf.Sin(-angle * Mathf.Deg2Rad));
   }
 
+  public Vector2 getNormal() {
+    var o = toCartesian();
+    radius += 1;
+    o = toCartesian()-o;
+    radius -= 1;
+    return o.normalized;
+  }
+
   // Update is called once per frame
   void Update() {
     Vector3 p = toCartesian();
     Debug.DrawRay(Vector2.zero, p, Color.cyan);
+    Debug.DrawRay(p, getNormal(), Color.green);
     transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
     transform.position = p;
   }
