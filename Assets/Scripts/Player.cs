@@ -78,8 +78,8 @@ public class Player : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    float h = Input.GetAxis(keys[playerN].axis_h);
-    float v = Input.GetAxis(keys[playerN].axis_v);
+    float h = Input.GetAxisRaw(keys[playerN].axis_h);
+    float v = Input.GetAxisRaw(keys[playerN].axis_v);
     bool jumping = Input.GetKeyDown(keys[playerN].jump) || (v > 0);
 
     if (currentFireCD > 0) {
