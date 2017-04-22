@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
   }
 
   void HandleCollision() {
-    if (collider.GetContacts(playerFilter,obstacles) > 0) {
+    if (collider.GetContacts(playerFilter, obstacles) > 0) {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA - d.pointB;
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour {
       mobile.fromCartesian(mobile.toCartesian() - v);
       onGround = false;
       goDown = true;
-      var angle = Mathf.Acos(Vector2.Dot(v.normalized,obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
+      var angle = Mathf.Acos(Vector2.Dot(v.normalized, obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
       if (angle > 100) {
         print(angle);
         vSpeed = 0;
@@ -85,8 +85,8 @@ public class Player : MonoBehaviour {
       // Senão, deixe o jogador atirar
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
-        b.Activate(mobile);
         b.gameObject.SetActive(true);
+        b.Activate(mobile);
         currentFireCD = fireCD;
       }
     }
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour {
 
 
     bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonDown(PlayerKeybind.GetVertical(playerN)) && v > 0);
-    bool releaseJump = Input.GetButtonUp(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonUp(PlayerKeybind.GetVertical(playerN)) && v > 0);
+    bool releaseJump = Input.GetButtonUp(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonUp(PlayerKeybind.GetVertical(playerN)) && Input.GetAxis(PlayerKeybind.GetVertical(playerN)) > 0);
     if (jumping) {
       print(playerN);
     }

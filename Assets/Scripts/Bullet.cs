@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour {
   public float speed;
   Mobile mobile;
 
-  const float bulletAngleOffset = 50;
+  const float bulletAngleOffset = 30;
 
   Collider2D col;
 
@@ -29,6 +29,8 @@ public class Bullet : MonoBehaviour {
           gameObject.SetActive(false);
 
           mobile.direction = 0;
+          mobile.radius = 0;
+          mobile.angle = 0;
         }
       }
     }
