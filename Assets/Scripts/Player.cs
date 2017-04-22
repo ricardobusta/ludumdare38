@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
   Mobile mobile;
   bool onGround = false;
-  const float rPlaneta = 3;
+  const float rPlaneta = 2;
 
   public float speed = 1;
   public float maxVSpeed = 3;
