@@ -85,8 +85,9 @@ public class Player : MonoBehaviour {
       // Senão, deixe o jogador atirar
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
-        b.gameObject.SetActive(true);
         b.Activate(mobile);
+        b.gameObject.SetActive(true);
+        print(b);
         currentFireCD = fireCD;
       }
     }
@@ -136,7 +137,6 @@ public class Player : MonoBehaviour {
 
     // Gravide aplica quando o botão solta
     if (releaseJump) {
-      print("!");
       goDown = true;
     }
 

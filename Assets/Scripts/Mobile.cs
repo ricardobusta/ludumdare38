@@ -59,12 +59,15 @@ public class Mobile : MonoBehaviour {
     return o.normalized;
   }
 
-  // Update is called once per frame
-  void Update() {
+  public void refresh() {
     Vector3 p = toCartesian();
-    Debug.DrawRay(Vector2.zero, p, Color.cyan);
-    Debug.DrawRay(p, getNormal(), Color.green);
     transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
     transform.position = p;
+  }
+
+  // Update is called once per frame
+  void Update() {
+    refresh();
+    Debug.DrawRay(Vector2.zero, transform.position, Color.cyan);
   }
 }
