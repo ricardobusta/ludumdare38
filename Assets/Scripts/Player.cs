@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
   Mobile mobile;
 
   // Player está no chão?
-  bool onGround = false;
+  public bool onGround = false;
   bool goDown = true;
   bool ducking = false;
 
@@ -54,7 +54,7 @@ public class Player : MonoBehaviour {
 
   public float playerHeightOffset = 0.6f;
 
-  Collider2D collider;
+  new Collider2D collider;
   Collider2D[] obstacles = new Collider2D[10];
 
   private void Awake() {
@@ -68,11 +68,16 @@ public class Player : MonoBehaviour {
   }
 
   void HandleCollision() {
-    int n = collider.GetContacts(obstacles);
-    for (int i = 0; i < n; i++) {
-      ColliderDistance2D d = collider.Distance(obstacles[i]);
-      var v = d.pointA - d.pointB;
+    if (collider.GetContacts(obstacles) > 0) {
+      ColliderDistance2D d = collider.Distance(obstacles[0]);
+      //Debug.DrawLine(d.pointA, d.pointB);
+      var v = d.pointA-d.pointB;
+      //print(mobile.toCartesian() - v);
+      Debug.DrawRay(mobile.toCartesian(),-v,Color.magenta);
       mobile.fromCartesian(mobile.toCartesian() - v);
+      onGround = false;
+      goDown = true;
+      vSpeed = 0;
     }
   }
 
@@ -129,16 +134,14 @@ public class Player : MonoBehaviour {
     }
 
     // Cálculo de posição vertical e horizontal
-    mobile.radius += vSpeed * Time.deltaTime;
-    //if (h == 1) {
-    mobile.Move(h * speed);
-    if (h != 0 || vSpeed != 0) {
+    mobile.Move(h * speed, vSpeed);
+    if (h*speed != 0 || vSpeed != 0)
       HandleCollision();
-    }
     //}
     // Animar na horizontal se ele estiver se movendo
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 
+    //if (playerN == 1)
     //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
   }
 }
