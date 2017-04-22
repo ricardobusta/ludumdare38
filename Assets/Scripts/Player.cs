@@ -72,7 +72,7 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (Input.GetKeyDown(keys[playerN].shoot)) {
+    } else if (Input.GetKey(keys[playerN].shoot)) {
       // Senão, deixe o jogador atirar
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
