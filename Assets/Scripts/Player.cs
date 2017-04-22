@@ -81,6 +81,7 @@ public class Player : MonoBehaviour {
 
 
     bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonDown(PlayerKeybind.GetVertical(playerN)) && v > 0);
+    bool releaseJump = Input.GetButtonUp(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonUp(PlayerKeybind.GetVertical(playerN)) && v > 0);
     if (jumping) {
       print(playerN);
     }
@@ -129,7 +130,7 @@ public class Player : MonoBehaviour {
     animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
-    if (Input.GetButtonUp(PlayerKeybind.GetJump(playerN))) {
+    if (releaseJump) {
       goDown = true;
     }
 
