@@ -77,6 +77,21 @@ public class Player : MonoBehaviour {
     }
   }
 
+  void Shoot() {
+    if (currentFireCD > 0) {
+      // Se o cooldown de tiro é positivo, decremente
+      currentFireCD -= Time.deltaTime;
+    } else if (Input.GetButton(PlayerKeybind.GetFire(playerN))) {
+      // Senão, deixe o jogador atirar
+      Bullet b = GameManager.Instance().GetFreeBullet();
+      if (b != null) {
+        b.Activate(mobile);
+        b.gameObject.SetActive(true);
+        currentFireCD = fireCD;
+      }
+    }
+  }
+
   // Update is called once per frame
   void Update() {
     float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
@@ -90,19 +105,6 @@ public class Player : MonoBehaviour {
     }
 
     float planetR = GameManager.Instance().planetRadius;
-
-    if (currentFireCD > 0) {
-      // Se o cooldown de tiro é positivo, decremente
-      currentFireCD -= Time.deltaTime;
-    } else if (Input.GetButton(PlayerKeybind.GetFire(playerN))) {
-      // Senão, deixe o jogador atirar
-      Bullet b = GameManager.Instance().GetFreeBullet();
-      if (b != null) {
-        b.gameObject.SetActive(true);
-        b.Activate(mobile);
-        currentFireCD = fireCD;
-      }
-    }
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
@@ -146,6 +148,7 @@ public class Player : MonoBehaviour {
     // Animar na horizontal se ele estiver se movendo
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 
+    Shoot();
     //if (playerN == 1)
     //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
   }
