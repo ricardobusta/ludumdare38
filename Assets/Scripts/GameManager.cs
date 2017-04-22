@@ -10,6 +10,9 @@ public class GameManager : MonoBehaviour {
 
   List<Bullet> bulletPool = new List<Bullet>();
 
+  [HideInInspector]
+  public Player[] players;
+
   public int bulletPoolSize = 10;
 
   public static GameManager Instance() {
@@ -17,7 +20,7 @@ public class GameManager : MonoBehaviour {
   }
 
   public Bullet GetFreeBullet() {
-    for(int i = 0; i < bulletPoolSize; i++) {
+    for (int i = 0; i < bulletPoolSize; i++) {
       if (!bulletPool[i].gameObject.activeSelf) {
         return bulletPool[i];
       }
@@ -25,9 +28,11 @@ public class GameManager : MonoBehaviour {
     return null;
   }
 
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start() {
     _instance = this;
+
+    players = FindObjectsOfType<Player>();
 
     for (int i = 0; i < bulletPoolSize; i++) {
       Bullet b = Instantiate(bulletPrefab);

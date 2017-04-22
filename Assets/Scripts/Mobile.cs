@@ -25,7 +25,7 @@ public class Mobile : MonoBehaviour {
       transform.localScale = s;
     }
 
-    angle += speedx * Time.deltaTime;
+    angle += speedx * Time.deltaTime / radius;
     radius += speedy * Time.deltaTime;
 
     if (angle > 360) {
@@ -56,6 +56,6 @@ public class Mobile : MonoBehaviour {
     Vector3 p = toCartesian();
     Debug.DrawRay(Vector2.zero, p, Color.cyan);
     transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
-    transform.position = p;  
+    transform.position = p;
   }
 }
