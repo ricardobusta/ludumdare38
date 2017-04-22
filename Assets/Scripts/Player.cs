@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
-    return "P" + (playerID+1) + "_Horizontal";
+    return "P" + (playerID + 1) + "_Horizontal";
   }
   public static string GetVertical(int playerID) {
-    return "P" + (playerID+1) + "_Vertical";
+    return "P" + (playerID + 1) + "_Vertical";
   }
   public static string GetJump(int playerID) {
     return "P" + (playerID + 1) + "_Jump";
@@ -30,7 +30,7 @@ public class Player : MonoBehaviour {
   // Player está no chão?
   public bool onGround = false;
   bool goDown = true;
-  bool ducking = false;
+  public bool ducking = false;
 
   public float speed = 90;
   public float maxVSpeed = 3;
@@ -63,9 +63,9 @@ public class Player : MonoBehaviour {
     if (collider.GetContacts(playerFilter,obstacles) > 0) {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
-      var v = d.pointA-d.pointB;
+      var v = d.pointA - d.pointB;
       //print(mobile.toCartesian() - v);
-      Debug.DrawRay(mobile.toCartesian(),-v,Color.magenta);
+      Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
       mobile.fromCartesian(mobile.toCartesian() - v);
       onGround = false;
       goDown = true;
@@ -81,8 +81,12 @@ public class Player : MonoBehaviour {
   void Update() {
     float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
-    
-    bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (v > 0);
+
+
+    bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonDown(PlayerKeybind.GetVertical(playerN)) && v > 0);
+    if (jumping) {
+      print(playerN);
+    }
 
     float planetR = GameManager.Instance().planetRadius;
 
@@ -109,7 +113,7 @@ public class Player : MonoBehaviour {
       // // Se está no chão, deixe o personagem no chão
       animator.SetBool("jumping", false);
       vSpeed = 0;
-      mobile.radius = planetR + playerHeightOffset;
+      mobile.radius = planetR + playerHeightOffset - 1e-3f;
       goDown = false;
 
       if (jumping) {
@@ -129,12 +133,13 @@ public class Player : MonoBehaviour {
 
     // Gravide aplica quando o botão solta
     if (Input.GetButtonUp(PlayerKeybind.GetJump(playerN))) {
+      print("!");
       goDown = true;
     }
 
     // Cálculo de posição vertical e horizontal
     mobile.Move(h * speed, vSpeed);
-    if (h*speed != 0 || vSpeed != 0)
+    if (h * speed != 0 || vSpeed != 0)
       HandleCollision();
     //}
     // Animar na horizontal se ele estiver se movendo
