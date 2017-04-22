@@ -17,15 +17,16 @@ public class Mobile : MonoBehaviour {
 
   }
 
-  public void Move(float speed) {
-    if (speed != 0) {
+  public void Move(float speedx, float speedy = 0) {
+    if (speedx != 0) {
       Vector3 s = transform.localScale;
-      direction = Mathf.Sign(speed);
+      direction = Mathf.Sign(speedx);
       s.x = direction * Mathf.Abs(s.x);
       transform.localScale = s;
     }
 
-    angle += speed * Time.deltaTime;
+    angle += speedx * Time.deltaTime;
+    radius += speedy * Time.deltaTime;
 
     if (angle > 360) {
       angle -= 360;
@@ -53,6 +54,7 @@ public class Mobile : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     Vector3 p = toCartesian();
+    Debug.DrawRay(Vector2.zero, p, Color.cyan);
     transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
     transform.position = p;  
   }
