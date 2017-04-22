@@ -14,7 +14,6 @@ public class Bullet : MonoBehaviour {
   private void Awake() {
     mobile = GetComponent<Mobile>();
     col = GetComponent<Collider2D>();
-    print("awake");
   }
 
   // Update is called once per frame
@@ -25,7 +24,7 @@ public class Bullet : MonoBehaviour {
     if (col.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
         if (col.IsTouching(p.GetComponent<Collider2D>())){
-          print(p.name);
+          Debug.LogFormat("{0} {1}",this,p.name);
           gameObject.SetActive(false);
 
           mobile.direction = 0;
@@ -40,6 +39,6 @@ public class Bullet : MonoBehaviour {
     mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
     speed = Mathf.Abs(speed) * mob.direction;
-    print(mob.direction);
+    mobile.refresh();
   }
 }
