@@ -13,8 +13,22 @@ public class Mobile : MonoBehaviour {
   }
 
   public void Move(float speed) {
-    if (speed > 0) {
+    Debug.Log(speed);
 
+    if (speed != 0) {
+      Vector3 s = transform.localScale;
+      s.x = Mathf.Sign(speed) * Mathf.Abs(s.x);
+      transform.localScale = s;
+    }
+    
+    angle += speed;
+
+    if(angle > 360) {
+      angle -= 360;
+    }
+
+    if(angle < 0) {
+      angle += 360;
     }
   }
 
@@ -35,7 +49,7 @@ public class Mobile : MonoBehaviour {
   void Update() {
     Vector3 p = toCartesian();
     transform.position = p;
-    transform.localRotation = Quaternion.Euler(0, 0, -angle);
+    transform.localRotation = Quaternion.Euler(0, 0, -angle-90);
   }
 }
 
