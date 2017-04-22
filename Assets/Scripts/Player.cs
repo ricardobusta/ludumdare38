@@ -6,7 +6,7 @@ public class Player : MonoBehaviour {
 
   Mobile mobile;
 
-  public float speed = 0.4f;
+  public float speed = 30000;
 
   	// Use this for initialization
 	void Start () {
@@ -17,6 +17,8 @@ public class Player : MonoBehaviour {
 	void Update () {
     float h = Input.GetAxis("Horizontal");
 
-    mobile.angle += h*speed;
+    Debug.Log(h + " " + speed + " " + Time.deltaTime);
+
+    mobile.Move(h * speed * Time.deltaTime);
 	}
 }
