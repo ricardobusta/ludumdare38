@@ -9,11 +9,13 @@ public class Bullet : MonoBehaviour {
 
   const float bulletAngleOffset = 30;
 
-  Collider2D col;
+  Collider2D hurtCol, stepCol;
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
-    col = GetComponent<Collider2D>();
+    var cols = GetComponents<Collider2D>();
+    hurtCol = cols [0];
+    stepCol = cols [1];
   }
 
   // Update is called once per frame
@@ -21,10 +23,29 @@ public class Bullet : MonoBehaviour {
     mobile.Move(speed);
 
 
-    if (col.IsTouchingLayers(LayerMask.GetMask("Player"))) {
+    if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
-        if (col.IsTouching(p.GetComponent<Collider2D>())){
-          Debug.LogFormat("{0} {1}",this,p.name);
+        if (stepCol.IsTouching(p.GetComponent<Collider2D>())){
+          var pCol = p.GetComponent<Collider2D>();
+          var pMob = p.GetComponent<Mobile>();
+          ColliderDistance2D d = stepCol.Distance(pCol);
+          var v = d.pointB-d.pointA;
+          var angle = Mathf.Acos(Vector2.Dot(v.normalized, mobile.getNormal())) * Mathf.Rad2Deg;
+          pMob.fromCartesian(pMob.toCartesian() - v*2f);
+          if (angle > 100) {
+            p.onSomething = true;
+            p.vSpeed = 0;
+            return;
+          }
+        }
+      }
+    }
+
+
+    if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
+      foreach (Player p in GameManager.Instance().players) {
+        if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
+          Debug.LogFormat("{0}",p.name);
           gameObject.SetActive(false);
 
           mobile.direction = 0;

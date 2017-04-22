@@ -29,7 +29,8 @@ public class Player : MonoBehaviour {
 
   // Player está no chão?
   public bool onGround = false;
-  bool goDown = true;
+  public bool onSomething = false;
+  public bool goDown = true;
   bool ducking = false;
 
   public float speed = 90;
@@ -37,7 +38,7 @@ public class Player : MonoBehaviour {
   public float gravity = 0.2f;
 
   // Essa é a velocidade atual vertical
-  private float vSpeed = 0;
+  public float vSpeed = 0;
 
   public float fireCD = 1;
   float currentFireCD = 0;
@@ -47,6 +48,7 @@ public class Player : MonoBehaviour {
   new Collider2D collider;
   ContactFilter2D playerFilter = new ContactFilter2D();
   Collider2D[] obstacles = new Collider2D[10];
+  RaycastHit2D[] rayResults = new RaycastHit2D[2];
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
@@ -71,7 +73,6 @@ public class Player : MonoBehaviour {
       goDown = true;
       var angle = Mathf.Acos(Vector2.Dot(v.normalized, obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
       if (angle > 100) {
-        print(angle);
         vSpeed = 0;
       }
     }
@@ -87,7 +88,6 @@ public class Player : MonoBehaviour {
       if (b != null) {
         b.Activate(mobile);
         b.gameObject.SetActive(true);
-        print(b);
         currentFireCD = fireCD;
         AudioManager.Instance().PlayFire();
       }
@@ -96,17 +96,19 @@ public class Player : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
+    float planetR = GameManager.Instance().planetRadius;
+
+    if (collider.Cast(-mobile.getNormal(), rayResults, planetR) <= 1)
+      onSomething = false;
     float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 
 
     bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonDown(PlayerKeybind.GetVertical(playerN)) && v > 0);
     bool releaseJump = Input.GetButtonUp(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonUp(PlayerKeybind.GetVertical(playerN)) && Input.GetAxis(PlayerKeybind.GetVertical(playerN)) > 0);
-    if (jumping) {
+    /*if (jumping) {
       print(playerN);
-    }
-
-    float planetR = GameManager.Instance().planetRadius;
+    }*/
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
@@ -129,7 +131,7 @@ public class Player : MonoBehaviour {
         onGround = false;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if (goDown || (Mathf.Abs(mobile.radius) >= planetR + 2 * playerHeightOffset)) {
+    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + 2 * playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
       goDown = true;
