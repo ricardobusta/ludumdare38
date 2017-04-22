@@ -54,17 +54,33 @@ public class Player : MonoBehaviour {
 
   public float playerHeightOffset = 0.6f;
 
+  Collider2D collider;
+  Collider2D[] obstacles = new Collider2D[10];
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
     animator = GetComponent<Animator>();
+    collider = GetComponent<Collider2D>();
   }
 
   private void Start() {
 
   }
 
+  void HandleCollision() {
+    int n = collider.GetContacts(obstacles);
+    print(n);
+    for (int i = 0; i < n; i++) {
+      Debug.Log(obstacles[i]);
+      ColliderDistance2D d = collider.Distance(obstacles[i]);
+      Debug.DrawLine(d.pointA, d.pointB);
+      var v = d.pointA - d.pointB;
+      mobile.fromCartesian(mobile.toCartesian() - v);
+    }
+  }
+
   // Update is called once per frame
-  void Update () {
+  void Update() {
     float h = Input.GetAxis(keys[playerN].axis_h);
     float v = Input.GetAxis(keys[playerN].axis_v);
     bool jumping = Input.GetKeyDown(keys[playerN].jump) || (v > 0);
@@ -85,7 +101,7 @@ public class Player : MonoBehaviour {
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= rPlaneta + playerHeightOffset);
     ducking = false;
-    if (onGround && h==0 && v<0) {
+    if (onGround && h == 0 && v < 0) {
       ducking = true;
     }
     if (onGround) {
@@ -101,8 +117,8 @@ public class Player : MonoBehaviour {
         vSpeed = maxVSpeed;
         onGround = false;
       }
-    //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if (goDown || (Mathf.Abs(mobile.radius) >= rPlaneta + 2*playerHeightOffset)) {
+      //                    << TODO arrumar esses valores de pulo aqui                 >>
+    } else if (goDown || (Mathf.Abs(mobile.radius) >= rPlaneta + 2 * playerHeightOffset)) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
       goDown = true;
@@ -111,13 +127,18 @@ public class Player : MonoBehaviour {
     animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
-    if (Input.GetKeyUp(keys [playerN].jump)) {
+    if (Input.GetKeyUp(keys[playerN].jump)) {
       goDown = true;
     }
 
     // Cálculo de posição vertical e horizontal
     mobile.radius += vSpeed * Time.deltaTime;
+    //if (h == 1) {
     mobile.Move(h * speed);
+    if (h != 0 || vSpeed != 0) {
+      HandleCollision();
+    }
+    //}
     // Animar na horizontal se ele estiver se movendo
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 

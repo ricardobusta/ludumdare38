@@ -24,16 +24,17 @@ public class Mobile : MonoBehaviour {
       s.x = direction * Mathf.Abs(s.x);
       transform.localScale = s;
     }
-    
+
     angle += speed * Time.deltaTime;
 
-    if(angle > 360) {
+    if (angle > 360) {
       angle -= 360;
     }
 
-    if(angle < 0) {
+    if (angle < 0) {
       angle += 360;
     }
+    //rb.velocity = speed;
   }
 
   public void fromCartesian(float x, float y) {
@@ -52,9 +53,7 @@ public class Mobile : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     Vector3 p = toCartesian();
-    transform.position = p;
-    transform.localRotation = Quaternion.Euler(0, 0, -angle-90);
+    transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
+    transform.position = p;  
   }
 }
-
-//tá me ouvindo?
