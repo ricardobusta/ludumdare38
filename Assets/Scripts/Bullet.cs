@@ -31,13 +31,13 @@ public class Bullet : MonoBehaviour {
         if (stepCol.IsTouching(p.GetComponent<Collider2D>())){
           var pCol = p.GetComponent<Collider2D>();
           var pMob = p.GetComponent<Mobile>();
-          ColliderDistance2D d = stepCol.Distance(pCol);
-          var v = d.pointB-d.pointA;
+          //ColliderDistance2D d = stepCol.Distance(pCol);
+          //var v = d.pointB-d.pointA;
           var a = (stepCol.attachedRigidbody.worldCenterOfMass - pCol.attachedRigidbody.worldCenterOfMass).normalized;
           var angle = Mathf.Acos(Vector2.Dot(a, mobile.getNormal())) * Mathf.Rad2Deg;
           if (angle > 100) {
             pMob.fromCartesian(pMob.toCartesian() + mobile.getNormal()*0.06f);
-            p.onSomething = true;
+            p.onSomething = mobile;
             p.vSpeed = 0;
             return;
           }

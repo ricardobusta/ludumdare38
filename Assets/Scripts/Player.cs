@@ -6,6 +6,18 @@ public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
     return "P" + (playerID) + "_Horizontal";
   }
+  public static string GetHorizontalStick(int playerID) {
+    return "P" + (playerID) + "_Horizontal_Stick";
+  }
+  public static float GetAllHorizontal(int playerID) {
+    float tecla = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerID));
+    float stick = Input.GetAxisRaw(PlayerKeybind.GetHorizontalStick(playerID));
+    if (Mathf.Abs(tecla) > Mathf.Abs(stick)) {
+      return tecla;
+    } else {
+      return stick;
+    }
+  }
   public static string GetVertical(int playerID) {
     return "P" + (playerID) + "_Vertical";
   }
@@ -14,6 +26,9 @@ public class PlayerKeybind {
   }
   public static string GetFire(int playerID) {
     return "P" + (playerID) + "_Fire";
+  }
+  public static string GetMelee(int playerID) {
+    return "P" + (playerID) + "_Melee";
   }
   public static string GetDash(int playerID) {
     return "P" + (playerID) + "_Dash";
@@ -35,7 +50,7 @@ public class Player : MonoBehaviour {
 
   // Player está no chão?
   public bool onGround = false;
-  public bool onSomething = false;
+  public Mobile onSomething = null;
   public bool goDown = true;
   bool ducking = false;
 
@@ -48,6 +63,9 @@ public class Player : MonoBehaviour {
 
   public float fireCD = 1;
   float currentFireCD = 0;
+
+  public float meleeCD = 1;
+  float currentMeleeCD = 0;
 
   public float dashCD = 1;
   float currentDashCD = 0;
@@ -109,6 +127,16 @@ public class Player : MonoBehaviour {
     }
   }
 
+  void Melee() {
+    if (currentMeleeCD > 0) {
+      // Se o cooldown de tiro é positivo, decremente
+      currentMeleeCD -= Time.deltaTime;
+    } else if (Input.GetButton(PlayerKeybind.GetMelee(playerN))) {
+      currentMeleeCD = meleeCD;
+      AudioManager.Instance().PlayFire();
+    }
+  }
+
   float Dash() {
     // Durante o dash, o jogador se comporta de um jeito diferente
     if (currentDashDuration < 0) {
@@ -138,10 +166,10 @@ public class Player : MonoBehaviour {
     float planetR = gm.planetRadius;
 
     if (collider.Cast(-mobile.getNormal(), rayResults, planetR) == 0) {
-      onSomething = false;
+      onSomething = null;
     }
 
-    float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
+    float h = PlayerKeybind.GetAllHorizontal(playerN);
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 
 
@@ -197,6 +225,10 @@ public class Player : MonoBehaviour {
     //}
     // Animar na horizontal se ele estiver se movendo
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
+
+    if (onSomething && onSomething.isActiveAndEnabled) {
+      mobile.angle += 300 * Time.deltaTime / onSomething.radius * onSomething.direction;
+    }
 
     Shoot();
 
