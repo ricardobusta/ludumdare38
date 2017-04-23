@@ -40,6 +40,7 @@ public class Player : MonoBehaviour {
   public int playerN;
 
   public Color bulletColor;
+  public Sprite bulletSprite;
 
   public int playerLives = 3;
 
@@ -144,7 +145,8 @@ public class Player : MonoBehaviour {
         //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
         //bMob.refresh();
       }
-      b.SetColor(bulletColor);
+      //b.SetColor(bulletColor);
+      b.SetSprite(bulletSprite);
       b.gameObject.SetActive(true);
       AudioManager.Instance().PlayFire();
     }
@@ -220,7 +222,7 @@ public class Player : MonoBehaviour {
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
     ducking = false;
-    if (onGround && h == 0 && v < 0) {
+    if ((onGround||onSomething) && h == 0 && v < 0) {
       ducking = true;
     }
 
@@ -230,6 +232,10 @@ public class Player : MonoBehaviour {
       vSpeed = maxVSpeed;
       AudioManager.Instance().PlayJump();
       onGround = false;
+    }
+
+    if (onSomething) {
+      animator.SetBool("jumping", false);
     }
 
     if (onGround) {

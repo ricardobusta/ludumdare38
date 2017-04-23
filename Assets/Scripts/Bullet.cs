@@ -66,6 +66,10 @@ public class Bullet : MonoBehaviour {
     GetComponent<SpriteRenderer>().color = c;
   }
 
+  public void SetSprite(Sprite s) {
+    GetComponent<SpriteRenderer>().sprite = s;
+  }
+
   public void Activate(Mobile mob, GameObject shootPoint) {
     Vector2 pos = shootPoint.transform.position;
     mobile.fromCartesian(pos.x, pos.y);
