@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour {
   public float speed;
   Mobile mobile;
 
-  const float bulletAngleOffset = 30;
+  const float bulletAngleOffset = 60;
 
   Collider2D hurtCol, stepCol;
 
@@ -48,7 +48,6 @@ public class Bullet : MonoBehaviour {
 
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
-      print("!");
       foreach (Player p in GameManager.Instance().players) {
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
           p.playerLives--;
@@ -57,6 +56,7 @@ public class Bullet : MonoBehaviour {
           mobile.direction = 0;
           mobile.radius = 0;
           mobile.angle = 0;
+          mobile.refresh();
 
           if (p.playerLives < 0) {
             gm.gameOver = true;
@@ -74,6 +74,7 @@ public class Bullet : MonoBehaviour {
   public void Activate(Mobile mob) {
     mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
+    mobile.direction = mob.direction;
     speed = initialSpeed * mob.direction;
     mobile.refresh();
   }

@@ -223,12 +223,12 @@ Prefab:
     - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.9852941
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: m_Color.b
-      value: 0.82790685
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
@@ -243,17 +243,17 @@ Prefab:
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: bulletColor.r
-      value: 0.4431373
+      value: 0.41960788
       objectReference: {fileID: 0}
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: bulletColor.g
-      value: 0.9843138
+      value: 0.7803922
       objectReference: {fileID: 0}
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: bulletColor.b
-      value: 0.82745105
+      value: 0.16078432
       objectReference: {fileID: 0}
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
@@ -263,6 +263,38 @@ Prefab:
     - target: {fileID: 1226524368891742, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95655426223117038, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 96a46a8a305bfe54ba0ab3388984241a,
+        type: 2}
+    - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4d3c7ed5e8956724886fcc3116922bd7,
+        type: 3}
+    - target: {fileID: 61292062251968276, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 61292062251968276, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114496983064438976, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: direction
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
@@ -318,12 +350,12 @@ Prefab:
     - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: m_Color.g
-      value: 0.59999996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
@@ -368,12 +400,33 @@ Prefab:
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: bulletColor.g
-      value: 0.6
+      value: 0.5921569
       objectReference: {fileID: 0}
     - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
         type: 2}
       propertyPath: bulletColor.a
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 95655426223117038, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 9dbfbb2be4240e24f82d22ed4bcd2eab, type: 2}
+    - target: {fileID: 212904064847208234, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 26773b939d5dfb64ca83fffb2c929985,
+        type: 3}
+    - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: bulletColor.b
+      value: 0.13333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 114496983064438976, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: direction
+      value: -1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}

@@ -21,7 +21,7 @@ public class Mobile : MonoBehaviour {
     if (speedx != 0) {
       Vector3 s = transform.localScale;
       direction = Mathf.Sign(speedx);
-      s.x = direction * Mathf.Abs(s.x);
+      s.x = -direction * Mathf.Abs(s.x);
       transform.localScale = s;
     }
 

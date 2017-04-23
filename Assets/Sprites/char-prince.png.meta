@@ -1,27 +1,29 @@
 fileFormatVersion: 2
-guid: e328d05d998f7be48b2db98bb7e7f509
-timeCreated: 1492895135
+guid: 4d3c7ed5e8956724886fcc3116922bd7
+timeCreated: 1492948157
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: placeholder_animation_0
-    21300002: placeholder_animation_1
-    21300004: placeholder_animation_2
-    21300006: placeholder_animation_3
-    21300008: placeholder_animation_4
-    21300010: placeholder_animation_5
-    21300012: placeholder_animation_6
-    21300014: placeholder_animation_7
-    21300016: placeholder_animation_8
-    21300018: placeholder_animation_9
-    21300020: placeholder_animation_10
-    21300022: placeholder_animation_11
-    21300024: placeholder_animation_12
-    21300026: placeholder_animation_13
+    21300000: char-prince_0
+    21300002: char-prince_1
+    21300004: char-prince_2
+    21300006: char-prince_3
+    21300008: char-prince_4
+    21300010: char-prince_5
+    21300012: char-prince_6
+    21300014: char-prince_7
+    21300016: char-prince_8
+    21300018: char-prince_9
+    21300020: char-prince_10
+    21300022: char-prince_11
+    21300024: char-prince_12
+    21300026: char-prince_13
+    21300028: char-prince_14
+    21300030: char-prince_15
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -42,9 +44,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
-    wrapMode: -1
+    wrapMode: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -56,7 +58,7 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
@@ -108,182 +110,208 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: placeholder_animation_0
+      name: char-prince_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1038.8572
-        width: 172.5
-        height: 173.14285
+        y: 1050
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_1
+      name: char-prince_1
       rect:
         serializedVersion: 2
-        x: 172
-        y: 1038.8572
-        width: 172.5
-        height: 173.14285
+        x: 150
+        y: 1050
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 865.8572
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_3
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 865.8572
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_4
+      name: char-prince_2
       rect:
         serializedVersion: 2
         x: 0
-        y: 692.8572
-        width: 172.5
-        height: 173.14285
+        y: 900
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_5
+      name: char-prince_3
       rect:
         serializedVersion: 2
-        x: 172
-        y: 692.8572
-        width: 172.5
-        height: 173.14285
+        x: 150
+        y: 900
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_6
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 519.8572
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_7
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 519.8572
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_8
+      name: char-prince_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 346.85715
-        width: 172.5
-        height: 173.14285
+        y: 750
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_9
+      name: char-prince_5
       rect:
         serializedVersion: 2
-        x: 172
-        y: 346.85715
-        width: 172.5
-        height: 173.14285
+        x: 150
+        y: 750
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_10
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 173.85715
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_11
-      rect:
-        serializedVersion: 2
-        x: 172
-        y: 173.85715
-        width: 172.5
-        height: 173.14285
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: placeholder_animation_12
+      name: char-prince_6
       rect:
         serializedVersion: 2
         x: 0
-        y: 0.8571472
-        width: 172.5
-        height: 173.14285
+        y: 600
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: placeholder_animation_13
+      name: char-prince_7
       rect:
         serializedVersion: 2
-        x: 172
-        y: 0.8571472
-        width: 172.5
-        height: 173.14285
+        x: 150
+        y: 600
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_9
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 450
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 300
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_11
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 300
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 150
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_13
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 150
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 150
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: char-prince_15
+      rect:
+        serializedVersion: 2
+        x: 150
+        y: 0
+        width: 150
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

@@ -55,7 +55,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226524368891742}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -6.630375, y: -2.8440366, z: 0}
+  m_LocalPosition: {x: -4.2104597, y: -2.8616822, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4964087241648658}
@@ -69,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1138262967112496}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.184, y: -0.058, z: 0}
+  m_LocalPosition: {x: -0.38, y: -0.29, z: 0}
   m_LocalScale: {x: -1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4329635332141260}
@@ -107,18 +107,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.027875721, y: 0.007733941}
+  m_Offset: {x: -0.12149274, y: -0.3498516}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.725, y: 1.7314285}
-    newSize: {x: 1.735, y: 1.7342857}
+    oldSize: {x: 1.505, y: 1.50125}
+    newSize: {x: 1.505, y: 1.50125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2716273, y: 0.77978444}
+  m_Size: {x: 0.47727752, y: 0.7582984}
   m_EdgeRadius: 0
 --- !u!95 &95655426223117038
 Animator:
@@ -129,7 +129,7 @@ Animator:
   m_GameObject: {fileID: 1226524368891742}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 38c539c2596d2de4a9fad0268873219c, type: 2}
+  m_Controller: {fileID: 9100000, guid: 9dbfbb2be4240e24f82d22ed4bcd2eab, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -148,18 +148,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 295c4a530a4dba24c952ca81d8ef23b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerN: 0
+  playerN: 1
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
   playerLives: 3
   ammoLeft: 5
   onGround: 0
-  onSomething: 0
+  onSomething: {fileID: 0}
   goDown: 1
   speed: 180
   maxVSpeed: 3
   gravity: 0.1
   vSpeed: 0
   fireCD: 0.5
+  meleeCD: 1
   dashCD: 1
   dashDuration: 0.25
   dashSpeedMultiplier: 4
@@ -209,8 +210,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 41951218d84e5404ab4789937ef480e3, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 16a97f03e5c010f469b815f6190a1ad6, type: 3}
   m_Color: {r: 0.35294116, g: 0.35294116, b: 0.35294116, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -250,11 +251,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300004, guid: e328d05d998f7be48b2db98bb7e7f509, type: 3}
-  m_Color: {r: 0.4419334, g: 0.44568068, b: 0.9852941, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 26773b939d5dfb64ca83fffb2c929985, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.735, y: 1.7342857}
+  m_Size: {x: 1.505, y: 1.50125}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
