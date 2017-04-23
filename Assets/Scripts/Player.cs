@@ -81,6 +81,8 @@ public class Player : MonoBehaviour {
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
 
+  private GameManager gm;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
     animator = GetComponent<Animator>();
@@ -97,14 +99,22 @@ public class Player : MonoBehaviour {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA - d.pointB;
+      var p2 = obstacles [0].GetComponent<Player>();
+      var n = p2.mobile.getNormal();
       //print(mobile.toCartesian() - v);
-      Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
-      mobile.fromCartesian(mobile.toCartesian() - v);
       onGround = false;
       goDown = true;
-      var angle = Mathf.Acos(Vector2.Dot(v.normalized, obstacles[0].GetComponent<Mobile>().getNormal())) * Mathf.Rad2Deg;
-      if (angle > 100) {
-        vSpeed = 0;
+      var angle = Vector2.Angle(v,n);
+      if (angle > 170) {
+        var reflect = Vector2.Reflect(v, n).normalized;
+        reflect = Quaternion.Euler(0,0,-mobile.direction*60) * reflect;
+        mobile.fromCartesian(mobile.toCartesian() + reflect*1f);
+        vSpeed = 1*gravity;
+        p2.takeDamage();
+      } else {
+        //print("ata");
+        //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
+        mobile.fromCartesian(mobile.toCartesian() - v);
       }
     }
   }
@@ -166,9 +176,20 @@ public class Player : MonoBehaviour {
     return dashDirection * dashSpeedMultiplier;
   }
 
+  public bool takeDamage(int i = 1) {
+    AudioManager.Instance().PlayHurt();
+    playerLives -= i;
+    if (playerLives <= 0) {
+      gm.gameOver = true;
+      gm.Finish();
+      return true;
+    }
+    return false;
+  }
+
   // Update is called once per frame
   void Update() {
-    GameManager gm = GameManager.Instance();
+    gm = GameManager.Instance();
     if (gm.gameOver) { return; }
     float planetR = gm.planetRadius;
 

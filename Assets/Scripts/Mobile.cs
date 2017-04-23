@@ -45,6 +45,7 @@ public class Mobile : MonoBehaviour {
 
   public void fromCartesian(Vector3 v) {
     fromCartesian(v.x, v.y);
+    refresh();
   }
 
   public Vector2 toCartesian() {
@@ -68,6 +69,6 @@ public class Mobile : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     refresh();
-    Debug.DrawRay(Vector2.zero, transform.position, Color.cyan);
+    //Debug.DrawRay(Vector2.zero, transform.position, Color.cyan);
   }
 }

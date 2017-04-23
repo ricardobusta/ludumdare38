@@ -50,18 +50,13 @@ public class Bullet : MonoBehaviour {
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
-          p.playerLives--;
+          p.takeDamage();
           gameObject.SetActive(false);
 
           mobile.direction = 0;
           mobile.radius = 0;
           mobile.angle = 0;
           mobile.refresh();
-
-          if (p.playerLives <= 0) {
-            gm.gameOver = true;
-            gm.Finish();
-          }
         }
       }
     }
