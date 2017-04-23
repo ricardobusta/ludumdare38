@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour {
     foreach (Player p in players) {
       if (p.playerLives > 0) {
         winnerText.text = "Player " + p.playerN + " wins!";
+        winnerText.color = p.bulletColor;
         draw = false; 
       }
     }
