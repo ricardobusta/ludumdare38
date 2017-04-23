@@ -34,6 +34,8 @@ public class Player : MonoBehaviour {
 
   public int ammoLeft = 5;
 
+  public BulletCounter bulletCounter;
+
   Animator animator;
   Mobile mobile;
 
@@ -68,6 +70,9 @@ public class Player : MonoBehaviour {
   float dashDirection = 0;
   public float dashSpeedMultiplier = 4;
 
+  public float invulnerabilityTime = 1;
+  float invulnerability = 0;
+
   bool dead = false;
 
   new Collider2D collider;
@@ -86,6 +91,7 @@ public class Player : MonoBehaviour {
   private void Start() {
     playerLives = PlayerPrefs.GetInt("playerLives", 3);
     ammoLeft = PlayerPrefs.GetInt("playerBullets", 5);
+    bulletCounter.SetBulletCount(ammoLeft);
     playerFilter.SetLayerMask(-257);
     playerFilter.useLayerMask = true;
   }
@@ -118,6 +124,10 @@ public class Player : MonoBehaviour {
     }
   }
 
+  public bool Invulnerable() {
+    return invulnerability > 0;
+  }
+
   void Shoot() {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
@@ -134,6 +144,7 @@ public class Player : MonoBehaviour {
     Bullet b = GameManager.Instance().GetFreeBullet();
     if (b != null) {
       ammoLeft--;
+      bulletCounter.SetBulletCount(ammoLeft);
       b.Activate(mobile, shootPoint);
       if (onSomething && onSomething.isActiveAndEnabled) {
         var bMob = onSomething.GetComponent<Mobile>();
@@ -183,9 +194,14 @@ public class Player : MonoBehaviour {
   }
 
   public void TakeDamage(int i = 1) {
+    if (invulnerability > 0) {
+      return;
+    }
     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
       return;
     }
+    invulnerability = invulnerabilityTime;
+    GameManager.Instance().StartScreenShake();
     animator.SetTrigger("hit");
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
@@ -211,6 +227,9 @@ public class Player : MonoBehaviour {
     if (dead) {
       gameObject.SetActive(false);
       return;
+    }
+    if (invulnerability > 0) {
+      invulnerability -= Time.deltaTime;
     }
     gm = GameManager.Instance();
     if (gm.gameOver) { return; }

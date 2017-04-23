@@ -49,6 +49,7 @@ public class Bullet : MonoBehaviour {
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
+        if (p.Invulnerable()) { continue;  }
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())) {
           p.TakeDamage();
           RemoveSelf();
