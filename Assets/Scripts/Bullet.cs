@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour {
 
+  public float initialSpeed;
   public float speed;
   Mobile mobile;
 
@@ -37,7 +38,7 @@ public class Bullet : MonoBehaviour {
           var angle = Mathf.Acos(Vector2.Dot(a, mobile.getNormal())) * Mathf.Rad2Deg;
           if (angle > 100) {
             pMob.fromCartesian(pMob.toCartesian() + mobile.getNormal()*0.06f);
-            p.onSomething = mobile;
+            p.onSomething = this;
             p.vSpeed = 0;
             return;
           }
@@ -73,7 +74,7 @@ public class Bullet : MonoBehaviour {
   public void Activate(Mobile mob) {
     mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
-    speed = Mathf.Abs(speed) * mob.direction;
+    speed = initialSpeed * mob.direction;
     mobile.refresh();
   }
 }

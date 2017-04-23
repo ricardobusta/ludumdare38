@@ -119,6 +119,12 @@ public class Player : MonoBehaviour {
       if (b != null) {
         ammoLeft--;
         b.Activate(mobile);
+        if (onSomething && onSomething.isActiveAndEnabled) {
+          var bMob = onSomething.GetComponent<Mobile>();
+          b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed*bMob.direction;
+          onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
+          bMob.refresh();
+        }
         b.SetColor(bulletColor);
         b.gameObject.SetActive(true);
         currentFireCD = fireCD;
@@ -228,7 +234,7 @@ public class Player : MonoBehaviour {
 
     if (onSomething && onSomething.isActiveAndEnabled) {
       var bMob = onSomething.GetComponent<Mobile>();
-      mobile.angle += onSomething.speed * Time.deltaTime / bMob.radius * bMob.direction;
+      mobile.angle += onSomething.speed * Time.deltaTime / bMob.radius;
     }
 
     Shoot();
