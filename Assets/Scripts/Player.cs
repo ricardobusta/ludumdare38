@@ -6,18 +6,6 @@ public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
     return "P" + (playerID) + "_Horizontal";
   }
-  public static string GetHorizontalStick(int playerID) {
-    return "P" + (playerID) + "_Horizontal_Stick";
-  }
-  public static float GetAllHorizontal(int playerID) {
-    float tecla = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerID));
-    float stick = Input.GetAxisRaw(PlayerKeybind.GetHorizontalStick(playerID));
-    if (Mathf.Abs(tecla) > Mathf.Abs(stick)) {
-      return tecla;
-    } else {
-      return stick;
-    }
-  }
   public static string GetVertical(int playerID) {
     return "P" + (playerID) + "_Vertical";
   }
@@ -40,6 +28,7 @@ public class Player : MonoBehaviour {
   public int playerN;
 
   public Color bulletColor;
+  public Sprite bulletSprite;
 
   public int playerLives = 3;
 
@@ -48,13 +37,15 @@ public class Player : MonoBehaviour {
   Animator animator;
   Mobile mobile;
 
+  public GameObject shootPoint;
+
   // Player está no chão?
   public bool onGround = false;
   public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
 
-  public float maxHSpeed = 90;
+  public float maxHSpeed = 180;
   public float maxVSpeed = 3;
   public float gravity = 0.2f;
   private float trueHSpeed = 0;
@@ -130,22 +121,28 @@ public class Player : MonoBehaviour {
       currentFireCD -= Time.deltaTime;
     } else if (ammoLeft > 0 && Input.GetButton(PlayerKeybind.GetFire(playerN))) {
       // Senão, deixe o jogador atirar
-      Bullet b = GameManager.Instance().GetFreeBullet();
-      if (b != null) {
-        ammoLeft--;
-        b.Activate(mobile);
-        if (onSomething && onSomething.isActiveAndEnabled) {
-          var bMob = onSomething.GetComponent<Mobile>();
-          float rate = mobile.radius / bMob.radius;
-          b.speed = Mathf.Abs(maxHSpeed) * mobile.direction + onSomething.speed * rate;
-          //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
-          //bMob.refresh();
-        }
-        b.SetColor(bulletColor);
-        b.gameObject.SetActive(true);
-        currentFireCD = fireCD;
-        AudioManager.Instance().PlayFire();
+      animator.SetTrigger("fire");
+      print("shoot!");
+      currentFireCD = fireCD;
+    }
+  }
+
+  void ActualShoot() {
+    Bullet b = GameManager.Instance().GetFreeBullet();
+    if (b != null) {
+      ammoLeft--;
+      b.Activate(mobile, shootPoint);
+      if (onSomething && onSomething.isActiveAndEnabled) {
+        var bMob = onSomething.GetComponent<Mobile>();
+        float rate = mobile.radius / bMob.radius;
+        b.speed = Mathf.Abs(trueHSpeed) * mobile.direction + onSomething.speed * rate;
+        //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
+        //bMob.refresh();
       }
+      //b.SetColor(bulletColor);
+      b.SetSprite(bulletSprite);
+      b.gameObject.SetActive(true);
+      AudioManager.Instance().PlayFire();
     }
   }
 
@@ -182,6 +179,10 @@ public class Player : MonoBehaviour {
   }
 
   public bool takeDamage(int i = 1) {
+    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
+      return false;
+    }
+    animator.SetTrigger("hit");    
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
     /*if (playerLives <= 0) {
@@ -202,7 +203,7 @@ public class Player : MonoBehaviour {
       onSomething = null;
     }
 
-    float h = PlayerKeybind.GetAllHorizontal(playerN);
+    float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 
 
@@ -215,7 +216,7 @@ public class Player : MonoBehaviour {
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
     ducking = false;
-    if (onGround && h == 0 && v < 0) {
+    if ((onGround||onSomething) && h == 0 && v < 0) {
       ducking = true;
     }
 
@@ -225,6 +226,10 @@ public class Player : MonoBehaviour {
       vSpeed = maxVSpeed;
       AudioManager.Instance().PlayJump();
       onGround = false;
+    }
+
+    if (onSomething) {
+      animator.SetBool("jumping", false);
     }
 
     if (onGround) {
