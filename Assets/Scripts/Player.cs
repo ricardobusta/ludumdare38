@@ -177,6 +177,10 @@ public class Player : MonoBehaviour {
   }
 
   public bool takeDamage(int i = 1) {
+    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
+      return false;
+    }
+    animator.SetTrigger("hit");    
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
     if (playerLives <= 0) {
