@@ -219,6 +219,9 @@ public class Player : MonoBehaviour {
     } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + 2 * playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
+      if (v < 0) {
+        vSpeed -= gravity*3f;
+      }
       goDown = true;
     }
     animator.SetFloat("vertical_speed", vSpeed);
