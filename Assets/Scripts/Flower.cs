@@ -17,12 +17,21 @@ public class Flower : MonoBehaviour {
   void OnCollisionEnter2D(Collision2D x) {
     if (x.gameObject.name.Contains("Player")) {
       var p = x.gameObject.GetComponent<Player>();
-      p.TakeDamage(100);
+      p.TakeDamage(1);
     } else if (x.gameObject.name.Contains("Bullet")) {
       var b = x.gameObject.GetComponent<Bullet>();
+      var bm = x.gameObject.GetComponent<Mobile>();
+      var p = GetComponentInParent<Player>();
+      var pm = GetComponentInParent<Mobile>();
       if (b.isActiveAndEnabled) {
-        b.RemoveSelf();
-        GetComponentInParent<Player>().ammoLeft++;
+        //if (pm.angle > bm.angle) {
+          //b.RemoveSelf();
+          //p.ammoLeft++;
+        b.speed = Mathf.Abs(b.speed)*pm.direction;
+          print("GET");
+        /*} else {
+          print("FAIL");
+        }*/
       }
     }
   }
