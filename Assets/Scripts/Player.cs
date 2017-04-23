@@ -6,6 +6,18 @@ public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
     return "P" + (playerID) + "_Horizontal";
   }
+  public static string GetHorizontalStick(int playerID) {
+    return "P" + (playerID) + "_Horizontal_Stick";
+  }
+  public static float GetAllHorizontal(int playerID) {
+    float tecla = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerID));
+    float stick = Input.GetAxisRaw(PlayerKeybind.GetHorizontalStick(playerID));
+    if (Mathf.Abs(tecla) > Mathf.Abs(stick)) {
+      return tecla;
+    } else {
+      return stick;
+    }
+  }
   public static string GetVertical(int playerID) {
     return "P" + (playerID) + "_Vertical";
   }
@@ -138,7 +150,7 @@ public class Player : MonoBehaviour {
       onSomething = false;
     }
 
-    float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
+    float h = PlayerKeybind.GetAllHorizontal(playerN);
     float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
 
 
