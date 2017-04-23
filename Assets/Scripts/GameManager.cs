@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
   List<Bullet> bulletPool = new List<Bullet>();
 
   public float planetRadius = 10;
+  public float playerHeightOffset = 0.6f;
 
   public Text winnerText;
   public Image gameOverImage;
@@ -28,19 +29,41 @@ public class GameManager : MonoBehaviour {
     return _instance;
   }
 
+  public bool CheckGameOver() {
+    int alive_count = 0;
+    foreach (Player p in players) {
+      if (p.playerLives > 0) {
+        alive_count++;
+      }
+    }
+    if (alive_count <= 1) {
+      return true;
+    }
+    return false;
+  }
+
+  //private void Update() {
+  //playerHeightOffset = (0.6f/4) * planetRadius;
+  //planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
+  //mainCamera.orthographicSize = 2.336f * planetRadius;
+  //}
+
   // Use this for initialization
   void Start() {
-    planetRadius = PlayerPrefs.GetFloat("planetSize", 2.14f);
+    playerHeightOffset = (0.6f / 4) * planetRadius;
     planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
     mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
 
     int playerCount = PlayerPrefs.GetInt("noOfPlayers", 2);
-    for(int i = 0; i < players.Length; i++) {
+    float ang = 360.0f / playerCount;
+    print(ang);
+    for (int i = 0; i < players.Length; i++) {
       players[i].gameObject.SetActive(i < playerCount);
+      players[i].Position(ang * i);
     }
 
-    int bullet = playerCount*PlayerPrefs.GetInt("playerBullets", 5);
+    int bullet = playerCount * PlayerPrefs.GetInt("playerBullets", 5);
     for (int i = 0; i < bullet; i++) {
       Bullet b = Instantiate(bulletPrefab);
       b.gameObject.SetActive(false);
@@ -58,7 +81,7 @@ public class GameManager : MonoBehaviour {
     }
     return null;
   }
-  
+
   public void Finish() {
     gameOverImage.gameObject.SetActive(true);
     bool draw = true;
@@ -66,7 +89,7 @@ public class GameManager : MonoBehaviour {
       if (p.playerLives > 0) {
         winnerText.text = "Player " + p.playerN + " wins!";
         winnerText.color = p.bulletColor;
-        draw = false; 
+        draw = false;
       }
     }
     if (draw) {

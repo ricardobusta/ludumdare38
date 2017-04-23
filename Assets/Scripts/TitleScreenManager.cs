@@ -56,7 +56,7 @@ public class TitleScreenManager : MonoBehaviour {
   }
 
   public void SetScreen(string scene) {
-    foreach(GameObject screen in screens) {
+    foreach (GameObject screen in screens) {
       screen.SetActive(screen.name == scene);
     }
   }

@@ -55,7 +55,7 @@ public class Mobile : MonoBehaviour {
   public Vector2 getNormal() {
     var o = toCartesian();
     radius += 1;
-    o = toCartesian()-o;
+    o = toCartesian() - o;
     radius -= 1;
     return o.normalized;
   }

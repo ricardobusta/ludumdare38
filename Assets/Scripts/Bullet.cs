@@ -15,8 +15,8 @@ public class Bullet : MonoBehaviour {
   private void Awake() {
     mobile = GetComponent<Mobile>();
     var cols = GetComponents<Collider2D>();
-    hurtCol = cols [0];
-    stepCol = cols [1];
+    hurtCol = cols[0];
+    stepCol = cols[1];
   }
 
   // Update is called once per frame
@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour {
 
     if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
-        if (stepCol.IsTouching(p.GetComponent<Collider2D>())){
+        if (stepCol.IsTouching(p.GetComponent<Collider2D>())) {
           var pCol = p.GetComponent<Collider2D>();
           var pMob = p.GetComponent<Mobile>();
           //ColliderDistance2D d = stepCol.Distance(pCol);
@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour {
           var a = (stepCol.attachedRigidbody.worldCenterOfMass - pCol.attachedRigidbody.worldCenterOfMass).normalized;
           var angle = Mathf.Acos(Vector2.Dot(a, mobile.getNormal())) * Mathf.Rad2Deg;
           if (angle > 100) {
-            pMob.fromCartesian(pMob.toCartesian() + mobile.getNormal()*0.06f);
+            pMob.fromCartesian(pMob.toCartesian() + mobile.getNormal() * 0.06f);
             p.onSomething = this;
             p.vSpeed = 0;
             return;
@@ -49,7 +49,7 @@ public class Bullet : MonoBehaviour {
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
-        if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
+        if (hurtCol.IsTouching(p.GetComponent<Collider2D>())) {
           p.TakeDamage();
           RemoveSelf();
         }

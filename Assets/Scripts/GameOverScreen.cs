@@ -13,7 +13,7 @@ public class GameOverScreen : MonoBehaviour {
     gameOverMenu.SetActive(false);
   }
 
-  void Update () {
+  void Update() {
     timer -= Time.deltaTime;
 
     gameOverMenu.SetActive(timer <= 0);

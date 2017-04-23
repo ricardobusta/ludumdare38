@@ -12,8 +12,8 @@ public class AudioManager : MonoBehaviour {
   public AudioClip shoot;
   public AudioClip jump;
 
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  void Start() {
     for (int i = 0; i < audioSourceSize; i++) {
       gameObject.AddComponent<AudioSource>();
     }
@@ -24,8 +24,8 @@ public class AudioManager : MonoBehaviour {
     }
 
     _instance = this;
-	}
-	
+  }
+
   public static AudioManager Instance() {
     return _instance;
   }

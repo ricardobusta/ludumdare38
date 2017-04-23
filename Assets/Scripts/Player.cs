@@ -68,7 +68,7 @@ public class Player : MonoBehaviour {
   float dashDirection = 0;
   public float dashSpeedMultiplier = 4;
 
-  public float playerHeightOffset = 0.6f;
+  bool dead = false;
 
   new Collider2D collider;
   ContactFilter2D playerFilter = new ContactFilter2D();
@@ -95,17 +95,17 @@ public class Player : MonoBehaviour {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA - d.pointB;
-      var p2 = obstacles [0].GetComponent<Player>();
+      var p2 = obstacles[0].GetComponent<Player>();
       var n = p2.mobile.getNormal();
       //print(mobile.toCartesian() - v);
       onGround = false;
       goDown = true;
-      var angle = Vector2.Angle(v,n);
+      var angle = Vector2.Angle(v, n);
       if (angle > 170) {
         var reflect = Vector2.Reflect(v, n).normalized;
-        reflect = Quaternion.Euler(0,0,-mobile.direction*60) * reflect;
+        reflect = Quaternion.Euler(0, 0, -mobile.direction * 60) * reflect;
         //Debug.DrawRay(mobile.toCartesian(), reflect*0.4f, Color.magenta);
-        mobile.fromCartesian(mobile.toCartesian() + reflect*0.4f);
+        mobile.fromCartesian(mobile.toCartesian() + reflect * 0.4f);
         vSpeed = maxVSpeed;
         hSpeed = maxHSpeed * mobile.direction;
         p2.TakeDamage();
@@ -182,23 +182,36 @@ public class Player : MonoBehaviour {
     return dashDirection * dashSpeedMultiplier;
   }
 
-  public bool TakeDamage(int i = 1) {
+  public void TakeDamage(int i = 1) {
     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
-      return false;
+      return;
     }
-    animator.SetTrigger("hit");    
+    animator.SetTrigger("hit");
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
     if (playerLives <= 0) {
+      dead = true;
+    }
+
+    if (gm.CheckGameOver()) {
       gm.gameOver = true;
       gm.Finish();
-      return true;
     }
-    return false;
+  }
+
+  public void Position(float angle) {
+    GameManager gm = GameManager.Instance();
+    mobile.radius = gm.planetRadius + gm.playerHeightOffset;
+    mobile.angle = angle - 90;
+    mobile.refresh();
   }
 
   // Update is called once per frame
   void Update() {
+    if (dead) {
+      gameObject.SetActive(false);
+      return;
+    }
     gm = GameManager.Instance();
     if (gm.gameOver) { return; }
     float planetR = gm.planetRadius;
@@ -218,13 +231,13 @@ public class Player : MonoBehaviour {
     }*/
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
-    onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
+    onGround = (Mathf.Abs(mobile.radius) <= planetR + gm.playerHeightOffset);
     ducking = false;
-    if ((onGround||onSomething) && h == 0 && v < 0) {
+    if ((onGround || onSomething) && h == 0 && v < 0) {
       ducking = true;
     }
 
-    if(onGround || onSomething) {
+    if (onGround || onSomething) {
       doubleJumping = false;
     }
 
@@ -240,7 +253,7 @@ public class Player : MonoBehaviour {
       animator.SetBool("jumping", false);
     }
 
-    if(!onGround && !doubleJumping && jumping) {
+    if (!onGround && !doubleJumping && jumping) {
       ducking = false;
       animator.SetBool("jumping", true);
       vSpeed = maxVSpeed;
@@ -256,7 +269,7 @@ public class Player : MonoBehaviour {
       animator.SetBool("jumping", false);
       vSpeed = 0;
       hSpeed = 0;
-      mobile.radius = planetR + playerHeightOffset - 1e-3f;
+      mobile.radius = planetR + gm.playerHeightOffset - 1e-3f;
       goDown = false;
 
       if (jumping) {
@@ -268,11 +281,11 @@ public class Player : MonoBehaviour {
         onSomething = null;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * playerHeightOffset)) && !onSomething) {
+    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * gm.playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
       if (v < 0) {
-        vSpeed -= gravity*3f;
+        vSpeed -= gravity * 3f;
       }
       goDown = true;
     }
@@ -291,9 +304,9 @@ public class Player : MonoBehaviour {
 
     trueHSpeed = h * maxHSpeed;
     if (hSpeed > 0) {
-      hSpeed = Mathf.Max(hSpeed - hSpeed*0.01f, 0);
+      hSpeed = Mathf.Max(hSpeed - hSpeed * 0.01f, 0);
     } else if (hSpeed < 0) {
-      hSpeed = Mathf.Min(hSpeed - hSpeed*0.01f,0);
+      hSpeed = Mathf.Min(hSpeed - hSpeed * 0.01f, 0);
     }
 
     if (Mathf.Abs(h * maxHSpeed) > Mathf.Abs(hSpeed)) {
