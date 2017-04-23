@@ -24,6 +24,8 @@ public class Player : MonoBehaviour {
   // Qual o número desse player
   public int playerN;
 
+  public Color bulletColor;
+
   public int playerLives = 3;
 
   Animator animator;
@@ -96,6 +98,7 @@ public class Player : MonoBehaviour {
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
         b.Activate(mobile);
+        b.SetColor(bulletColor);
         b.gameObject.SetActive(true);
         currentFireCD = fireCD;
         AudioManager.Instance().PlayFire();

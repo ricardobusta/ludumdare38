@@ -66,6 +66,10 @@ public class Bullet : MonoBehaviour {
     }
   }
 
+  public void SetColor(Color c) {
+    GetComponent<SpriteRenderer>().color = c;
+  }
+
   public void Activate(Mobile mob) {
     mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     mobile.radius = mob.radius;
