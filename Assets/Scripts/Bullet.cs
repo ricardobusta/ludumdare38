@@ -58,7 +58,7 @@ public class Bullet : MonoBehaviour {
           mobile.angle = 0;
           mobile.refresh();
 
-          if (p.playerLives < 0) {
+          if (p.playerLives <= 0) {
             gm.gameOver = true;
             gm.Finish();
           }
