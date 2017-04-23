@@ -54,12 +54,14 @@ public class Player : MonoBehaviour {
   public bool goDown = true;
   bool ducking = false;
 
-  public float speed = 90;
+  public float maxHSpeed = 90;
   public float maxVSpeed = 3;
   public float gravity = 0.2f;
+  private float trueHSpeed = 0;
 
-  // Essa é a velocidade atual vertical
+  // Essa é a velocidade atual
   public float vSpeed = 0;
+  public float hSpeed = 0;
 
   public float fireCD = 1;
   float currentFireCD = 0;
@@ -108,9 +110,13 @@ public class Player : MonoBehaviour {
       if (angle > 170) {
         var reflect = Vector2.Reflect(v, n).normalized;
         reflect = Quaternion.Euler(0,0,-mobile.direction*60) * reflect;
-        mobile.fromCartesian(mobile.toCartesian() + reflect*1f);
-        vSpeed = 2*gravity;
+        //Debug.DrawRay(mobile.toCartesian(), reflect*0.4f, Color.magenta);
+        mobile.fromCartesian(mobile.toCartesian() + reflect*0.4f);
+        vSpeed = maxVSpeed;
+        hSpeed = maxHSpeed * mobile.direction;
         p2.takeDamage();
+        //print("pow");
+        //Debug.Break();
       } else {
         //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
         mobile.fromCartesian(mobile.toCartesian() - v);
@@ -131,7 +137,7 @@ public class Player : MonoBehaviour {
         if (onSomething && onSomething.isActiveAndEnabled) {
           var bMob = onSomething.GetComponent<Mobile>();
           float rate = mobile.radius / bMob.radius;
-          b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed * rate;
+          b.speed = Mathf.Abs(maxHSpeed) * mobile.direction + onSomething.speed * rate;
           //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
           //bMob.refresh();
         }
@@ -178,11 +184,11 @@ public class Player : MonoBehaviour {
   public bool takeDamage(int i = 1) {
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
-    if (playerLives <= 0) {
+    /*if (playerLives <= 0) {
       gm.gameOver = true;
       gm.Finish();
       return true;
-    }
+    }*/
     return false;
   }
 
@@ -225,6 +231,7 @@ public class Player : MonoBehaviour {
       // // Se está no chão, deixe o personagem no chão
       animator.SetBool("jumping", false);
       vSpeed = 0;
+      hSpeed = 0;
       mobile.radius = planetR + playerHeightOffset - 1e-3f;
       goDown = false;
 
@@ -257,9 +264,23 @@ public class Player : MonoBehaviour {
       h = d;
     }
 
+    trueHSpeed = h * maxHSpeed;
+    if (hSpeed > 0) {
+      hSpeed = Mathf.Max(hSpeed - hSpeed*0.01f, 0);
+    } else if (hSpeed < 0) {
+      hSpeed = Mathf.Min(hSpeed - hSpeed*0.01f,0);
+    }
+
+    if (Mathf.Abs(h * maxHSpeed) > Mathf.Abs(hSpeed)) {
+      trueHSpeed = h * maxHSpeed;
+      hSpeed = 0;
+    } else {
+      trueHSpeed = hSpeed;
+    }
+
     // Cálculo de posição vertical e horizontal
-    mobile.Move(h * speed, vSpeed);
-    if (h * speed != 0 || vSpeed != 0)
+    mobile.Move(trueHSpeed, vSpeed);
+    if (trueHSpeed != 0 || vSpeed != 0)
       HandleCollision();
     //}
     // Animar na horizontal se ele estiver se movendo
