@@ -20,7 +20,10 @@ public class Flower : MonoBehaviour {
       p.TakeDamage(100);
     } else if (x.gameObject.name.Contains("Bullet")) {
       var b = x.gameObject.GetComponent<Bullet>();
-      b.RemoveSelf();
+      if (b.isActiveAndEnabled) {
+        b.RemoveSelf();
+        GetComponentInParent<Player>().ammoLeft++;
+      }
     }
   }
 }
