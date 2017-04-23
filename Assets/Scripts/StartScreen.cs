@@ -9,6 +9,8 @@ public class StartScreen : MonoBehaviour {
 
   EventSystem eventSystem;
 
+  GameObject previousSelected = null;
+
   private void Start() {
     eventSystem = FindObjectOfType<EventSystem>();
   }
@@ -30,6 +32,11 @@ public class StartScreen : MonoBehaviour {
   }
 
   private void Update() {
+    if (eventSystem.currentSelectedGameObject == null) {
+      eventSystem.SetSelectedGameObject(previousSelected);
+    }
+    previousSelected = eventSystem.currentSelectedGameObject;
+
     if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
       GameObject focus = eventSystem.currentSelectedGameObject;
       if (focus != null) {
