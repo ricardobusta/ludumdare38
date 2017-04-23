@@ -44,6 +44,7 @@ public class Player : MonoBehaviour {
   public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
+  bool doubleJumping = false;
 
   public float maxHSpeed = 180;
   public float maxVSpeed = 3;
@@ -220,6 +221,10 @@ public class Player : MonoBehaviour {
       ducking = true;
     }
 
+    if(onGround || onSomething) {
+      doubleJumping = false;
+    }
+
     if (onSomething && jumping) {
       ducking = false;
       animator.SetBool("jumping", true);
@@ -230,6 +235,16 @@ public class Player : MonoBehaviour {
 
     if (onSomething) {
       animator.SetBool("jumping", false);
+    }
+
+    if(!onGround && !doubleJumping && jumping) {
+      ducking = false;
+      animator.SetBool("jumping", true);
+      vSpeed = maxVSpeed;
+      AudioManager.Instance().PlayJump();
+      onGround = false;
+      goDown = false;
+      doubleJumping = true;
     }
 
     if (onGround) {
@@ -248,7 +263,7 @@ public class Player : MonoBehaviour {
         onGround = false;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + 2 * playerHeightOffset)) && !onSomething) {
+    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
       vSpeed -= gravity;
       if (v < 0) {
