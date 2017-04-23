@@ -121,9 +121,10 @@ public class Player : MonoBehaviour {
         b.Activate(mobile);
         if (onSomething && onSomething.isActiveAndEnabled) {
           var bMob = onSomething.GetComponent<Mobile>();
-          b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed*bMob.direction;
-          onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
-          bMob.refresh();
+          float rate = mobile.radius / bMob.radius;
+          b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed * rate;
+          //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
+          //bMob.refresh();
         }
         b.SetColor(bulletColor);
         b.gameObject.SetActive(true);
@@ -162,7 +163,7 @@ public class Player : MonoBehaviour {
     animator.SetBool("dashing", true);
     currentDashDuration -= Time.deltaTime;
 
-    return dashDirection*dashSpeedMultiplier;
+    return dashDirection * dashSpeedMultiplier;
   }
 
   // Update is called once per frame
@@ -184,13 +185,22 @@ public class Player : MonoBehaviour {
     /*if (jumping) {
       print(playerN);
     }*/
-      
+
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + playerHeightOffset);
     ducking = false;
     if (onGround && h == 0 && v < 0) {
       ducking = true;
     }
+
+    if (onSomething && jumping) {
+      ducking = false;
+      animator.SetBool("jumping", true);
+      vSpeed = maxVSpeed;
+      AudioManager.Instance().PlayJump();
+      onGround = false;
+    }
+
     if (onGround) {
       // // Se está no chão, deixe o personagem no chão
       animator.SetBool("jumping", false);

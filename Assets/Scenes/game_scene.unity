@@ -260,6 +260,10 @@ Prefab:
       propertyPath: bulletColor.a
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1226524368891742, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
   m_IsPrefabParent: 0
