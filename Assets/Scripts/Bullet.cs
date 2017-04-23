@@ -50,13 +50,8 @@ public class Bullet : MonoBehaviour {
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())){
-          p.takeDamage();
-          gameObject.SetActive(false);
-
-          mobile.direction = 0;
-          mobile.radius = 0;
-          mobile.angle = 0;
-          mobile.refresh();
+          p.TakeDamage();
+          RemoveSelf();
         }
       }
     }
@@ -77,6 +72,15 @@ public class Bullet : MonoBehaviour {
     //mobile.radius = mob.radius;
     mobile.direction = mob.direction;
     speed = initialSpeed * mob.direction;
+    mobile.refresh();
+  }
+
+  public void RemoveSelf() {
+    gameObject.SetActive(false);
+
+    mobile.direction = 0;
+    mobile.radius = 0;
+    mobile.angle = 0;
     mobile.refresh();
   }
 }
