@@ -109,10 +109,9 @@ public class Player : MonoBehaviour {
         var reflect = Vector2.Reflect(v, n).normalized;
         reflect = Quaternion.Euler(0,0,-mobile.direction*60) * reflect;
         mobile.fromCartesian(mobile.toCartesian() + reflect*1f);
-        vSpeed = 1*gravity;
+        vSpeed = 2*gravity;
         p2.takeDamage();
       } else {
-        //print("ata");
         //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
         mobile.fromCartesian(mobile.toCartesian() - v);
       }
