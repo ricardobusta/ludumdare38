@@ -50,7 +50,7 @@ public class Player : MonoBehaviour {
 
   // Player está no chão?
   public bool onGround = false;
-  public Mobile onSomething = null;
+  public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
 
@@ -227,7 +227,8 @@ public class Player : MonoBehaviour {
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 
     if (onSomething && onSomething.isActiveAndEnabled) {
-      mobile.angle += 300 * Time.deltaTime / onSomething.radius * onSomething.direction;
+      var bMob = onSomething.GetComponent<Mobile>();
+      mobile.angle += onSomething.speed * Time.deltaTime / bMob.radius * bMob.direction;
     }
 
     Shoot();
