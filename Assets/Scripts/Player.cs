@@ -48,6 +48,8 @@ public class Player : MonoBehaviour {
   Animator animator;
   Mobile mobile;
 
+  public GameObject shootPoint;
+
   // Player está no chão?
   public bool onGround = false;
   public Bullet onSomething = null;
@@ -124,22 +126,27 @@ public class Player : MonoBehaviour {
       currentFireCD -= Time.deltaTime;
     } else if (ammoLeft > 0 && Input.GetButton(PlayerKeybind.GetFire(playerN))) {
       // Senão, deixe o jogador atirar
-      Bullet b = GameManager.Instance().GetFreeBullet();
-      if (b != null) {
-        ammoLeft--;
-        b.Activate(mobile);
-        if (onSomething && onSomething.isActiveAndEnabled) {
-          var bMob = onSomething.GetComponent<Mobile>();
-          float rate = mobile.radius / bMob.radius;
-          b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed * rate;
-          //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
-          //bMob.refresh();
-        }
-        b.SetColor(bulletColor);
-        b.gameObject.SetActive(true);
-        currentFireCD = fireCD;
-        AudioManager.Instance().PlayFire();
+      animator.SetTrigger("fire");
+      print("shoot!");
+      currentFireCD = fireCD;
+    }
+  }
+
+  void ActualShoot() {
+    Bullet b = GameManager.Instance().GetFreeBullet();
+    if (b != null) {
+      ammoLeft--;
+      b.Activate(mobile, shootPoint);
+      if (onSomething && onSomething.isActiveAndEnabled) {
+        var bMob = onSomething.GetComponent<Mobile>();
+        float rate = mobile.radius / bMob.radius;
+        b.speed = Mathf.Abs(speed) * mobile.direction + onSomething.speed * rate;
+        //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
+        //bMob.refresh();
       }
+      b.SetColor(bulletColor);
+      b.gameObject.SetActive(true);
+      AudioManager.Instance().PlayFire();
     }
   }
 
