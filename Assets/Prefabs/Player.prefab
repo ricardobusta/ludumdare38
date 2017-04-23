@@ -238,16 +238,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerN: 1
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
+  bulletSprite: {fileID: 0}
   playerLives: 3
   ammoLeft: 5
   shootPoint: {fileID: 1070397483285654}
   onGround: 0
   onSomething: {fileID: 0}
   goDown: 1
-  speed: 180
+  maxHSpeed: 180
   maxVSpeed: 3
   gravity: 0.1
   vSpeed: 0
+  hSpeed: 0
   fireCD: 0.5
   meleeCD: 1
   dashCD: 1

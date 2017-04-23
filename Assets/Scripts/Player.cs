@@ -105,7 +105,7 @@ public class Player : MonoBehaviour {
         mobile.fromCartesian(mobile.toCartesian() + reflect*0.4f);
         vSpeed = maxVSpeed;
         hSpeed = maxHSpeed * mobile.direction;
-        p2.takeDamage();
+        p2.TakeDamage();
         //print("pow");
         //Debug.Break();
       } else {
@@ -152,6 +152,7 @@ public class Player : MonoBehaviour {
       currentMeleeCD -= Time.deltaTime;
     } else if (Input.GetButton(PlayerKeybind.GetMelee(playerN))) {
       currentMeleeCD = meleeCD;
+      animator.SetTrigger("attack");
       AudioManager.Instance().PlayFire();
     }
   }
@@ -178,18 +179,18 @@ public class Player : MonoBehaviour {
     return dashDirection * dashSpeedMultiplier;
   }
 
-  public bool takeDamage(int i = 1) {
+  public bool TakeDamage(int i = 1) {
     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
       return false;
     }
     animator.SetTrigger("hit");    
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
-    /*if (playerLives <= 0) {
+    if (playerLives <= 0) {
       gm.gameOver = true;
       gm.Finish();
       return true;
-    }*/
+    }
     return false;
   }
 
@@ -297,7 +298,7 @@ public class Player : MonoBehaviour {
     }
 
     Shoot();
-
+    Melee();
     Dash();
     //if (playerN == 1)
     //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
