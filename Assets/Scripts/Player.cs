@@ -224,7 +224,7 @@ public class Player : MonoBehaviour {
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 
     if (onSomething && onSomething.isActiveAndEnabled) {
-      mobile.angle += 300 * Time.deltaTime / onSomething.radius;
+      mobile.angle += 300 * Time.deltaTime / onSomething.radius * onSomething.direction;
     }
 
     Shoot();
