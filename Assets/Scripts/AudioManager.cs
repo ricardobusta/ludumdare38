@@ -44,6 +44,10 @@ public class AudioManager : MonoBehaviour {
     PlaySFX(shoot);
   }
 
+  public void PlayHurt() {
+    PlaySFX(shoot);
+  }
+
   public void PlayJump() {
     PlaySFX(jump);
   }
