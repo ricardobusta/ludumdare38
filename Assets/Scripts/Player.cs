@@ -28,6 +28,8 @@ public class Player : MonoBehaviour {
 
   public int playerLives = 3;
 
+  public int ammoLeft = 5;
+
   Animator animator;
   Mobile mobile;
 
@@ -49,10 +51,10 @@ public class Player : MonoBehaviour {
 
   public float dashCD = 1;
   float currentDashCD = 0;
-  float dashDuration = 0.5f;
+  public float dashDuration = 0.5f;
   float currentDashDuration = -1;
   float dashDirection = 0;
-  float dashSpeedMultiplier = 4;
+  public float dashSpeedMultiplier = 4;
 
   public float playerHeightOffset = 0.6f;
 
@@ -93,10 +95,11 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (Input.GetButton(PlayerKeybind.GetFire(playerN))) {
+    } else if (ammoLeft > 0 && Input.GetButton(PlayerKeybind.GetFire(playerN))) {
       // Senão, deixe o jogador atirar
       Bullet b = GameManager.Instance().GetFreeBullet();
       if (b != null) {
+        ammoLeft--;
         b.Activate(mobile);
         b.SetColor(bulletColor);
         b.gameObject.SetActive(true);

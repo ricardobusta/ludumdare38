@@ -149,11 +149,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerN: 0
+  bulletColor: {r: 0, g: 0, b: 0, a: 0}
+  playerLives: 3
+  ammoLeft: 5
   onGround: 0
+  onSomething: 0
+  goDown: 1
   speed: 180
   maxVSpeed: 3
   gravity: 0.1
+  vSpeed: 0
   fireCD: 0.5
+  dashCD: 1
+  dashDuration: 0.25
+  dashSpeedMultiplier: 4
   playerHeightOffset: 0.6
 --- !u!114 &114496983064438976
 MonoBehaviour:
