@@ -45,6 +45,13 @@ public class Player : MonoBehaviour {
   public float fireCD = 1;
   float currentFireCD = 0;
 
+  public float dashCD = 1;
+  float currentDashCD = 0;
+  float dashDuration = 0.5f;
+  float currentDashDuration = -1;
+  float dashDirection = 0;
+  float dashSpeedMultiplier = 4;
+
   public float playerHeightOffset = 0.6f;
 
   new Collider2D collider;
@@ -94,6 +101,28 @@ public class Player : MonoBehaviour {
         AudioManager.Instance().PlayFire();
       }
     }
+  }
+
+  float Dash() {
+    // Durante o dash, o jogador se comporta de um jeito diferente
+    if (currentDashDuration < 0) {
+      if (currentDashCD > 0) {
+        // Se o cooldown de dash é positivo, decremente
+        currentDashCD -= Time.deltaTime;
+      } else if (Input.GetButton(PlayerKeybind.GetDash(playerN))) {
+        // Deixa jogador dashar
+        currentDashCD = dashCD;
+        currentDashDuration = dashDuration;
+        dashDirection = mobile.direction;
+      }
+      animator.SetBool("dashing", false);
+      return 0;
+    }
+
+    animator.SetBool("dashing", true);
+    currentDashDuration -= Time.deltaTime;
+
+    return dashDirection*dashSpeedMultiplier;
   }
 
   // Update is called once per frame
@@ -150,6 +179,11 @@ public class Player : MonoBehaviour {
       goDown = true;
     }
 
+    float d = Dash();
+    if (d != 0) {
+      h = d;
+    }
+
     // Cálculo de posição vertical e horizontal
     mobile.Move(h * speed, vSpeed);
     if (h * speed != 0 || vSpeed != 0)
@@ -159,6 +193,8 @@ public class Player : MonoBehaviour {
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
 
     Shoot();
+
+    Dash();
     //if (playerN == 1)
     //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
   }
