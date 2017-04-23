@@ -84,6 +84,8 @@ public class Player : MonoBehaviour {
   }
 
   private void Start() {
+    playerLives = PlayerPrefs.GetInt("playerLives", 3);
+    ammoLeft = PlayerPrefs.GetInt("playerBullets", 5);
     playerFilter.SetLayerMask(-257);
     playerFilter.useLayerMask = true;
   }

@@ -25,8 +25,6 @@ public class GameManager : MonoBehaviour {
   [HideInInspector]
   public Player[] players;
 
-  public int bulletPoolSize = 10;
-
   public static GameManager Instance() {
     return _instance;
   }
@@ -40,7 +38,8 @@ public class GameManager : MonoBehaviour {
 
     players = FindObjectsOfType<Player>();
 
-    for (int i = 0; i < bulletPoolSize; i++) {
+    int bullet = 2*PlayerPrefs.GetInt("playerBullets", 5);
+    for (int i = 0; i < bullet; i++) {
       Bullet b = Instantiate(bulletPrefab);
       b.gameObject.SetActive(false);
       bulletPool.Add(b);
@@ -50,7 +49,7 @@ public class GameManager : MonoBehaviour {
   }
 
   public Bullet GetFreeBullet() {
-    for (int i = 0; i < bulletPoolSize; i++) {
+    for (int i = 0; i < bulletPool.Count; i++) {
       if (!bulletPool[i].gameObject.activeSelf) {
         return bulletPool[i];
       }

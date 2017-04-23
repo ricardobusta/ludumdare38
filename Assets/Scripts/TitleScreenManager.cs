@@ -14,6 +14,10 @@ public class TitleScreenManager : MonoBehaviour {
   [Header("Options")]
   public Slider planetSizeSlider;
   public Text planetSizeValue;
+  public Slider playerLivesSlider;
+  public Text playerLivesValue;
+  public Slider playerBulletsSlider;
+  public Text playerBulletsValue;
 
   public GameObject[] screens;
 
@@ -21,9 +25,20 @@ public class TitleScreenManager : MonoBehaviour {
     SetScreen("Main Menu");
     eventSystem = FindObjectOfType<EventSystem>();
 
-    float v = PlayerPrefs.GetFloat("planetSize", 2.14f);
-    planetSizeSlider.value = v;
-    planetSizeValue.text = v.ToString("0.00");
+    float f;
+    int i;
+
+    f = PlayerPrefs.GetFloat("planetSize", 2.14f);
+    planetSizeSlider.value = f;
+    planetSizeValue.text = f.ToString("0.00");
+
+    i = PlayerPrefs.GetInt("playerLives", 3);
+    playerLivesSlider.value = i;
+    playerLivesValue.text = i.ToString();
+
+    i = PlayerPrefs.GetInt("playerBullets", 5);
+    playerBulletsSlider.value = i;
+    playerBulletsValue.text = i.ToString();
   }
 
   public void StartGame() {
@@ -53,19 +68,23 @@ public class TitleScreenManager : MonoBehaviour {
         ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
       }
     }
-
-    if (Input.GetButton("P1_Vertical") || Input.GetButton("P2_Vertical")) {
-      GameObject focus = eventSystem.currentSelectedGameObject;
-      if (focus != null) {
-        var pointer = new PointerEventData(EventSystem.current);
-        ExecuteEvents.Execute(focus, pointer, ExecuteEvents.moveHandler);
-      }
-    }
   }
 
   public void SetPlanetSize() {
     float v = planetSizeSlider.value;
     PlayerPrefs.SetFloat("planetSize", v);
     planetSizeValue.text = v.ToString("0.00");
+  }
+
+  public void SetPlayerLives() {
+    int v = (int)Mathf.Round(playerLivesSlider.value);
+    PlayerPrefs.SetInt("playerLives", v);
+    playerLivesValue.text = v.ToString();
+  }
+
+  public void SetPlayerBullets() {
+    int v = (int)Mathf.Round(playerBulletsSlider.value);
+    PlayerPrefs.SetInt("playerBullets", v);
+    playerBulletsValue.text = v.ToString();
   }
 }
