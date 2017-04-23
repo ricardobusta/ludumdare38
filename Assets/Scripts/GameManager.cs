@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour {
     print(ang);
     for (int i = 0; i < players.Length; i++) {
       players[i].gameObject.SetActive(i < playerCount);
-      players[i].Position(ang * i);
+      players[i].Position((ang * i)+90);
     }
 
     int bullet = playerCount * PlayerPrefs.GetInt("playerBullets", 5);
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour {
     float timer = 0.5f;
     while (timer > 0) {
       timer -= Time.deltaTime;
-      Vector3 x = Random.insideUnitCircle;
+      Vector3 x = Random.insideUnitCircle*0.1f;
       realCamera.transform.position = x - basicCamPos;
       yield return new WaitForEndOfFrame();
     }
