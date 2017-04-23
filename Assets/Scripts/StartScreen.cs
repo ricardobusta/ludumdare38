@@ -1,19 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class StartScreen : MonoBehaviour {
 
-  // Use this for initialization
-  void Start() {
+  EventSystem eventSystem;
+
+  private void Start() {
+    eventSystem = FindObjectOfType<EventSystem>();
+  }
+
+  public void StartGame() {
+    SceneManager.LoadScene("game_scene");
+  }
+
+  public void Options() {
 
   }
 
-  // Update is called once per frame
-  void Update() {
-    if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("P1_Fire") || Input.GetButtonDown("P2_Fire") || Input.GetKeyDown(KeyCode.KeypadEnter)) {
-      SceneManager.LoadScene("game_scene");
+  public void Credits() {
+
+  }
+
+  public void Exit() {
+    Application.Quit();
+  }
+
+  private void Update() {
+    if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
+      GameObject focus = eventSystem.currentSelectedGameObject;
+      if (focus != null) {
+        var pointer = new PointerEventData(EventSystem.current);
+        ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
+      }
     }
   }
 }
