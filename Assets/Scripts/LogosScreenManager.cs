@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LogosScreenManager : MonoBehaviour {
@@ -13,6 +14,5 @@ public class LogosScreenManager : MonoBehaviour {
     if (timer <= 0 || Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire") || Input.GetButton("Submit")) {
       SceneManager.LoadScene("title_screen");
     }
-
   }
 }

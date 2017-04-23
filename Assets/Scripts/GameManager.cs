@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour {
   public Text winnerText;
   public Image gameOverImage;
 
+  public GameObject planet;
+  public Camera mainCamera;
+
   public bool gameOver = false;
 
   [HideInInspector]
@@ -30,6 +33,9 @@ public class GameManager : MonoBehaviour {
 
   // Use this for initialization
   void Start() {
+    planetRadius = PlayerPrefs.GetFloat("planetSize", 2.14f);
+    planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
+    mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
 
     players = FindObjectsOfType<Player>();
@@ -51,7 +57,7 @@ public class GameManager : MonoBehaviour {
     }
     return null;
   }
-
+  
   public void Finish() {
     gameOverImage.gameObject.SetActive(true);
     bool draw = true;

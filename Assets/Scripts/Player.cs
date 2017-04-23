@@ -135,8 +135,8 @@ public class Player : MonoBehaviour {
       b.Activate(mobile, shootPoint);
       if (onSomething && onSomething.isActiveAndEnabled) {
         var bMob = onSomething.GetComponent<Mobile>();
-        float rate = mobile.radius / bMob.radius;
-        b.speed = Mathf.Abs(trueHSpeed) * mobile.direction + onSomething.speed * rate;
+        float rate = 0.33f * mobile.radius / bMob.radius;
+        b.speed = Mathf.Abs(b.initialSpeed) * mobile.direction + onSomething.speed * rate;
         //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
         //bMob.refresh();
       }
