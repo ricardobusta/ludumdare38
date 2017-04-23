@@ -50,7 +50,8 @@ public class Player : MonoBehaviour {
 
   public float maxHSpeed = 180;
   public float maxVSpeed = 3;
-  public float gravity = 0.2f;
+  private float gravity = 8f;
+  private float airDrag = 3f;
   private float trueHSpeed = 0;
 
   // Essa é a velocidade atual
@@ -302,9 +303,9 @@ public class Player : MonoBehaviour {
       //                    << TODO arrumar esses valores de pulo aqui                 >>
     } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * gm.playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
-      vSpeed -= gravity;
+      vSpeed -= gravity * Time.deltaTime;
       if (v < 0) {
-        vSpeed -= gravity * 3f;
+        vSpeed -= gravity * 3f * Time.deltaTime;
       }
       goDown = true;
     }
@@ -323,9 +324,9 @@ public class Player : MonoBehaviour {
 
     trueHSpeed = h * maxHSpeed;
     if (hSpeed > 0) {
-      hSpeed = Mathf.Max(hSpeed - hSpeed * 0.01f, 0);
+      hSpeed = Mathf.Max(hSpeed - hSpeed * airDrag * Time.deltaTime, 0);
     } else if (hSpeed < 0) {
-      hSpeed = Mathf.Min(hSpeed - hSpeed * 0.01f, 0);
+      hSpeed = Mathf.Min(hSpeed - hSpeed * airDrag * Time.deltaTime, 0);
     }
 
     if (Mathf.Abs(h * maxHSpeed) > Mathf.Abs(hSpeed)) {
@@ -352,6 +353,6 @@ public class Player : MonoBehaviour {
     Melee();
     Dash();
     //if (playerN == 1)
-    //Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,h * speed, playerN);
+    //  Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,trueHSpeed, playerN);
   }
 }
