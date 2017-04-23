@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour {
 
   public bool gameOver = false;
 
-  [HideInInspector]
   public Player[] players;
 
   public static GameManager Instance() {
@@ -36,9 +35,12 @@ public class GameManager : MonoBehaviour {
     mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
 
-    players = FindObjectsOfType<Player>();
+    int playerCount = PlayerPrefs.GetInt("noOfPlayers", 2);
+    for(int i = 0; i < players.Length; i++) {
+      players[i].gameObject.SetActive(i < playerCount);
+    }
 
-    int bullet = 2*PlayerPrefs.GetInt("playerBullets", 5);
+    int bullet = playerCount*PlayerPrefs.GetInt("playerBullets", 5);
     for (int i = 0; i < bullet; i++) {
       Bullet b = Instantiate(bulletPrefab);
       b.gameObject.SetActive(false);

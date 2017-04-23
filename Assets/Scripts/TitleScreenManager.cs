@@ -18,6 +18,8 @@ public class TitleScreenManager : MonoBehaviour {
   public Text playerLivesValue;
   public Slider playerBulletsSlider;
   public Text playerBulletsValue;
+  public Slider playerSlider;
+  public Text playerValue;
 
   public GameObject[] screens;
 
@@ -39,6 +41,10 @@ public class TitleScreenManager : MonoBehaviour {
     i = PlayerPrefs.GetInt("playerBullets", 5);
     playerBulletsSlider.value = i;
     playerBulletsValue.text = i.ToString();
+
+    i = PlayerPrefs.GetInt("noOfPlayers", 2);
+    playerSlider.value = i;
+    playerValue.text = i.ToString();
   }
 
   public void StartGame() {
@@ -86,5 +92,11 @@ public class TitleScreenManager : MonoBehaviour {
     int v = (int)Mathf.Round(playerBulletsSlider.value);
     PlayerPrefs.SetInt("playerBullets", v);
     playerBulletsValue.text = v.ToString();
+  }
+
+  public void SetPlayers() {
+    int v = (int)Mathf.Round(playerSlider.value);
+    PlayerPrefs.SetInt("noOfPlayers", v);
+    playerValue.text = v.ToString();
   }
 }
