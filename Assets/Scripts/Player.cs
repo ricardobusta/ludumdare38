@@ -248,6 +248,7 @@ public class Player : MonoBehaviour {
       onGround = false;
       goDown = false;
       doubleJumping = true;
+      onSomething = null;
     }
 
     if (onGround) {
@@ -264,6 +265,7 @@ public class Player : MonoBehaviour {
         vSpeed = maxVSpeed;
         AudioManager.Instance().PlayJump();
         onGround = false;
+        onSomething = null;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
     } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * playerHeightOffset)) && !onSomething) {
