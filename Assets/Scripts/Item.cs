@@ -11,10 +11,6 @@ public class Item : MonoBehaviour {
   void Start() {
     collider = GetComponent<Collider2D>();
     filter.SetLayerMask(LayerMask.GetMask("Player"));
-
-    float s = Random.Range(15, 60);
-    GameManager.Respawn(gameObject, s);
-    gameObject.SetActive(false);
   }
 
   private void Update() {
