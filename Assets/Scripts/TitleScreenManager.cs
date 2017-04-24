@@ -14,6 +14,7 @@ public class TitleScreenManager : MonoBehaviour {
   public AudioSource music1;
   public AudioSource music2;
   public AudioClip startClip;
+  public GameObject commonBG;
 
   public Image imageBlock;
 
@@ -35,6 +36,8 @@ public class TitleScreenManager : MonoBehaviour {
 
     float f;
     int i;
+
+    commonBG.SetActive(false);
 
     f = PlayerPrefs.GetFloat("planetSize", 2.14f);
     planetSizeSlider.value = f;
@@ -80,6 +83,7 @@ public class TitleScreenManager : MonoBehaviour {
   public void SetScreen(string scene) {
     foreach (GameObject screen in screens) {
       screen.SetActive(screen.name == scene);
+      commonBG.SetActive(scene != "Main Menu");
     }
   }
 
