@@ -5910,6 +5910,7 @@ MonoBehaviour:
   - {fileID: 1746564550}
   - {fileID: 1469896847}
   gameOver: 0
+  musicManager: {fileID: 1985260472}
   players:
   - {fileID: 130237908}
   - {fileID: 1107241060}

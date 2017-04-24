@@ -24,6 +24,11 @@ public class MusicManager : MonoBehaviour {
     musicLoop.volume = volume;
   }
 
+  public void SetPitch(float pitch) {
+    musicIntro.pitch = pitch;
+    musicLoop.pitch = pitch;
+  }
+
   public void PlayMusic() {
     if (musicIntro.clip != null) {
       musicIntro.Play();

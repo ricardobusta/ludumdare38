@@ -30,6 +30,8 @@ public class GameManager : MonoBehaviour {
 
   int playerCount;
 
+  public MusicManager musicManager;
+
   public Player[] players;
 
   public static GameManager Instance() {
@@ -74,13 +76,18 @@ public class GameManager : MonoBehaviour {
 
   public bool CheckGameOver() {
     int alive_count = 0;
+    bool uno = false;
     for(int i = 0; i < playerCount; i++) { 
       if (players[i].playerLives > 0) {
         alive_count++;
+        uno |= players[i].playerLives == 1;
       }
     }
     if (alive_count <= 1) {
       return true;
+    }
+    if (alive_count <= 2 && uno) {
+      musicManager.SetPitch(1.5f);
     }
     return false;
   }
