@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 26c6f0fe9648a984ebc1bc4ea69e40e5
+timeCreated: 1493074775
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Rodfellows Wacky
+  fontNames:
+  - Rodfellows Wacky
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
