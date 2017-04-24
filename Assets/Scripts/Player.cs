@@ -261,10 +261,16 @@ public class Player : MonoBehaviour {
 
 
     bool jumping = CustomController.GetKeyDown(playerN, "jump") || (CustomController.GetAxisDownV(playerN) && v > 0);
-    bool releaseJump = CustomController.GetKeyUp(playerN, "jump") || (CustomController.GetAxisUpV(playerN) && (CustomController.GetAxisV(playerN) > 0));
+    bool releaseJump = CustomController.GetKeyUp(playerN, "jump") || ((CustomController.GetAxisUpV(playerN) ));
     /*if (jumping) {
       print(playerN);
     }*/
+    if (jumping) {
+      print("jumping!");
+    }
+    if (releaseJump) {
+      print("releaseJump");
+    }
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     onGround = (Mathf.Abs(mobile.radius) <= planetR + gm.playerHeightOffset);
@@ -332,6 +338,7 @@ public class Player : MonoBehaviour {
 
     // Gravide aplica quando o botão solta
     if (releaseJump) {
+      print(releaseJump);
       goDown = true;
     }
 
