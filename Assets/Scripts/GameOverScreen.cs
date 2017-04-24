@@ -15,7 +15,7 @@ public class GameOverScreen : MonoBehaviour {
 
   private void Start() {
     gameOverMenu.SetActive(false);
-    proTip.text = "Pro tip: " + tips[Random.Range(0, tips.Length)];
+    proTip.text = "Dev tip: " + tips[Random.Range(0, tips.Length)];
   }
 
   void Update() {
