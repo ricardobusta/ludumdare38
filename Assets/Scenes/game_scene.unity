@@ -5527,27 +5527,29 @@ MonoBehaviour:
   gameOverMenu: {fileID: 174078175}
   proTip: {fileID: 2070312602}
   tips:
-  - -You can ride on a bullet. Your bullet speed changes when you shoot from above
+  - You can ride on a bullet. Your bullet speed changes when you shoot from above
     it.
-  - -Jump on your opponent's head to deal damage.
-  - -You can Double Jump by pressing the Jump button while in air.
-  - -Control the height of your jump by holding the Jump button.
-  - -Use the Rose to deflect a bullet back. Careful on the cooldown.
-  - -Dashing somewhat reduces your vertical hitbox. Use it to avoid tricky bullet
-    walls.
-  - -The Rose deals damage.
-  - -Press down while jumping to fast fall.
-  - -You can scale the planet's size, amount of bullets, health and players from the
+  - Jump on your opponent's head to deal damage.
+  - You can Double Jump by pressing the Jump button while in air.
+  - Control the height of your jump by holding the Jump button.
+  - Use the Rose to deflect a bullet back. Careful on the cooldown.
+  - Dashing somewhat reduces your vertical hitbox. Use it to avoid tricky bullet walls.
+  - The Rose deals damage.
+  - Press down while jumping to fast fall.
+  - You can scale the planet's size, amount of bullets, health and players from the
     "Options" menu.
-  - -The person who wrote these tips was kinda useless during the development process,
+  - The person who wrote these tips was kinda useless during the development process,
     so we've put him to do this.
-  - -You become responsible, forever, for every bullet you shoot.
-  - "-Alternative game title: El Peque\xF1o Cormano."
-  - -This game lacks snakes and elephants. It's a shame, really.
-  - -No glitches were turned into features during the development of this game. We
+  - You become responsible, forever, for every bullet you shoot.
+  - "Alternative game title: El Peque\xF1o Cormano."
+  - This game lacks snakes and elephants. It's a shame, really.
+  - No glitches were turned into features during the development of this game. We
     swear.
-  - -The Fox likes listening to Renard.
-  - -Prince's favorite color is actually purple.
+  - The Fox likes listening to Renard.
+  - Prince's favorite color is actually purple.
+  - This is a tip.
+  - During Ludum Dare, remember to drink water and sleep.
+  - When writing tips, make sure to get suggestions from everyone.
 --- !u!1 &1787149444
 GameObject:
   m_ObjectHideFlags: 0
