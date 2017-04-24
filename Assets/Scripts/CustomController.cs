@@ -85,8 +85,8 @@ public class PlayerControl {
   public void LoadPlayerControls(int playerID) {
     string pname = "P" + playerID + "_";
 
-    horizontal_axis = PlayerPrefs.GetString(pname + "horizontal", "");
-    vertical_axis = PlayerPrefs.GetString(pname + "vertical", "");
+    horizontal_axis = PlayerPrefs.GetString(pname + "horizontal");
+    vertical_axis = PlayerPrefs.GetString(pname + "vertical");
 
     List<string> keys = new List<string>();
     foreach (string k in keyMap.Keys) {
@@ -94,7 +94,7 @@ public class PlayerControl {
     }
 
     foreach (var k in keys) {
-      keyMap[k] = (KeyCode)PlayerPrefs.GetInt(pname + k, (int)KeyCode.None);
+      keyMap[k] = (KeyCode)PlayerPrefs.GetInt(pname + k);
     }
   }
 }
@@ -123,7 +123,6 @@ public class CustomController : MonoBehaviour {
     }
     for (int i = 0; i < 4; i++) {
       var x = control[i];
-      print (x==null);
       control[i].LoadPlayerControls(i + 1);
     }
   }
@@ -181,5 +180,11 @@ public class CustomController : MonoBehaviour {
     bool axis = Input.GetButtonUp(_instance.control[PlayerID - 1].horizontal_axis);
     bool digital = GetKeyUp(PlayerID, "left") || GetKeyUp(PlayerID, "right");
     return axis || digital;
+  }
+
+  public static void SetKey(int playerID, string key, KeyCode newValue) {
+    _instance.control[playerID - 1].keyMap[key] = newValue;
+    string pname = "P" + playerID + "_";
+    PlayerPrefs.SetInt(pname + key, (int)newValue);
   }
 }
