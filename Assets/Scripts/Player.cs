@@ -138,7 +138,7 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (ammoLeft > 0 && Input.GetButton(PlayerKeybind.GetFire(playerN))) {
+    } else if (ammoLeft > 0 && CustomController.GetKey(playerN,"fire")) {
       // Senão, deixe o jogador atirar
       animator.SetTrigger("fire");
       print("shoot!");
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour {
     if (currentMeleeCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentMeleeCD -= Time.deltaTime;
-    } else if (Input.GetButton(PlayerKeybind.GetMelee(playerN))) {
+    } else if (CustomController.GetKey(playerN, "attack")) {
       currentMeleeCD = meleeCD;
       animator.SetTrigger("attack");
       AudioManager.Instance().PlayAttack();
@@ -182,7 +182,7 @@ public class Player : MonoBehaviour {
       if (currentDashCD > 0) {
         // Se o cooldown de dash é positivo, decremente
         currentDashCD -= Time.deltaTime;
-      } else if (Input.GetButton(PlayerKeybind.GetDash(playerN))) {
+      } else if (CustomController.GetKeyDown(playerN,"dash")) {
         // Deixa jogador dashar
         currentDashCD = dashCD;
         currentDashDuration = dashDuration;
@@ -255,12 +255,12 @@ public class Player : MonoBehaviour {
       onSomething = null;
     }
 
-    float h = Input.GetAxisRaw(PlayerKeybind.GetHorizontal(playerN));
-    float v = Input.GetAxisRaw(PlayerKeybind.GetVertical(playerN));
+    float h = CustomController.GetAxisH(playerN);
+    float v = CustomController.GetAxisV(playerN);
 
 
-    bool jumping = Input.GetButtonDown(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonDown(PlayerKeybind.GetVertical(playerN)) && v > 0);
-    bool releaseJump = Input.GetButtonUp(PlayerKeybind.GetJump(playerN)) || (Input.GetButtonUp(PlayerKeybind.GetVertical(playerN)) && Input.GetAxis(PlayerKeybind.GetVertical(playerN)) > 0);
+    bool jumping = CustomController.GetKeyDown(playerN, "jump") || (CustomController.GetAxisDownV(playerN) && v > 0);
+    bool releaseJump = CustomController.GetKeyUp(playerN,"jump") || (CustomController.GetAxisUpV(playerN) && (CustomController.GetAxisV(playerN) > 0));
     /*if (jumping) {
       print(playerN);
     }*/
