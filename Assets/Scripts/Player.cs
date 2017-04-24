@@ -49,6 +49,7 @@ public class Player : MonoBehaviour {
   public bool goDown = true;
   bool ducking = false;
   bool doubleJumping = false;
+  float doubleJumpingHeight = 0;
 
   public float maxHSpeed = 180;
   public float maxVSpeed = 3;
@@ -274,6 +275,7 @@ public class Player : MonoBehaviour {
 
     if (onGround || onSomething) {
       doubleJumping = false;
+      doubleJumpingHeight = planetR + gm.playerHeightOffset;
     }
 
     if (onSomething && jumping) {
@@ -296,6 +298,7 @@ public class Player : MonoBehaviour {
       onGround = false;
       goDown = false;
       doubleJumping = true;
+      doubleJumpingHeight = mobile.radius;
       onSomething = null;
     }
 
@@ -316,7 +319,7 @@ public class Player : MonoBehaviour {
         onSomething = null;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if ((goDown || (Mathf.Abs(mobile.radius) >= planetR + (2 + (doubleJumping ? 2 : 0)) * gm.playerHeightOffset)) && !onSomething) {
+    } else if ((goDown || (Mathf.Abs(mobile.radius) >= doubleJumpingHeight + gm.playerHeightOffset)) && !onSomething) {
       // Senão, aplique gravidade
       vSpeed -= gravity * Time.deltaTime;
       if (v < 0) {
