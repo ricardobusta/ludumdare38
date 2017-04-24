@@ -139,7 +139,7 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (ammoLeft > 0 && CustomController.GetKey(playerN, "fire")) {
+    } else if (ammoLeft > 0 && Input.GetButton("P" + playerN + "_Fire")) {
       // Senão, deixe o jogador atirar
       animator.SetTrigger("fire");
       print("shoot!");
@@ -170,7 +170,7 @@ public class Player : MonoBehaviour {
     if (currentMeleeCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentMeleeCD -= Time.deltaTime;
-    } else if (CustomController.GetKey(playerN, "attack")) {
+    } else if (Input.GetButton("P" + playerN + "_Melee")) {
       currentMeleeCD = meleeCD;
       animator.SetTrigger("attack");
       AudioManager.Instance().PlayAttack();
@@ -183,7 +183,7 @@ public class Player : MonoBehaviour {
       if (currentDashCD > 0) {
         // Se o cooldown de dash é positivo, decremente
         currentDashCD -= Time.deltaTime;
-      } else if (CustomController.GetKeyDown(playerN, "dash")) {
+      } else if (Input.GetButtonDown("P" + playerN + "_Dash")) {
         // Deixa jogador dashar
         currentDashCD = dashCD;
         currentDashDuration = dashDuration;
@@ -267,12 +267,12 @@ public class Player : MonoBehaviour {
       onSomething = null;
     }
 
-    float h = CustomController.GetAxisH(playerN);
-    float v = CustomController.GetAxisV(playerN);
+    float h = Input.GetAxisRaw("P" + playerN + "_Horizontal");
+    float v = Input.GetAxisRaw("P" + playerN + "_Vertical");
 
 
-    bool jumping = CustomController.GetKeyDown(playerN, "jump") || (CustomController.GetAxisDownV(playerN) && v > 0);
-    bool releaseJump = CustomController.GetKeyUp(playerN, "jump") || ((CustomController.GetAxisUpV(playerN) ));
+    bool jumping = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && v > 0);
+    bool releaseJump = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
     /*if (jumping) {
       print(playerN);
     }*/
