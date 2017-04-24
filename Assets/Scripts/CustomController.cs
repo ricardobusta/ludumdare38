@@ -6,9 +6,9 @@ using UnityEngine;
 public class PlayerControl {
   public string horizontal_axis;
   public string vertical_axis;
-  public Dictionary<string, KeyCode> keyMap = new Dictionary<string,KeyCode>();
+  public Dictionary<string, KeyCode> keyMap = new Dictionary<string, KeyCode>();
 
-  PlayerControl() {
+  public PlayerControl() {
     keyMap.Add("jump", KeyCode.Y);
     keyMap.Add("dash", KeyCode.U);
     keyMap.Add("attack", KeyCode.I);
@@ -20,6 +20,8 @@ public class PlayerControl {
   }
 
   public void LoadDefaultControl(int playerID) {
+    horizontal_axis = "P" + playerID + "_Horizontal";
+    vertical_axis = "P" + playerID + "_Vertical";
     switch (playerID) {
       case 1:
         keyMap["jump"] = KeyCode.Y;
@@ -64,28 +66,72 @@ public class PlayerControl {
     }
   }
 
-  public void LoadPlayerControl() {
-    
+  public void SavePlayerControls(int playerID) {
+    string pname = "P" + playerID + "_";
+
+    PlayerPrefs.SetString(pname + "horizontal", horizontal_axis);
+    PlayerPrefs.SetString(pname + "vertical", vertical_axis);
+
+    List<string> keys = new List<string>();
+    foreach (string k in keyMap.Keys) {
+      keys.Add(k);
+    }
+
+    foreach (string k in keys) {
+      PlayerPrefs.SetInt(pname + k, (int)keyMap[k]);
+    }
+  }
+
+  public void LoadPlayerControls(int playerID) {
+    string pname = "P" + playerID + "_";
+
+    horizontal_axis = PlayerPrefs.GetString(pname + "horizontal", "");
+    vertical_axis = PlayerPrefs.GetString(pname + "vertical", "");
+
+    List<string> keys = new List<string>();
+    foreach (string k in keyMap.Keys) {
+      keys.Add(k);
+    }
+
+    foreach (var k in keys) {
+      keyMap[k] = (KeyCode)PlayerPrefs.GetInt(pname + k, (int)KeyCode.None);
+    }
   }
 }
 
 public class CustomController : MonoBehaviour {
 
-  public int ID;
-
-  public PlayerControl[] control = new PlayerControl[4];
+  PlayerControl[] control;
 
   static CustomController _instance;
 
-	// Use this for initialization
-	void Start () {
+  // Use this for initialization
+  private void Awake() {
     _instance = this;
-    for(int i = 0; i < 4; i++) {
-      control[i].LoadDefaultControl(i + 1);
-    }
-	}
+    control = new PlayerControl[4];
 
-  public static CustomController Instance(){
+    for(int i = 0; i < 4; i++) {
+      control[i] = new PlayerControl();
+    }
+
+    if (!PlayerPrefs.HasKey("P1_jump")) {
+      print("don't have controls saved");
+      for (int i = 0; i < 4; i++) {
+        control[i].LoadDefaultControl(i + 1);
+        control[i].SavePlayerControls(i + 1);
+      }
+    }
+    for (int i = 0; i < 4; i++) {
+      var x = control[i];
+      print (x==null);
+      control[i].LoadPlayerControls(i + 1);
+    }
+  }
+
+  void Start() {
+  }
+
+  public static CustomController Instance() {
     return _instance;
   }
 
@@ -103,7 +149,7 @@ public class CustomController : MonoBehaviour {
 
   public static float GetAxisV(int PlayerID) {
     float axis = Input.GetAxis(_instance.control[PlayerID - 1].vertical_axis);
-    float digital = (GetKey(PlayerID, "up")?1:0) - (GetKey(PlayerID, "down")?1:0);
+    float digital = (GetKey(PlayerID, "up") ? 1 : 0) - (GetKey(PlayerID, "down") ? 1 : 0);
     return Mathf.Clamp(axis + digital, -1.0f, 1.0f);
   }
 
