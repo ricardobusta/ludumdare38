@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOverScreen : MonoBehaviour {
   // Update is called once per frame
   float timer = 1;
 
   public GameObject gameOverMenu;
+  public Text proTip;
+
+  public string[] tips;
 
   private void Start() {
     gameOverMenu.SetActive(false);
+    proTip.text = tips[Random.Range(0, tips.Length)];
   }
 
   void Update() {
