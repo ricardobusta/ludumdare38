@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
   public GameObject planet;
   public Camera mainCamera;
 
+  public bool pause = false;
+
   public GameObject starsContainer;
   public GameObject[] stars;
 
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour {
   }
 
   public IEnumerator RotateScreenCoroutine() {
+    pause = true;
     float totalTime = 3;
     float time = 0;
 
@@ -58,6 +61,7 @@ public class GameManager : MonoBehaviour {
     }
     cameraRot.z = startAngle + 180;
     mainCamera.transform.localRotation = Quaternion.Euler(cameraRot);
+    pause = false;
   }
 
   public IEnumerator RespawnCoroutine(GameObject go, float seconds) {

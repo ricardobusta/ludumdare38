@@ -16,7 +16,7 @@ public class Item : MonoBehaviour {
   private void Update() {
     if (collider.GetContacts(filter, obstacles) > 0) {
       transform.position = Vector3.Scale(transform.position, new Vector3(1, -1, 1));
-      float s = Random.Range(15, 60);
+      float s = Random.Range(5, 15);
       GameManager.Respawn(gameObject, s);
       GameManager.RotateScreen();
       gameObject.SetActive(false);

@@ -36,6 +36,7 @@ public class Player : MonoBehaviour {
 
   public BulletCounter bulletCounter;
   public FaceManager faceManager;
+  public AudioClip hitSound;
 
   Animator animator;
   Mobile mobile;
@@ -97,6 +98,7 @@ public class Player : MonoBehaviour {
     bulletCounter.SetBulletCount(ammoLeft);
     playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
     playerFilter.useLayerMask = true;
+    animator.SetInteger("player_health",playerLives);
   }
 
   void HandleCollision() {
@@ -117,6 +119,7 @@ public class Player : MonoBehaviour {
         mobile.fromCartesian(mobile.toCartesian() + reflect * 0.4f);
         vSpeed = maxVSpeed;
         hSpeed = maxHSpeed * mobile.direction;
+        AudioManager.Instance().PlayHitHead();
         p2.TakeDamage();
         //print("pow");
         //Debug.Break();
@@ -169,7 +172,7 @@ public class Player : MonoBehaviour {
     } else if (Input.GetButton(PlayerKeybind.GetMelee(playerN))) {
       currentMeleeCD = meleeCD;
       animator.SetTrigger("attack");
-      AudioManager.Instance().PlayFire();
+      AudioManager.Instance().PlayAttack();
     }
   }
 
@@ -210,9 +213,10 @@ public class Player : MonoBehaviour {
     }
     invulnerability = invulnerabilityTime;
     GameManager.Instance().StartScreenShake();
+    AudioManager.Play(hitSound);
     animator.SetTrigger("hit");
-    AudioManager.Instance().PlayHurt();
     playerLives -= i;
+    animator.SetInteger("player_health", playerLives);
     float pl = (float)playerLives / (float)maxPlayerLives;
     faceManager.SetHealthPercent(pl);
     if (playerLives <= 0) {
@@ -238,12 +242,13 @@ public class Player : MonoBehaviour {
       gameObject.SetActive(false);
       return;
     }
+    gm = GameManager.Instance();
+    if (gm.pause || gm.gameOver) { return; }
+
     if (invulnerability > 0) {
       invulnerability -= Time.deltaTime;
     }
     animator.SetBool("invulnerable",invulnerability>0);
-    gm = GameManager.Instance();
-    if (gm.gameOver) { return; }
     float planetR = gm.planetRadius;
 
     if (collider.Cast(-mobile.getNormal(), rayResults, planetR) == 0) {

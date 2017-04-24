@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour {
   // Update is called once per frame
   void Update() {
     GameManager gm = GameManager.Instance();
-    if (gm.gameOver) { return; }
+    if (gm.pause || gm.gameOver) { return; }
 
     mobile.Move(speed);
 

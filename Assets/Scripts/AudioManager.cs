@@ -9,8 +9,10 @@ public class AudioManager : MonoBehaviour {
 
   static AudioManager _instance;
 
-  public AudioClip shoot;
+  public AudioClip shot;
   public AudioClip jump;
+  public AudioClip hitHead;
+  public AudioClip attack;
 
   // Use this for initialization
   void Start() {
@@ -30,9 +32,14 @@ public class AudioManager : MonoBehaviour {
     return _instance;
   }
 
+  public static void Play(AudioClip clip) {
+    _instance.PlaySFX(clip);
+  }
+
   void PlaySFX(AudioClip clip) {
     for (int i = 0; i < sources.Length; i++) {
       if (!sources[i].isPlaying) {
+        print(" "+i + " " + clip.name);
         sources[i].clip = clip;
         sources[i].Play();
         return;
@@ -41,14 +48,18 @@ public class AudioManager : MonoBehaviour {
   }
 
   public void PlayFire() {
-    PlaySFX(shoot);
-  }
-
-  public void PlayHurt() {
-    PlaySFX(shoot);
+    PlaySFX(shot);
   }
 
   public void PlayJump() {
     PlaySFX(jump);
+  }
+
+  public void PlayAttack() {
+    PlaySFX(attack);
+  }
+
+  public void PlayHitHead() {
+    PlaySFX(hitHead);
   }
 }

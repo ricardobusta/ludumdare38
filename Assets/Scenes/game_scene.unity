@@ -136,8 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSourceSize: 10
-  shoot: {fileID: 8300000, guid: 61edb92c885f70a449d2c23a4e1503e4, type: 3}
+  shot: {fileID: 8300000, guid: 32d6faa7f126af64788f097691819733, type: 3}
   jump: {fileID: 8300000, guid: fbadfa5d5c0664b498a6481f31a9c83f, type: 3}
+  hitHead: {fileID: 8300000, guid: 61c56c33a63e70a4c9638461acda3c03, type: 3}
+  attack: {fileID: 8300000, guid: 066a836ed36584c448b1f28298ba4836, type: 3}
 --- !u!4 &27789135
 Transform:
   m_ObjectHideFlags: 0
@@ -341,6 +343,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 0dccdaf15a4111143b5e1f73d3906e1b, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
   m_IsPrefabParent: 0
@@ -724,6 +731,11 @@ Prefab:
       propertyPath: faceManager
       value: 
       objectReference: {fileID: 716846805}
+    - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 38710c5da7305ba4e83114324e4218ef, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
   m_IsPrefabParent: 0
@@ -918,6 +930,11 @@ Prefab:
       propertyPath: faceManager
       value: 
       objectReference: {fileID: 578516558}
+    - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 38710c5da7305ba4e83114324e4218ef, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
   m_IsPrefabParent: 0
@@ -2627,6 +2644,11 @@ Prefab:
       propertyPath: faceManager
       value: 
       objectReference: {fileID: 1327684226}
+    - target: {fileID: 114225462987290148, guid: e7d855f044d977a4c862b24c43b4bda5,
+        type: 2}
+      propertyPath: hitSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 38710c5da7305ba4e83114324e4218ef, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d855f044d977a4c862b24c43b4bda5, type: 2}
   m_IsPrefabParent: 0
@@ -5859,6 +5881,7 @@ MonoBehaviour:
   gameOverImage: {fileID: 1761119712}
   planet: {fileID: 1329251293}
   mainCamera: {fileID: 1837634710}
+  pause: 0
   starsContainer: {fileID: 2123208917}
   stars:
   - {fileID: 1132698607}
