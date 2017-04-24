@@ -252,7 +252,18 @@ public class Player : MonoBehaviour {
     animator.SetBool("invulnerable", invulnerability > 0);
     float planetR = gm.planetRadius;
 
-    if (collider.Cast(-mobile.getNormal(), rayResults, planetR) == 0) {
+    if (onSomething && onSomething.isActiveAndEnabled) {
+      var nCast = collider.Cast(-mobile.getNormal(), rayResults, planetR);
+      if (nCast > 0) {
+        if (!rayResults [0].transform.name.Contains("Bullet")) {
+          onSomething = null;
+        } else if (rayResults [0].distance > 0.09) {
+          onSomething = null;  
+        }
+      } else {
+        onSomething = null;
+      }
+    } else {
       onSomething = null;
     }
 
