@@ -20,7 +20,7 @@ public class BulletCounter : MonoBehaviour {
       }
     } else {
       text.gameObject.SetActive(false);
-      for (int i = 1; i < bullets.Length; i++) {
+      for (int i = 0; i < bullets.Length; i++) {
         bullets[i].SetActive(i<count);
       }
     }
