@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ControlSettings : MonoBehaviour {
@@ -9,6 +10,8 @@ public class ControlSettings : MonoBehaviour {
 
   public GameObject overlay;
   public Text overlayText;
+
+  public EventSystem eventSystem;
 
   public Text jumpButtonText;
   public Text dashButtonText;
@@ -51,6 +54,7 @@ public class ControlSettings : MonoBehaviour {
     overlay.SetActive(true);
 
     overlayText.text = "selecting " + keyname + " for P" + playerID;
+    eventSystem.gameObject.SetActive(false);
   }
 
   void OnGUI() {
@@ -64,6 +68,7 @@ public class ControlSettings : MonoBehaviour {
           CustomController.SetKey(playerID, keyname, Event.current.keyCode);
           SetPlayer(playerID);
         }
+        eventSystem.gameObject.SetActive(true);
       }
     }
   }

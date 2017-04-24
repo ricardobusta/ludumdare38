@@ -25,13 +25,13 @@ public class GameOverScreen : MonoBehaviour {
 
     gameOverMenu.SetActive(timer <= 0);
 
-    if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
-      GameObject focus = eventSystem.currentSelectedGameObject;
-      if (focus != null) {
-        var pointer = new PointerEventData(EventSystem.current);
-        ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
-      }
-    }
+    //if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
+    //  GameObject focus = eventSystem.currentSelectedGameObject;
+    //  if (focus != null) {
+    //    var pointer = new PointerEventData(EventSystem.current);
+    //    ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
+    //  }
+    //}
   }
 
   public void Replay() {

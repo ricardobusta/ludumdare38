@@ -98,7 +98,7 @@ public class Player : MonoBehaviour {
     bulletCounter.SetBulletCount(ammoLeft);
     playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
     playerFilter.useLayerMask = true;
-    animator.SetInteger("player_health",playerLives);
+    animator.SetInteger("player_health", playerLives);
   }
 
   void HandleCollision() {
@@ -107,12 +107,12 @@ public class Player : MonoBehaviour {
       //Debug.DrawLine(d.pointA, d.pointB);
       var v = d.pointA - d.pointB;
       var p2 = obstacles[0].GetComponent<Player>();
-      var n = p2.mobile.getNormal();
-      //print(mobile.toCartesian() - v);
+      var p2m = obstacles[0].GetComponent<Mobile>();
+      var n = transform.up;
       onGround = false;
       goDown = true;
       var angle = Vector2.Angle(v, n);
-      if (angle > 170) {
+      if ((angle > 170) && (p2m.radius < mobile.radius)) {
         var reflect = Vector2.Reflect(v, n).normalized;
         reflect = Quaternion.Euler(0, 0, -mobile.direction * 60) * reflect;
         //Debug.DrawRay(mobile.toCartesian(), reflect*0.4f, Color.magenta);
@@ -123,9 +123,9 @@ public class Player : MonoBehaviour {
         p2.TakeDamage();
         //print("pow");
         //Debug.Break();
-      } else {
-        //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
-        mobile.fromCartesian(mobile.toCartesian() - v);
+      } else {  
+          //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
+          mobile.fromCartesian(mobile.toCartesian() - v);
       }
     }
   }
@@ -138,7 +138,7 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (ammoLeft > 0 && CustomController.GetKey(playerN,"fire")) {
+    } else if (ammoLeft > 0 && CustomController.GetKey(playerN, "fire")) {
       // Senão, deixe o jogador atirar
       animator.SetTrigger("fire");
       print("shoot!");
@@ -182,7 +182,7 @@ public class Player : MonoBehaviour {
       if (currentDashCD > 0) {
         // Se o cooldown de dash é positivo, decremente
         currentDashCD -= Time.deltaTime;
-      } else if (CustomController.GetKeyDown(playerN,"dash")) {
+      } else if (CustomController.GetKeyDown(playerN, "dash")) {
         // Deixa jogador dashar
         currentDashCD = dashCD;
         currentDashDuration = dashDuration;
@@ -248,7 +248,7 @@ public class Player : MonoBehaviour {
     if (invulnerability > 0) {
       invulnerability -= Time.deltaTime;
     }
-    animator.SetBool("invulnerable",invulnerability>0);
+    animator.SetBool("invulnerable", invulnerability > 0);
     float planetR = gm.planetRadius;
 
     if (collider.Cast(-mobile.getNormal(), rayResults, planetR) == 0) {
@@ -260,7 +260,7 @@ public class Player : MonoBehaviour {
 
 
     bool jumping = CustomController.GetKeyDown(playerN, "jump") || (CustomController.GetAxisDownV(playerN) && v > 0);
-    bool releaseJump = CustomController.GetKeyUp(playerN,"jump") || (CustomController.GetAxisUpV(playerN) && (CustomController.GetAxisV(playerN) > 0));
+    bool releaseJump = CustomController.GetKeyUp(playerN, "jump") || (CustomController.GetAxisUpV(playerN) && (CustomController.GetAxisV(playerN) > 0));
     /*if (jumping) {
       print(playerN);
     }*/
