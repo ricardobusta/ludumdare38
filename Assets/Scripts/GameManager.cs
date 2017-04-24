@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
     float ang = 360.0f / playerCount;
     print(ang);
     for (int i = 0; i < players.Length; i++) {
-      players[i].gameObject.SetActive(i < playerCount);
+      players[i].SetActive(i < playerCount);
       players[i].Position((ang * i)+90);
     }
 

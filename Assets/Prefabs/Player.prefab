@@ -238,9 +238,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerN: 1
   bulletColor: {r: 0, g: 0, b: 0, a: 0}
-  bulletSprite: {fileID: 0}
   playerLives: 3
   ammoLeft: 5
+  bulletCounter: {fileID: 0}
   shootPoint: {fileID: 1070397483285654}
   onGround: 0
   onSomething: {fileID: 0}
@@ -255,7 +255,7 @@ MonoBehaviour:
   dashCD: 1
   dashDuration: 0.25
   dashSpeedMultiplier: 4
-  playerHeightOffset: 0.6
+  invulnerabilityTime: 1
 --- !u!114 &114496983064438976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -347,7 +347,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.28}
+  m_Size: {x: 1, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
 --- !u!212 &212904064847208234

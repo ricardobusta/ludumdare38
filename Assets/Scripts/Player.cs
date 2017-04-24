@@ -28,13 +28,14 @@ public class Player : MonoBehaviour {
   public int playerN;
 
   public Color bulletColor;
-  public Sprite bulletSprite;
 
+  int maxPlayerLives;
   public int playerLives = 3;
 
   public int ammoLeft = 5;
 
   public BulletCounter bulletCounter;
+  public FaceManager faceManager;
 
   Animator animator;
   Mobile mobile;
@@ -90,6 +91,7 @@ public class Player : MonoBehaviour {
 
   private void Start() {
     playerLives = PlayerPrefs.GetInt("playerLives", 3);
+    maxPlayerLives = playerLives;
     ammoLeft = PlayerPrefs.GetInt("playerBullets", 5);
     bulletCounter.SetBulletCount(ammoLeft);
     playerFilter.SetLayerMask(-257);
@@ -153,8 +155,7 @@ public class Player : MonoBehaviour {
         //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
         //bMob.refresh();
       }
-      //b.SetColor(bulletColor);
-      b.SetSprite(bulletSprite);
+      b.SetColor(bulletColor);
       b.gameObject.SetActive(true);
       AudioManager.Instance().PlayFire();
     }
@@ -193,6 +194,12 @@ public class Player : MonoBehaviour {
     return dashDirection * dashSpeedMultiplier;
   }
 
+  public void SetActive(bool active) {
+    faceManager.gameObject.SetActive(active);
+    bulletCounter.gameObject.SetActive(active);
+    gameObject.SetActive(active);
+  }
+
   public void TakeDamage(int i = 1) {
     if (invulnerability > 0) {
       return;
@@ -205,6 +212,8 @@ public class Player : MonoBehaviour {
     animator.SetTrigger("hit");
     AudioManager.Instance().PlayHurt();
     playerLives -= i;
+    float pl = (float)playerLives / (float)maxPlayerLives;
+    faceManager.SetHealthPercent(pl);
     if (playerLives <= 0) {
       dead = true;
     }
@@ -231,6 +240,7 @@ public class Player : MonoBehaviour {
     if (invulnerability > 0) {
       invulnerability -= Time.deltaTime;
     }
+    animator.SetBool("invulnerable",invulnerability>0);
     gm = GameManager.Instance();
     if (gm.gameOver) { return; }
     float planetR = gm.planetRadius;
