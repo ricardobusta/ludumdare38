@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class GameOverScreen : MonoBehaviour {
 
   public GameObject gameOverMenu;
   public Text proTip;
+  public EventSystem eventSystem;
 
   public string[] tips;
 
@@ -23,8 +25,12 @@ public class GameOverScreen : MonoBehaviour {
 
     gameOverMenu.SetActive(timer <= 0);
 
-    if (timer > 0) {
-      return;
+    if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
+      GameObject focus = eventSystem.currentSelectedGameObject;
+      if (focus != null) {
+        var pointer = new PointerEventData(EventSystem.current);
+        ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
+      }
     }
   }
 

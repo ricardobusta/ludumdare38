@@ -95,7 +95,7 @@ public class Player : MonoBehaviour {
     maxPlayerLives = playerLives;
     ammoLeft = PlayerPrefs.GetInt("playerBullets", 5);
     bulletCounter.SetBulletCount(ammoLeft);
-    playerFilter.SetLayerMask(-257);
+    playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
     playerFilter.useLayerMask = true;
   }
 

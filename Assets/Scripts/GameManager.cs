@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour {
   public Image gameOverImage;
 
   public GameObject planet;
-  public Camera realCamera;
+  public Camera mainCamera;
 
   public GameObject starsContainer;
   public GameObject[] stars;
@@ -32,6 +32,40 @@ public class GameManager : MonoBehaviour {
 
   public static GameManager Instance() {
     return _instance;
+  }
+
+  public static void Respawn(GameObject go, float seconds) {
+    _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
+  }
+
+  public static void RotateScreen() {
+    _instance.StartCoroutine(_instance.RotateScreenCoroutine());
+  }
+
+  public IEnumerator RotateScreenCoroutine() {
+    float totalTime = 3;
+    float time = 0;
+
+    Vector3 cameraRot = mainCamera.transform.localRotation.eulerAngles;
+    float startAngle = cameraRot.z;
+
+    while (time < totalTime) {
+      time += Time.deltaTime;
+      float t = time / totalTime;
+      cameraRot.z = Mathf.Lerp(startAngle, startAngle + 180, t);
+      mainCamera.transform.localRotation = Quaternion.Euler(cameraRot);
+      yield return new WaitForEndOfFrame();
+    }
+    cameraRot.z = startAngle + 180;
+    mainCamera.transform.localRotation = Quaternion.Euler(cameraRot);
+  }
+
+  public IEnumerator RespawnCoroutine(GameObject go, float seconds) {
+    print(go.name);
+    print(seconds);
+    yield return new WaitForSeconds(seconds);
+    print("ok");
+    go.SetActive(true);
   }
 
   public bool CheckGameOver() {
@@ -58,7 +92,7 @@ public class GameManager : MonoBehaviour {
     planetRadius = PlayerPrefs.GetFloat("planetSize", 2);
     playerHeightOffset = 0.2f * planetRadius + 0.3f;
     planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
-    realCamera.orthographicSize = 2.336f * planetRadius;
+    mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
 
     playerCount = PlayerPrefs.GetInt("noOfPlayers", 2);
@@ -123,10 +157,10 @@ public class GameManager : MonoBehaviour {
     while (timer > 0) {
       timer -= Time.deltaTime;
       Vector3 x = Random.insideUnitCircle*0.1f;
-      realCamera.transform.position = x - basicCamPos;
+      mainCamera.transform.position = x - basicCamPos;
       yield return new WaitForEndOfFrame();
     }
-    realCamera.transform.position = Vector3.zero - basicCamPos;
+    mainCamera.transform.position = Vector3.zero - basicCamPos;
   }
 
   public void Restart() {
