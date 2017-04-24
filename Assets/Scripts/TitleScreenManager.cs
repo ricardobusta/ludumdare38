@@ -11,6 +11,12 @@ public class TitleScreenManager : MonoBehaviour {
 
   GameObject previousSelected = null;
 
+  public AudioSource music1;
+  public AudioSource music2;
+  public AudioClip startClip;
+
+  public Image imageBlock;
+
   [Header("Options")]
   public Slider planetSizeSlider;
   public Text planetSizeValue;
@@ -45,9 +51,25 @@ public class TitleScreenManager : MonoBehaviour {
     i = PlayerPrefs.GetInt("noOfPlayers", 2);
     playerSlider.value = i;
     playerValue.text = i.ToString();
+
+    imageBlock.gameObject.SetActive(false);
   }
 
   public void StartGame() {
+    music1.Stop();
+    music2.Stop();
+    music2.clip = startClip;
+    music2.loop = false;
+    music2.Play();
+    StartCoroutine(StartGameRoutine());
+    imageBlock.gameObject.SetActive(true);
+    eventSystem.SetSelectedGameObject(null);
+  }
+
+  IEnumerator StartGameRoutine() {
+    while (music2.isPlaying) {
+      yield return new WaitForEndOfFrame();
+    }
     SceneManager.LoadScene("game_scene");
   }
 
@@ -62,10 +84,10 @@ public class TitleScreenManager : MonoBehaviour {
   }
 
   private void Update() {
-    if (eventSystem.currentSelectedGameObject == null) {
-      eventSystem.SetSelectedGameObject(previousSelected);
-    }
-    previousSelected = eventSystem.currentSelectedGameObject;
+    //if (eventSystem.currentSelectedGameObject == null) {
+    //  eventSystem.SetSelectedGameObject(previousSelected);
+    //}
+    //previousSelected = eventSystem.currentSelectedGameObject;
 
     //if (Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire")) {
     //  GameObject focus = eventSystem.currentSelectedGameObject;
