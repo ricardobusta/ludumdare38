@@ -7829,7 +7829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceSize: 10
   shot: {fileID: 8300000, guid: cedf02d543664164f89937f36c8dfbed, type: 3}
-  jump: {fileID: 0}
+  jump: {fileID: 8300000, guid: 5bcdb80597689b2459740822a0cc37ea, type: 3}
   hitHead: {fileID: 0}
   attack: {fileID: 0}
 --- !u!4 &2048955669

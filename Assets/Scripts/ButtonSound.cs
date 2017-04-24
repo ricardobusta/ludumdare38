@@ -9,6 +9,6 @@ public class ButtonSound : MonoBehaviour, IPointerEnterHandler, IPointerDownHand
   }
 
   public void OnPointerDown(PointerEventData ped) {
-    AudioManager.Instance().PlayFire();
+    AudioManager.Instance().PlayJump();
   }
 }

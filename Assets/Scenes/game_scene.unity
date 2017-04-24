@@ -137,7 +137,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceSize: 10
   shot: {fileID: 8300000, guid: 32d6faa7f126af64788f097691819733, type: 3}
-  jump: {fileID: 8300000, guid: fbadfa5d5c0664b498a6481f31a9c83f, type: 3}
+  jump: {fileID: 8300000, guid: 7caf33ef73d650342b6a7be6fd300291, type: 3}
   hitHead: {fileID: 8300000, guid: 61c56c33a63e70a4c9638461acda3c03, type: 3}
   attack: {fileID: 8300000, guid: 066a836ed36584c448b1f28298ba4836, type: 3}
 --- !u!4 &27789135
@@ -4820,16 +4820,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db84fae6f7f561340b1fc4b2480a078a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ID: 0
-  control:
-  - horizontal_axis: P1_Horizontal
-    vertical_axis: P1_Vertical
-  - horizontal_axis: P2_Horizontal
-    vertical_axis: P2_Vertical
-  - horizontal_axis: 
-    vertical_axis: 
-  - horizontal_axis: 
-    vertical_axis: 
 --- !u!4 &1357366498
 Transform:
   m_ObjectHideFlags: 0
