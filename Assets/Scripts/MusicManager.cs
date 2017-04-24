@@ -25,7 +25,10 @@ public class MusicManager : MonoBehaviour {
   }
 
   public void SetPitch(float pitch) {
-    musicIntro.pitch = pitch;
+    if (musicIntro.isPlaying) {
+      musicIntro.Stop();
+      musicLoop.Play();
+    }
     musicLoop.pitch = pitch;
   }
 
