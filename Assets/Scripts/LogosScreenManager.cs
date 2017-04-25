@@ -8,11 +8,13 @@ public class LogosScreenManager : MonoBehaviour {
 
   float timer = 2;
 
+  public string gotoScene;
+
   void Update() {
     timer -= Time.deltaTime;
 
     if (timer <= 0 || Input.GetButton("P1_Fire") || Input.GetButton("P2_Fire") || Input.GetButton("Submit")) {
-      SceneManager.LoadScene("title_screen");
+      SceneManager.LoadScene(gotoScene);
     }
   }
 }
