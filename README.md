@@ -14,10 +14,10 @@ These can be changed on the launcher settings.
 ### Prince:
 
 * WASD for directional movement.
-* Y to shoot bullets
-* U to use your rose
-* I to dash
-* Spacebar to jump
+* U to shoot bullets
+* O to use your rose
+* Y to dash
+* I to jump
 
 ### Fox:
 
