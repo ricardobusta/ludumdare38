@@ -73,6 +73,7 @@ public class Bullet : MonoBehaviour {
     //mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     //mobile.radius = mob.radius;
     mobile.direction = mob.direction;
+    initialSpeed = GameManager.Instance().baseBulletSpeed;
     speed = initialSpeed * mob.direction;
     mobile.refresh();
   }

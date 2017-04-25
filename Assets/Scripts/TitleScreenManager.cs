@@ -27,6 +27,9 @@ public class TitleScreenManager : MonoBehaviour {
   public Text playerBulletsValue;
   public Slider playerSlider;
   public Text playerValue;
+  public Slider bulletSpeedSlider;
+  public Text bulletSpeedValue;
+  public Toggle nightModeToggle;
 
   public GameObject[] screens;
 
@@ -41,7 +44,7 @@ public class TitleScreenManager : MonoBehaviour {
 
     f = PlayerPrefs.GetFloat("planetSize", 2.14f);
     planetSizeSlider.value = f;
-    planetSizeValue.text = f.ToString("0.00");
+    planetSizeValue.text = f.ToString() + "%";
 
     i = PlayerPrefs.GetInt("playerLives", 3);
     playerLivesSlider.value = i;
@@ -54,6 +57,10 @@ public class TitleScreenManager : MonoBehaviour {
     i = PlayerPrefs.GetInt("noOfPlayers", 2);
     playerSlider.value = i;
     playerValue.text = i.ToString();
+
+    f = PlayerPrefs.GetFloat("bulletSpeed", 100.0f);
+    bulletSpeedSlider.value = f;
+    bulletSpeedValue.text = f.ToString()+"%";
 
     imageBlock.gameObject.SetActive(false);
   }
@@ -105,7 +112,7 @@ public class TitleScreenManager : MonoBehaviour {
   public void SetPlanetSize() {
     float v = planetSizeSlider.value;
     PlayerPrefs.SetFloat("planetSize", v);
-    planetSizeValue.text = v.ToString("0.00");
+    planetSizeValue.text = v.ToString() + "%";
   }
 
   public void SetPlayerLives() {
@@ -124,5 +131,15 @@ public class TitleScreenManager : MonoBehaviour {
     int v = (int)Mathf.Round(playerSlider.value);
     PlayerPrefs.SetInt("noOfPlayers", v);
     playerValue.text = v.ToString();
+  }
+
+  public void SetBulletSpeed() {
+    float v = bulletSpeedSlider.value;
+    PlayerPrefs.SetFloat("bulletSpeed", v);
+    bulletSpeedValue.text = v.ToString() + "%";
+  }
+
+  public void SetNightMode() {
+    PlayerPrefs.SetInt("nightMode", nightModeToggle.isOn ? 1 : 0);
   }
 }

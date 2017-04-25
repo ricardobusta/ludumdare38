@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
   public GameObject planet;
   public Camera mainCamera;
 
+  public Color nightModeColor;
+
   public bool pause = false;
 
   public GameObject starsContainer;
@@ -33,6 +35,8 @@ public class GameManager : MonoBehaviour {
   public MusicManager musicManager;
 
   public Player[] players;
+
+  public float baseBulletSpeed;
 
   public static GameManager Instance() {
     return _instance;
@@ -100,11 +104,18 @@ public class GameManager : MonoBehaviour {
 
   // Use this for initialization
   void Start() {
-    planetRadius = PlayerPrefs.GetFloat("planetSize", 2);
+    bool nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
+    if (nightMode) {
+      mainCamera.backgroundColor = nightModeColor;
+    }
+
+    planetRadius = 0.0214f*PlayerPrefs.GetFloat("planetSize", 100);
     playerHeightOffset = 0.2f * planetRadius + 0.3f;
     planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
     mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
+
+    baseBulletSpeed = 3 * PlayerPrefs.GetFloat("bulletSpeed", 100);
 
     playerCount = PlayerPrefs.GetInt("noOfPlayers", 2);
     float ang = 360.0f / playerCount;

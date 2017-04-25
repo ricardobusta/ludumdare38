@@ -4449,6 +4449,7 @@ MonoBehaviour:
   gameOverImage: {fileID: 1761119712}
   planet: {fileID: 1329251293}
   mainCamera: {fileID: 1837634710}
+  nightModeColor: {r: 0.20392157, g: 0.20392157, b: 0.39215687, a: 1}
   pause: 0
   starsContainer: {fileID: 2123208917}
   stars:
@@ -4484,6 +4485,7 @@ MonoBehaviour:
   - {fileID: 1107241060}
   - {fileID: 485320522}
   - {fileID: 723127328}
+  baseBulletSpeed: 0
 --- !u!4 &1867045886
 Transform:
   m_ObjectHideFlags: 0
