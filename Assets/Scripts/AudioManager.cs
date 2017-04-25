@@ -13,6 +13,7 @@ public class AudioManager : MonoBehaviour {
   public AudioClip jump;
   public AudioClip hitHead;
   public AudioClip attack;
+  public AudioClip landing;
 
   // Use this for initialization
   void Start() {
@@ -61,5 +62,9 @@ public class AudioManager : MonoBehaviour {
 
   public void PlayHitHead() {
     PlaySFX(hitHead);
+  }
+
+  public void PlayLanding() {
+    PlaySFX(landing);
   }
 }

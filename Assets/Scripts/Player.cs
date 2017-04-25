@@ -44,7 +44,7 @@ public class Player : MonoBehaviour {
   public GameObject shootPoint;
 
   // Player está no chão?
-  public bool onGround = false;
+  bool onGround = false;
   public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
@@ -76,6 +76,8 @@ public class Player : MonoBehaviour {
 
   public float invulnerabilityTime = 1;
   float invulnerability = 0;
+
+  bool firstTimeOnGround = false;
 
   bool dead = false;
 
@@ -284,7 +286,16 @@ public class Player : MonoBehaviour {
     }
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
+    bool wasOnGround = onGround;
     onGround = (Mathf.Abs(mobile.radius) <= planetR + gm.playerHeightOffset);
+
+    if (!wasOnGround && onGround) {
+      if (firstTimeOnGround) {
+        AudioManager.Instance().PlayLanding();
+      }
+      firstTimeOnGround = true;
+    }
+
     ducking = false;
     if ((onGround || onSomething) && h == 0 && v < 0) {
       ducking = true;
