@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
   public bool CheckGameOver() {
     int alive_count = 0;
     bool uno = false;
-    for(int i = 0; i < playerCount; i++) { 
+    for (int i = 0; i < playerCount; i++) {
       if (players[i].playerLives > 0) {
         alive_count++;
         uno |= players[i].playerLives == 1;
@@ -93,9 +93,9 @@ public class GameManager : MonoBehaviour {
   }
 
   //private void Update() {
-  //playerHeightOffset = (0.6f/4) * planetRadius;
-  //planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
-  //mainCamera.orthographicSize = 2.336f * planetRadius;
+  //  playerHeightOffset = (0.6f / 4) * planetRadius;
+  //  planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
+  //  mainCamera.orthographicSize = 2.336f * planetRadius;
   //}
 
   // Use this for initialization
@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour {
     print(ang);
     for (int i = 0; i < players.Length; i++) {
       players[i].SetActive(i < playerCount);
-      players[i].Position((ang * i)+90);
+      players[i].Position((ang * i) + 90);
     }
 
     int bullet = playerCount * PlayerPrefs.GetInt("playerBullets", 5);
@@ -123,10 +123,10 @@ public class GameManager : MonoBehaviour {
 
     gameOverImage.gameObject.SetActive(false);
 
-    starsContainer.transform.localRotation = Quaternion.Euler(0, 0,Random.Range(0.0f,360.0f)) ;
+    starsContainer.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f));
     starsContainer.transform.localScale = Vector3.one * planetRadius / 2.15f;
 
-    foreach(GameObject g in stars) {
+    foreach (GameObject g in stars) {
       g.transform.localScale = Vector3.one;
       g.transform.rotation = Quaternion.identity;
     }
@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour {
     float timer = 0.5f;
     while (timer > 0) {
       timer -= Time.deltaTime;
-      Vector3 x = Random.insideUnitCircle*0.1f;
+      Vector3 x = Random.insideUnitCircle * 0.1f;
       mainCamera.transform.position = x - basicCamPos;
       yield return new WaitForEndOfFrame();
     }
