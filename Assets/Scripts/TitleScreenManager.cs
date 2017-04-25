@@ -30,6 +30,7 @@ public class TitleScreenManager : MonoBehaviour {
   public Slider bulletSpeedSlider;
   public Text bulletSpeedValue;
   public Toggle nightModeToggle;
+  public Toggle turnPlanetToggle;
 
   public GameObject[] screens;
 
@@ -61,6 +62,13 @@ public class TitleScreenManager : MonoBehaviour {
     f = PlayerPrefs.GetFloat("bulletSpeed", 100.0f);
     bulletSpeedSlider.value = f;
     bulletSpeedValue.text = f.ToString()+"%";
+
+    i = PlayerPrefs.GetInt("nightMode", 0);
+    nightModeToggle.isOn = (i == 1);
+
+    i = PlayerPrefs.GetInt("turnPlanetItem", 1);
+    turnPlanetToggle.isOn = (i == 1);
+    
 
     imageBlock.gameObject.SetActive(false);
   }
@@ -141,5 +149,9 @@ public class TitleScreenManager : MonoBehaviour {
 
   public void SetNightMode() {
     PlayerPrefs.SetInt("nightMode", nightModeToggle.isOn ? 1 : 0);
+  }
+
+  public void SetTurnPlanet() {
+    PlayerPrefs.SetInt("turnPlanetItem", turnPlanetToggle.isOn ? 1 : 0);
   }
 }

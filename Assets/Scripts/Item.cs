@@ -9,6 +9,13 @@ public class Item : MonoBehaviour {
   new Collider2D collider;
 
   void Start() {
+    bool itemEnabled = PlayerPrefs.GetInt("turnPlanetItem", 1)==1;
+    if (!itemEnabled) {
+      print("itemDisabled");
+      gameObject.SetActive(false);
+    }
+    
+
     collider = GetComponent<Collider2D>();
     filter.SetLayerMask(LayerMask.GetMask("Player"));
   }
