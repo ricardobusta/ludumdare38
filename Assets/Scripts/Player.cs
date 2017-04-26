@@ -126,9 +126,9 @@ public class Player : MonoBehaviour {
         p2.TakeDamage();
         //print("pow");
         //Debug.Break();
-      } else {  
-          //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
-          mobile.fromCartesian(mobile.toCartesian() - v);
+      } else {
+        //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
+        mobile.fromCartesian(mobile.toCartesian() - v);
       }
     }
   }
@@ -395,10 +395,10 @@ public class Player : MonoBehaviour {
     if (onSomething && onSomething.isActiveAndEnabled) {
       var nCast = collider.Cast(-transform.up, rayResults, planetR);
       if (nCast > 0) {
-        if (!rayResults [0].transform.name.Contains("Bullet")) {
+        if (!rayResults[0].transform.name.Contains("Bullet")) {
           onSomething = null;
-        } else if (rayResults [0].distance > 0.35) {
-          onSomething = null;  
+        } else if (rayResults[0].distance > 0.35) {
+          onSomething = null;
         }
       } else {
         onSomething = null;
@@ -407,13 +407,13 @@ public class Player : MonoBehaviour {
       onSomething = null;
     }
 
-    
+
     if (trueHSpeed != 0 || vSpeed != 0)
       HandleCollision();
     //}
-    
 
-        //if (playerN == 1)
+
+    //if (playerN == 1)
     //  Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,trueHSpeed, playerN);
   }
 }

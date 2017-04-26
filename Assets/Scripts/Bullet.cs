@@ -19,13 +19,14 @@ public class Bullet : MonoBehaviour {
     stepCol = cols[1];
   }
 
-  // Update is called once per frame
-  void Update() {
+  private void Update() {
+    if (gm.pause || gm.gameOver) { return; }
+    mobile.Move(speed);
+  }
+
+  private void FixedUpdate() {
     GameManager gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
-
-    mobile.Move(speed);
-
 
     if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
@@ -50,7 +51,7 @@ public class Bullet : MonoBehaviour {
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance().players) {
-        if (p.Invulnerable()) { continue;  }
+        if (p.Invulnerable()) { continue; }
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())) {
           p.TakeDamage();
           RemoveSelf();
