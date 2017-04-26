@@ -18,20 +18,6 @@ public class TitleScreenManager : MonoBehaviour {
 
   public Image imageBlock;
 
-  [Header("Options")]
-  public Slider planetSizeSlider;
-  public Text planetSizeValue;
-  public Slider playerLivesSlider;
-  public Text playerLivesValue;
-  public Slider playerBulletsSlider;
-  public Text playerBulletsValue;
-  public Slider playerSlider;
-  public Text playerValue;
-  public Slider bulletSpeedSlider;
-  public Text bulletSpeedValue;
-  public Toggle nightModeToggle;
-  public Toggle turnPlanetToggle;
-
   public GameObject[] screens;
 
   private void Start() {
@@ -42,12 +28,6 @@ public class TitleScreenManager : MonoBehaviour {
     int i;
 
     commonBG.SetActive(false);
-
-    i = PlayerPrefs.GetInt("nightMode", 0);
-    nightModeToggle.isOn = (i == 1);
-
-    i = PlayerPrefs.GetInt("turnPlanetItem", 1);
-    turnPlanetToggle.isOn = (i == 1);
     
     imageBlock.gameObject.SetActive(false);
   }
@@ -94,13 +74,5 @@ public class TitleScreenManager : MonoBehaviour {
         ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
       }
     }
-  }
-
-  public void SetNightMode() {
-    PlayerPrefs.SetInt("nightMode", nightModeToggle.isOn ? 1 : 0);
-  }
-
-  public void SetTurnPlanet() {
-    PlayerPrefs.SetInt("turnPlanetItem", turnPlanetToggle.isOn ? 1 : 0);
   }
 }

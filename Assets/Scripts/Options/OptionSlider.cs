@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class OptionSlider : MonoBehaviour {
+public class OptionSlider : OptionGeneric {
   public string playerPrefsValue = "prefOption";
   public string optionName = "option";
   public string suffix = "%";
@@ -24,11 +25,16 @@ public class OptionSlider : MonoBehaviour {
     slider.maxValue = maxValue;
     slider.value = f;
   }
-
+  static int i = 0;
   public void ValueChanged() {
+    i++;
+    print("valueChanged "+ optionName + i);
     float v = slider.value;
-    print(v);
     PlayerPrefs.SetFloat(playerPrefsValue, v);
     textValue.text = v.ToString() + suffix;
+  }
+
+  public override void SetDefault() {
+    slider.value = defaultValue;
   }
 }
