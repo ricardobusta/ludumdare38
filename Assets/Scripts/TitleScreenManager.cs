@@ -43,33 +43,12 @@ public class TitleScreenManager : MonoBehaviour {
 
     commonBG.SetActive(false);
 
-    f = PlayerPrefs.GetFloat("planetSize", 2.14f);
-    planetSizeSlider.value = f;
-    planetSizeValue.text = f.ToString() + "%";
-
-    i = PlayerPrefs.GetInt("playerLives", 3);
-    playerLivesSlider.value = i;
-    playerLivesValue.text = i.ToString();
-
-    i = PlayerPrefs.GetInt("playerBullets", 5);
-    playerBulletsSlider.value = i;
-    playerBulletsValue.text = i.ToString();
-
-    i = PlayerPrefs.GetInt("noOfPlayers", 2);
-    playerSlider.value = i;
-    playerValue.text = i.ToString();
-
-    f = PlayerPrefs.GetFloat("bulletSpeed", 100.0f);
-    bulletSpeedSlider.value = f;
-    bulletSpeedValue.text = f.ToString()+"%";
-
     i = PlayerPrefs.GetInt("nightMode", 0);
     nightModeToggle.isOn = (i == 1);
 
     i = PlayerPrefs.GetInt("turnPlanetItem", 1);
     turnPlanetToggle.isOn = (i == 1);
     
-
     imageBlock.gameObject.SetActive(false);
   }
 
@@ -115,36 +94,6 @@ public class TitleScreenManager : MonoBehaviour {
         ExecuteEvents.Execute(focus, pointer, ExecuteEvents.submitHandler);
       }
     }
-  }
-
-  public void SetPlanetSize() {
-    float v = planetSizeSlider.value;
-    PlayerPrefs.SetFloat("planetSize", v);
-    planetSizeValue.text = v.ToString() + "%";
-  }
-
-  public void SetPlayerLives() {
-    int v = (int)Mathf.Round(playerLivesSlider.value);
-    PlayerPrefs.SetInt("playerLives", v);
-    playerLivesValue.text = v.ToString();
-  }
-
-  public void SetPlayerBullets() {
-    int v = (int)Mathf.Round(playerBulletsSlider.value);
-    PlayerPrefs.SetInt("playerBullets", v);
-    playerBulletsValue.text = v.ToString();
-  }
-
-  public void SetPlayers() {
-    int v = (int)Mathf.Round(playerSlider.value);
-    PlayerPrefs.SetInt("noOfPlayers", v);
-    playerValue.text = v.ToString();
-  }
-
-  public void SetBulletSpeed() {
-    float v = bulletSpeedSlider.value;
-    PlayerPrefs.SetFloat("bulletSpeed", v);
-    bulletSpeedValue.text = v.ToString() + "%";
   }
 
   public void SetNightMode() {
