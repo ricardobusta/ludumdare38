@@ -52,13 +52,13 @@ public class Mobile : MonoBehaviour {
     return new Vector2(radius * Mathf.Cos(-angle * Mathf.Deg2Rad), radius * Mathf.Sin(-angle * Mathf.Deg2Rad));
   }
 
-  public Vector2 getNormal() {
-    var o = toCartesian();
-    radius += 1;
-    o = toCartesian() - o;
-    radius -= 1;
-    return o.normalized;
-  }
+  //public Vector2 getNormal() {
+  //  var o = toCartesian();
+  //  radius += 1;
+  //  o = toCartesian() - o;
+  //  radius -= 1;
+  //  return o.normalized;
+  //}
 
   public void refresh() {
     Vector3 p = toCartesian();

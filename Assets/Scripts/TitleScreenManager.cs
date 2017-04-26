@@ -24,9 +24,6 @@ public class TitleScreenManager : MonoBehaviour {
     SetScreen("Main Menu");
     eventSystem = FindObjectOfType<EventSystem>();
 
-    float f;
-    int i;
-
     commonBG.SetActive(false);
     
     imageBlock.gameObject.SetActive(false);

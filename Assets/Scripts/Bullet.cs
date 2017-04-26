@@ -35,7 +35,7 @@ public class Bullet : MonoBehaviour {
           //ColliderDistance2D d = stepCol.Distance(pCol);
           //var v = d.pointB-d.pointA;
           var a = (stepCol.attachedRigidbody.worldCenterOfMass - pCol.attachedRigidbody.worldCenterOfMass).normalized;
-          var angle = Mathf.Acos(Vector2.Dot(a, mobile.getNormal())) * Mathf.Rad2Deg;
+          var angle = Mathf.Acos(Vector2.Dot(a, transform.up)) * Mathf.Rad2Deg;
           if (angle > 100) {
             pMob.radius = mobile.radius + gm.playerHeightOffset + 0.2f;
             pMob.refresh();

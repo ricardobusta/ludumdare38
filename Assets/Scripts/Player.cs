@@ -81,12 +81,12 @@ public class Player : MonoBehaviour {
 
   bool dead = false;
 
+  public GameManager gm;
+
   new Collider2D collider;
   ContactFilter2D playerFilter = new ContactFilter2D();
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
-
-  private GameManager gm;
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
@@ -233,41 +233,23 @@ public class Player : MonoBehaviour {
   }
 
   public void Position(float angle) {
-    GameManager gm = GameManager.Instance();
     mobile.radius = gm.planetRadius + gm.playerHeightOffset;
     mobile.angle = angle - 90;
     mobile.refresh();
   }
 
-  // Update is called once per frame
-  void Update() {
+  private void Update() {
     if (dead) {
       gameObject.SetActive(false);
       return;
     }
-    gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
 
     if (invulnerability > 0) {
       invulnerability -= Time.deltaTime;
     }
-    animator.SetBool("invulnerable", invulnerability > 0);
-    float planetR = gm.planetRadius;
 
-    if (onSomething && onSomething.isActiveAndEnabled) {
-      var nCast = collider.Cast(-mobile.getNormal(), rayResults, planetR);
-      if (nCast > 0) {
-        if (!rayResults [0].transform.name.Contains("Bullet")) {
-          onSomething = null;
-        } else if (rayResults [0].distance > 0.35) {
-          onSomething = null;  
-        }
-      } else {
-        onSomething = null;
-      }
-    } else {
-      onSomething = null;
-    }
+    animator.SetBool("invulnerable", invulnerability > 0);
 
     float h = Input.GetAxisRaw("P" + playerN + "_Horizontal");
     float v = Input.GetAxisRaw("P" + playerN + "_Vertical");
@@ -284,6 +266,8 @@ public class Player : MonoBehaviour {
     if (releaseJump) {
       print("releaseJump");
     }
+
+    float planetR = gm.planetRadius;
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
     bool wasOnGround = onGround;
@@ -383,13 +367,11 @@ public class Player : MonoBehaviour {
       trueHSpeed = hSpeed;
     }
 
-    // Cálculo de posição vertical e horizontal
-    mobile.Move(trueHSpeed, vSpeed);
-    if (trueHSpeed != 0 || vSpeed != 0)
-      HandleCollision();
-    //}
     // Animar na horizontal se ele estiver se movendo
     animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
+
+    // Cálculo de posição vertical e horizontal
+    mobile.Move(trueHSpeed, vSpeed);
 
     if (onSomething && onSomething.isActiveAndEnabled) {
       var bMob = onSomething.GetComponent<Mobile>();
@@ -399,7 +381,39 @@ public class Player : MonoBehaviour {
     Shoot();
     Melee();
     Dash();
-    //if (playerN == 1)
+  }
+
+  private void FixedUpdate() {
+    if (dead) {
+      gameObject.SetActive(false);
+      return;
+    }
+    if (gm.pause || gm.gameOver) { return; }
+
+    float planetR = gm.planetRadius;
+
+    if (onSomething && onSomething.isActiveAndEnabled) {
+      var nCast = collider.Cast(-transform.up, rayResults, planetR);
+      if (nCast > 0) {
+        if (!rayResults [0].transform.name.Contains("Bullet")) {
+          onSomething = null;
+        } else if (rayResults [0].distance > 0.35) {
+          onSomething = null;  
+        }
+      } else {
+        onSomething = null;
+      }
+    } else {
+      onSomething = null;
+    }
+
+    
+    if (trueHSpeed != 0 || vSpeed != 0)
+      HandleCollision();
+    //}
+    
+
+        //if (playerN == 1)
     //  Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,trueHSpeed, playerN);
   }
 }
