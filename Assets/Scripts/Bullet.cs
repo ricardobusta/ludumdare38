@@ -12,6 +12,8 @@ public class Bullet : MonoBehaviour {
 
   Collider2D hurtCol, stepCol;
 
+  public GameManager gm;
+
   private void Awake() {
     mobile = GetComponent<Mobile>();
     var cols = GetComponents<Collider2D>();
@@ -20,12 +22,13 @@ public class Bullet : MonoBehaviour {
   }
 
   private void Update() {
+    gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
     mobile.Move(speed);
   }
 
   private void FixedUpdate() {
-    GameManager gm = GameManager.Instance();
+    gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
 
     if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
