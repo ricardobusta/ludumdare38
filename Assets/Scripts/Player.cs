@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerKeybind {
   public static string GetHorizontal(int playerID) {
@@ -37,6 +38,8 @@ public class Player : MonoBehaviour {
   public BulletCounter bulletCounter;
   public FaceManager faceManager;
   public AudioClip hitSound;
+
+  public Image flowerCDindicator;
 
   Animator animator;
   Mobile mobile;
@@ -176,6 +179,10 @@ public class Player : MonoBehaviour {
       currentMeleeCD = meleeCD;
       animator.SetTrigger("attack");
       AudioManager.Instance().PlayAttack();
+    }
+    if (flowerCDindicator != null) {
+      float f = Mathf.Clamp01(currentMeleeCD / meleeCD);
+      flowerCDindicator.fillAmount = f;
     }
   }
 
