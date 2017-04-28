@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 
+/// </summary>
 public class MusicManager : MonoBehaviour {
   public AudioSource musicIntro;
   public AudioSource musicLoop;

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// The bullet projectile.
+/// </summary>
 public class Bullet : MonoBehaviour {
 
   public float initialSpeed;

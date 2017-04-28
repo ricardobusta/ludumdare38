@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the game itself. 
+/// </summary>
 public class GameManager : MonoBehaviour {
 
   static GameManager _instance;
@@ -37,6 +40,10 @@ public class GameManager : MonoBehaviour {
   public Player[] players;
 
   public float baseBulletSpeed;
+
+  private void Awake() {
+    Options.Load();
+  }
 
   /// <summary>
   /// 
@@ -133,20 +140,20 @@ public class GameManager : MonoBehaviour {
   /// 
   /// </summary>
   void Start() {
-    bool nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
+    bool nightMode = Options.nightMode;
     if (nightMode) {
       mainCamera.backgroundColor = nightModeColor;
     }
 
-    planetRadius = 0.0214f*PlayerPrefs.GetFloat("planetSize", 100);
+    planetRadius = 0.0214f * Options.planetSize;
     playerHeightOffset = 0.2f * planetRadius + 0.3f;
     planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
     mainCamera.orthographicSize = 2.336f * planetRadius;
     _instance = this;
 
-    baseBulletSpeed = 3 * PlayerPrefs.GetFloat("bulletSpeed", 100);
+    baseBulletSpeed = 3 * Options.bulletSpeed;
 
-    playerCount = PlayerPrefs.GetInt("noOfPlayers", 2);
+    playerCount = Options.numberOfPlayers;
     float ang = 360.0f / playerCount;
     print(ang);
     for (int i = 0; i < players.Length; i++) {
@@ -154,7 +161,7 @@ public class GameManager : MonoBehaviour {
       players[i].Position((ang * i) + 90);
     }
 
-    int bullet = playerCount * PlayerPrefs.GetInt("playerBullets", 5);
+    int bullet = playerCount * Options.playerBullets;
     for (int i = 0; i < bullet; i++) {
       Bullet b = Instantiate(bulletPrefab);
       b.gameObject.SetActive(false);

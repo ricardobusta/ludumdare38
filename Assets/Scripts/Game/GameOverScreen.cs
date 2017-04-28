@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the game over screen after the game ends.
+/// </summary>
 public class GameOverScreen : MonoBehaviour {
   // Update is called once per frame
   float timer = 1;

@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// A slider that uses whole values.
+/// </summary>
 public class OptionSlider : OptionGeneric {
-  public string playerPrefsValue = "prefOption";
-  public string optionName = "option";
   public string suffix = "%";
   public int minValue = 50;
   public int defaultValue = 100;
@@ -17,6 +18,9 @@ public class OptionSlider : OptionGeneric {
   public Text textValue;
   public Slider slider;
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Start() {
     textName.text = optionName;
     float f = PlayerPrefs.GetFloat(playerPrefsValue, defaultValue);
@@ -25,15 +29,19 @@ public class OptionSlider : OptionGeneric {
     slider.maxValue = maxValue;
     slider.value = f;
   }
-  static int i = 0;
+
+  /// <summary>
+  /// 
+  /// </summary>
   public void ValueChanged() {
-    i++;
-    print("valueChanged "+ optionName + i);
     float v = slider.value;
     PlayerPrefs.SetFloat(playerPrefsValue, v);
     textValue.text = v.ToString() + suffix;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public override void SetDefault() {
     slider.value = defaultValue;
   }

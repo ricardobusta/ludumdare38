@@ -2,21 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Controls the physics of a mobile element around the planet.
+/// </summary>
 public class Mobile : MonoBehaviour {
 
   public float radius = 0;
   public float angle = 0;
   public float direction = 1;
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Awake() {
     fromCartesian(transform.position);
   }
 
-  // Use this for initialization
-  void Start() {
-
-  }
-
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="speedx"></param>
+  /// <param name="speedy"></param>
   public void Move(float speedx, float speedy = 0) {
     if (speedx != 0) {
       Vector3 s = transform.localScale;

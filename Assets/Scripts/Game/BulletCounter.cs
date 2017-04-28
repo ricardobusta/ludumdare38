@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Controls the interface element that counts the number of bullets left for each player.
+/// </summary>
 public class BulletCounter : MonoBehaviour {
 
   public Text text;

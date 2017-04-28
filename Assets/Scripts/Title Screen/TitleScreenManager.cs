@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the title screen.
+/// </summary>
 public class TitleScreenManager : MonoBehaviour {
 
   EventSystem eventSystem;
@@ -28,7 +31,7 @@ public class TitleScreenManager : MonoBehaviour {
     eventSystem = FindObjectOfType<EventSystem>();
 
     commonBG.SetActive(false);
-    
+
     imageBlock.gameObject.SetActive(false);
   }
 

@@ -3,27 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerKeybind {
-  public static string GetHorizontal(int playerID) {
-    return "P" + (playerID) + "_Horizontal";
-  }
-  public static string GetVertical(int playerID) {
-    return "P" + (playerID) + "_Vertical";
-  }
-  public static string GetJump(int playerID) {
-    return "P" + (playerID) + "_Jump";
-  }
-  public static string GetFire(int playerID) {
-    return "P" + (playerID) + "_Fire";
-  }
-  public static string GetMelee(int playerID) {
-    return "P" + (playerID) + "_Melee";
-  }
-  public static string GetDash(int playerID) {
-    return "P" + (playerID) + "_Dash";
-  }
-}
-
+/// <summary>
+/// Represents a playable character. Control it's movements and actions.
+/// </summary>
 public class Player : MonoBehaviour {
   // Qual o número desse player
   public int playerN;
@@ -104,9 +86,9 @@ public class Player : MonoBehaviour {
   /// 
   /// </summary>
   private void Start() {
-    playerLives = PlayerPrefs.GetInt("playerLives", 3);
+    playerLives = Options.playerLives;
     maxPlayerLives = playerLives;
-    ammoLeft = PlayerPrefs.GetInt("playerBullets", 5);
+    ammoLeft = Options.playerBullets;
     bulletCounter.SetBulletCount(ammoLeft);
     playerFilter.SetLayerMask(LayerMask.GetMask("Player"));
     playerFilter.useLayerMask = true;

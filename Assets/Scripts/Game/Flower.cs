@@ -2,18 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 
+/// </summary>
 public class Flower : MonoBehaviour {
-
-  // Use this for initialization
-  void Start() {
-
-  }
-
-  // Update is called once per frame
-  void Update() {
-
-  }
-
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="x"></param>
   void OnCollisionEnter2D(Collision2D x) {
     if (x.gameObject.name.Contains("Player")) {
       var p = x.gameObject.GetComponent<Player>();
