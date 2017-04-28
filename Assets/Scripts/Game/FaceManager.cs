@@ -2,24 +2,24 @@
 using UnityEngine.UI;
 
 /// <summary>
-/// Manages the player portrait status
+/// Controls the face element of the interface that give a feedback on how much life left the player have.
 /// </summary>
 public class FaceManager : MonoBehaviour
 {
   /// <summary>
   /// Vector including all player portrait states 
-  /// </summary>
-  
+  /// </summary>  
   //TODO: J: Trocar isso por um enum.
   public Sprite[] sprites;  
   /// <summary>
   /// Unity UI component for player portrait
-  /// </summary>
+  /// </summary>  
   Image image;
 
   private void Start() {
     image = GetComponent<Image>();
   }
+
   /// <summary>
   /// Sets player portrait according to his health percentage
   /// </summary>
@@ -33,7 +33,7 @@ public class FaceManager : MonoBehaviour
     } else if(p > 0.5f) {
       image.sprite = sprites[1];
     //Grievous Wounds
-    }else if(p > 0) {
+    }else if(p > 0) {    
       image.sprite = sprites[2];
     //RIP in Pepperoni
     } else {

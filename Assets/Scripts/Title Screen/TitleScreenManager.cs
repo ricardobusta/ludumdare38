@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the title screen.
+/// </summary>
 public class TitleScreenManager : MonoBehaviour {
 
   EventSystem eventSystem;
@@ -20,15 +23,21 @@ public class TitleScreenManager : MonoBehaviour {
 
   public GameObject[] screens;
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Start() {
     SetScreen("Main Menu");
     eventSystem = FindObjectOfType<EventSystem>();
 
     commonBG.SetActive(false);
-    
+
     imageBlock.gameObject.SetActive(false);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void StartGame() {
     music1.Stop();
     music2.Stop();
@@ -40,6 +49,10 @@ public class TitleScreenManager : MonoBehaviour {
     eventSystem.SetSelectedGameObject(null);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   IEnumerator StartGameRoutine() {
     while (music2.isPlaying) {
       yield return new WaitForEndOfFrame();
@@ -47,10 +60,17 @@ public class TitleScreenManager : MonoBehaviour {
     SceneManager.LoadScene("game_scene");
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void Exit() {
     Application.Quit();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="scene"></param>
   public void SetScreen(string scene) {
     foreach (GameObject screen in screens) {
       screen.SetActive(screen.name == scene);
@@ -58,6 +78,9 @@ public class TitleScreenManager : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Update() {
     if (eventSystem.currentSelectedGameObject == null) {
       eventSystem.SetSelectedGameObject(previousSelected);

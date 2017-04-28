@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 
 /// <summary>
-/// Manages the Bullets of a player, updating the UI and managing the bullet repository.
+/// Controls the interface element that counts the number of bullets left for each player.
 /// </summary>
 public class BulletCounter : MonoBehaviour {
 
@@ -37,6 +37,7 @@ public class BulletCounter : MonoBehaviour {
   //private void Update() {
   //  SetBulletCount(bulletCount);
   //}
+
   /// <summary>
   /// Sets the on the UI and in the bullet repository the current count of bullets with a player.
   /// </summary>
@@ -45,16 +46,16 @@ public class BulletCounter : MonoBehaviour {
     
     if(count > bullets.Length) {
       image.gameObject.SetActive(true);
-      text.text = "x"+count.ToString();
+      text.text = "x" + count.ToString();
       bullets[0].SetActive(true);
-      for(int i = 1; i < bullets.Length; i++) {
+      for (int i = 1; i < bullets.Length; i++) {
         bullets[i].SetActive(false);
       }
     } else {
       image.gameObject.SetActive(false);
       for (int i = 0; i < bullets.Length; i++) {
         bullets[i].SetActive(i < count);
-        bullets[i].transform.localPosition = new Vector3(i*spacing, 0, 0);
+        bullets[i].transform.localPosition = new Vector3(i * spacing, 0, 0);
       }
     }
   }

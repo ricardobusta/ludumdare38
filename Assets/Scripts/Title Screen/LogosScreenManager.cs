@@ -4,12 +4,18 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// Controls the screen where the team logos show up.
+/// </summary>
 public class LogosScreenManager : MonoBehaviour {
 
   float timer = 2;
 
   public string gotoScene;
 
+  /// <summary>
+  /// 
+  /// </summary>
   void Update() {
     timer -= Time.deltaTime;
 
