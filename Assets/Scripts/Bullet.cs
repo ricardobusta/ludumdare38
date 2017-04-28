@@ -14,6 +14,9 @@ public class Bullet : MonoBehaviour {
 
   public GameManager gm;
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Awake() {
     mobile = GetComponent<Mobile>();
     var cols = GetComponents<Collider2D>();
@@ -21,12 +24,18 @@ public class Bullet : MonoBehaviour {
     stepCol = cols[1];
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Update() {
     gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
     mobile.Move(speed);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void FixedUpdate() {
     gm = GameManager.Instance();
     if (gm.pause || gm.gameOver) { return; }
@@ -63,14 +72,27 @@ public class Bullet : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="c"></param>
   public void SetColor(Color c) {
     GetComponent<SpriteRenderer>().color = c;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="s"></param>
   public void SetSprite(Sprite s) {
     GetComponent<SpriteRenderer>().sprite = s;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="mob"></param>
+  /// <param name="shootPoint"></param>
   public void Activate(Mobile mob, GameObject shootPoint) {
     Vector2 pos = shootPoint.transform.position;
     mobile.fromCartesian(pos.x, pos.y);
@@ -82,6 +104,9 @@ public class Bullet : MonoBehaviour {
     mobile.refresh();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void RemoveSelf() {
     gameObject.SetActive(false);
 

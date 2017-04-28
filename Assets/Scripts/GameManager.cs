@@ -38,18 +38,34 @@ public class GameManager : MonoBehaviour {
 
   public float baseBulletSpeed;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public static GameManager Instance() {
     return _instance;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="go"></param>
+  /// <param name="seconds"></param>
   public static void Respawn(GameObject go, float seconds) {
     _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public static void RotateScreen() {
     _instance.StartCoroutine(_instance.RotateScreenCoroutine());
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public IEnumerator RotateScreenCoroutine() {
     pause = true;
     float totalTime = 3;
@@ -70,6 +86,12 @@ public class GameManager : MonoBehaviour {
     pause = false;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="go"></param>
+  /// <param name="seconds"></param>
+  /// <returns></returns>
   public IEnumerator RespawnCoroutine(GameObject go, float seconds) {
     print(go.name);
     print(seconds);
@@ -78,6 +100,10 @@ public class GameManager : MonoBehaviour {
     go.SetActive(true);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public bool CheckGameOver() {
     int alive_count = 0;
     bool uno = false;
@@ -103,6 +129,9 @@ public class GameManager : MonoBehaviour {
   //}
 
   // Use this for initialization
+  /// <summary>
+  /// 
+  /// </summary>
   void Start() {
     bool nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
     if (nightMode) {
@@ -143,6 +172,10 @@ public class GameManager : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public Bullet GetFreeBullet() {
     for (int i = 0; i < bulletPool.Count; i++) {
       if (!bulletPool[i].gameObject.activeSelf) {
@@ -152,6 +185,9 @@ public class GameManager : MonoBehaviour {
     return null;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void Finish() {
     gameOverImage.gameObject.SetActive(true);
     bool draw = true;
@@ -168,10 +204,17 @@ public class GameManager : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void StartScreenShake() {
     StartCoroutine(ScreenShake());
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   IEnumerator ScreenShake() {
     Vector3 basicCamPos = -Vector3.back * 10;
 
@@ -185,6 +228,9 @@ public class GameManager : MonoBehaviour {
     mainCamera.transform.position = Vector3.zero - basicCamPos;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void Restart() {
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
   }

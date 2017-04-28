@@ -17,19 +17,23 @@ public class BulletCounter : MonoBehaviour {
   //  SetBulletCount(bulletCount);
   //}
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="count"></param>
   public void SetBulletCount(int count) {
-    if(count > bullets.Length) {
+    if (count > bullets.Length) {
       image.gameObject.SetActive(true);
-      text.text = "x"+count.ToString();
+      text.text = "x" + count.ToString();
       bullets[0].SetActive(true);
-      for(int i = 1; i < bullets.Length; i++) {
+      for (int i = 1; i < bullets.Length; i++) {
         bullets[i].SetActive(false);
       }
     } else {
       image.gameObject.SetActive(false);
       for (int i = 0; i < bullets.Length; i++) {
-        bullets[i].SetActive(i<count);
-        bullets[i].transform.localPosition = new Vector3(i*spacing, 0, 0);
+        bullets[i].SetActive(i < count);
+        bullets[i].transform.localPosition = new Vector3(i * spacing, 0, 0);
       }
     }
   }

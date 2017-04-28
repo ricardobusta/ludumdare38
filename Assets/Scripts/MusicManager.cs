@@ -5,25 +5,45 @@ public class MusicManager : MonoBehaviour {
   public AudioSource musicIntro;
   public AudioSource musicLoop;
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="intro"></param>
+  /// <param name="loop"></param>
   public void SetMusic(AudioClip intro, AudioClip loop) {
     musicIntro.clip = intro;
     musicLoop.clip = loop;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void StopMusic() {
     musicIntro.Stop();
     musicLoop.Stop();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public float GetVolume() {
     return musicLoop.volume;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="volume"></param>
   public void SetVolume(float volume) {
     musicIntro.volume = volume;
     musicLoop.volume = volume;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="pitch"></param>
   public void SetPitch(float pitch) {
     if (musicIntro.isPlaying) {
       musicIntro.Stop();
@@ -32,6 +52,9 @@ public class MusicManager : MonoBehaviour {
     musicLoop.pitch = pitch;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void PlayMusic() {
     if (musicIntro.clip != null) {
       musicIntro.Play();
@@ -45,6 +68,9 @@ public class MusicManager : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Start() {
     PlayMusic();
   }

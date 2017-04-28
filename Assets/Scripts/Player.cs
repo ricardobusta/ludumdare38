@@ -91,12 +91,18 @@ public class Player : MonoBehaviour {
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Awake() {
     mobile = GetComponent<Mobile>();
     animator = GetComponent<Animator>();
     collider = GetComponent<Collider2D>();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Start() {
     playerLives = PlayerPrefs.GetInt("playerLives", 3);
     maxPlayerLives = playerLives;
@@ -107,6 +113,9 @@ public class Player : MonoBehaviour {
     animator.SetInteger("player_health", playerLives);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   void HandleCollision() {
     if (collider.GetContacts(playerFilter, obstacles) > 0) {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
@@ -136,10 +145,17 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public bool Invulnerable() {
     return invulnerability > 0;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   void Shoot() {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
@@ -152,6 +168,9 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   void ActualShoot() {
     Bullet b = GameManager.Instance().GetFreeBullet();
     if (b != null) {
@@ -171,6 +190,9 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   void Melee() {
     if (currentMeleeCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
@@ -186,6 +208,10 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   float Dash() {
     // Durante o dash, o jogador se comporta de um jeito diferente
     if (currentDashDuration < 0) {
@@ -208,12 +234,20 @@ public class Player : MonoBehaviour {
     return dashDirection * dashSpeedMultiplier;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="active"></param>
   public void SetActive(bool active) {
     faceManager.gameObject.SetActive(active);
     bulletCounter.gameObject.SetActive(active);
     gameObject.SetActive(active);
   }
 
+  /// <summary>
+  /// Makes the user take damage.
+  /// </summary>
+  /// <param name="i">amount of damage taken</param>
   public void TakeDamage(int i = 1) {
     if (invulnerability > 0) {
       return;
@@ -239,12 +273,19 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="angle"></param>
   public void Position(float angle) {
     mobile.radius = gm.planetRadius + gm.playerHeightOffset;
     mobile.angle = angle - 90;
     mobile.refresh();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   private void Update() {
     if (dead) {
       gameObject.SetActive(false);
