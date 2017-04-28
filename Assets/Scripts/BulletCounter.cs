@@ -3,21 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+/// <summary>
+/// Manages the Bullets of a player, updating the UI and managing the bullet repository.
+/// </summary>
 public class BulletCounter : MonoBehaviour {
 
+  /// <summary>
+  /// UI component with the bullets remaining text 'xN'
+  /// </summary>
   public Text text;
+  
+  /// <summary>
+  /// Bullet object themselves
+  /// </summary>
   public GameObject[] bullets;
-  public Image image;
 
+  /// <summary>
+  /// J: No Idea :(
+  /// </summary>
+  public Image image;
+  
+  /// <summary>
+  /// Padding to position the bullet in front of a player
+  /// J: É um bocado errado usar essa classe para posicionar a bala no cenário. IMO, ela deveria só retornar uma bala para o jogador, e fazer todo o trabalho de gerenciamento de balas por baixo
+  /// ie. método GameObject getBullet()
+  /// </summary>
   const float spacing = 50;
 
-  public int bulletCount;
+  //Dead var
+  //public int bulletCount;
 
   //private void Update() {
   //  SetBulletCount(bulletCount);
   //}
-
+  /// <summary>
+  /// Sets the on the UI and in the bullet repository the current count of bullets with a player.
+  /// </summary>
+  /// <param name="count">Current number of bullets with a player</param>
   public void SetBulletCount(int count) {
+    
     if(count > bullets.Length) {
       image.gameObject.SetActive(true);
       text.text = "x"+count.ToString();
@@ -28,7 +53,7 @@ public class BulletCounter : MonoBehaviour {
     } else {
       image.gameObject.SetActive(false);
       for (int i = 0; i < bullets.Length; i++) {
-        bullets[i].SetActive(i<count);
+        bullets[i].SetActive(i < count);
         bullets[i].transform.localPosition = new Vector3(i*spacing, 0, 0);
       }
     }

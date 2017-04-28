@@ -24,18 +24,26 @@ public class PlayerKeybind {
 }
 
 public class Player : MonoBehaviour {
-  // Qual o número desse player
+  /// <summary>
+  /// Qual o número desse player
+  /// </summary>
   public int playerN;
-
+  
   public Color bulletColor;
 
   int maxPlayerLives;
   public int playerLives = 3;
 
   public int ammoLeft = 5;
-
+  /// <summary>
+  /// Mangaes the players' bullets
+  /// </summary>
   public BulletCounter bulletCounter;
+  /// <summary>
+  /// Manages the players' portait
+  /// </summary>
   public FaceManager faceManager;
+  
   public AudioClip hitSound;
 
   Animator animator;
@@ -43,6 +51,7 @@ public class Player : MonoBehaviour {
 
   public GameObject shootPoint;
 
+  // Variáveis de controle de pulo: considerar criar uma classe separada, ou ao menos um a sessão separada dentro dessa classe.
   // Player está no chão?
   bool onGround = false;
   public Bullet onSomething = null;
@@ -50,14 +59,14 @@ public class Player : MonoBehaviour {
   bool ducking = false;
   bool doubleJumping = false;
   float doubleJumpingHeight = 0;
-
+  //Moar pulo
   public float maxHSpeed = 180;
   public float maxVSpeed = 3;
   private float gravity = 8f;
   private float airDrag = 3f;
   private float trueHSpeed = 0;
 
-  // Essa é a velocidade atual
+  // Velocidade atual do jogador
   public float vSpeed = 0;
   public float hSpeed = 0;
 
@@ -66,7 +75,8 @@ public class Player : MonoBehaviour {
 
   public float meleeCD = 1;
   float currentMeleeCD = 0;
-
+  
+  //Variáveis de controle do dash
   public float dashCD = 1;
   float currentDashCD = 0;
   public float dashDuration = 0.5f;
@@ -74,6 +84,7 @@ public class Player : MonoBehaviour {
   float dashDirection = 0;
   public float dashSpeedMultiplier = 4;
 
+  //Variáveis de controle da invulnerabilidade;
   public float invulnerabilityTime = 1;
   float invulnerability = 0;
 
