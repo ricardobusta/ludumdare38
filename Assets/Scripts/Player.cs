@@ -54,6 +54,7 @@ public class Player : MonoBehaviour {
   // Variáveis de controle de pulo: considerar criar uma classe separada, ou ao menos um a sessão separada dentro dessa classe.
   // Player está no chão?
   bool onGround = false;
+  //Tou seriamente triggerado com o nome dessa variável.
   public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour {
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
 
-  private void Awake() {
+  private void Awake/*N WAGA ARU JI TACHI O!*/() {
     mobile = GetComponent<Mobile>();
     animator = GetComponent<Animator>();
     collider = GetComponent<Collider2D>();
@@ -144,10 +145,15 @@ public class Player : MonoBehaviour {
     }
   }
 
+  //Todo: Maybe transformar isso em property?
+  /// <returns>Returns true if player is invunerable, false if it is not.</returns>
   public bool Invulnerable() {
     return invulnerability > 0;
   }
 
+  /// <summary>
+  /// Sets the bullet animation and cooldown if the bullet CD is over.
+  /// </summary>
   void Shoot() {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
@@ -160,6 +166,9 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// Acctualy does the shooting logic, wtf.
+  /// </summary>
   void ActualShoot() {
     Bullet b = GameManager.Instance().GetFreeBullet();
     if (b != null) {

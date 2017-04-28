@@ -14,7 +14,8 @@ public class GameManager : MonoBehaviour {
 
   static GameManager _instance;
   //C# property implementation for singletons.
-  public static GameManager Instance {get{ return _instance;}}
+  //Deixei as duas implementações, depois ir trocando.
+  //public static GameManager Instance {get{ return _instance;}}
   
   public Bullet bulletPrefab;
 
@@ -46,9 +47,10 @@ public class GameManager : MonoBehaviour {
 
   public float baseBulletSpeed;
 
-  //public static GameManager Instance() {
-  //  return _instance;
-  //}
+  public static GameManager Instance()
+  {
+    return _instance;
+  }
 
   /// <summary>
   /// Starts the Respawn coroutine
