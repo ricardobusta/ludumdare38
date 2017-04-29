@@ -9,7 +9,7 @@ public class Item : MonoBehaviour {
 
   ContactFilter2D filter = new ContactFilter2D();
   Collider2D[] obstacles = new Collider2D[1];
-  new Collider2D collider;
+  Collider2D collider2d;
 
   /// <summary>
   /// 
@@ -22,7 +22,7 @@ public class Item : MonoBehaviour {
     }
 
 
-    collider = GetComponent<Collider2D>();
+    collider2d = GetComponent<Collider2D>();
     filter.SetLayerMask(LayerMask.GetMask("Player"));
   }
 
@@ -30,7 +30,7 @@ public class Item : MonoBehaviour {
   /// 
   /// </summary>
   private void Update() {
-    if (collider.GetContacts(filter, obstacles) > 0) {
+    if (collider2d.GetContacts(filter, obstacles) > 0) {
       transform.position = Vector3.Scale(transform.position, new Vector3(1, -1, 1));
       float s = Random.Range(5, 15);
       GameManager.Respawn(gameObject, s);

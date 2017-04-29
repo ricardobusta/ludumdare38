@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
   /// Qual o número desse player
   /// </summary>
   public int playerN;
-  
+
   public Color bulletColor;
 
   int maxPlayerLives;
@@ -26,7 +26,7 @@ public class Player : MonoBehaviour {
   /// Manages the players' portait
   /// </summary>
   public FaceManager faceManager;
-  
+
   public AudioClip hitSound;
 
   public Image flowerCDindicator;
@@ -61,7 +61,7 @@ public class Player : MonoBehaviour {
 
   public float meleeCD = 1;
   float currentMeleeCD = 0;
-  
+
   //Variáveis de controle do dash
   public float dashCD = 1;
   float currentDashCD = 0;
@@ -137,6 +137,9 @@ public class Player : MonoBehaviour {
     }
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   //Todo: Maybe transformar isso em property?
   /// <returns>Returns true if player is invunerable, false if it is not.</returns>  
   public bool Invulnerable() {
@@ -144,7 +147,7 @@ public class Player : MonoBehaviour {
   }
 
   /// <summary>
-  /// Sets the bullet animation and cooldown if the bullet CD is over.
+  /// Initiate the firing animation. Don't actually shoot the bullet. That's what the animation do.
   /// </summary>
   void Shoot() {
     if (currentFireCD > 0) {
@@ -159,7 +162,7 @@ public class Player : MonoBehaviour {
   }
 
   /// <summary>
-  /// Acctualy does the shooting logic, wtf.
+  /// Script that executes when the animation hits the shooting frame, which actually releases the bullet and plays the fire sound.
   /// </summary>
   void ActualShoot() {
     Bullet b = GameManager.Instance().GetFreeBullet();
@@ -181,7 +184,7 @@ public class Player : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Verify if the player has attacked with melee strike.
   /// </summary>
   void Melee() {
     if (currentMeleeCD > 0) {
@@ -199,7 +202,7 @@ public class Player : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Verifies if the player is dashing and executes the move..
   /// </summary>
   /// <returns></returns>
   float Dash() {
@@ -225,7 +228,7 @@ public class Player : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Enables the character, and every asset that's connected to it (like the character face and character bullet count.)
   /// </summary>
   /// <param name="active"></param>
   public void SetActive(bool active) {
