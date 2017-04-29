@@ -152,6 +152,7 @@ public class GameManager : MonoBehaviour {
     _instance = this;
 
     baseBulletSpeed = 3 * Options.bulletSpeed;
+    print(baseBulletSpeed);
 
     playerCount = Options.numberOfPlayers;
     float ang = 360.0f / playerCount;

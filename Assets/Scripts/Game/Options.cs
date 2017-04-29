@@ -15,7 +15,7 @@ public class Options {
     playerLives = PlayerPrefs.GetInt("playerLives", 5);
     playerBullets = PlayerPrefs.GetInt("playerBullets", 6);
     numberOfPlayers = PlayerPrefs.GetInt("noOfPlayers", 2);
-    bulletSpeed = PlayerPrefs.GetInt("bulletSpeed", 100);
+    bulletSpeed = PlayerPrefs.GetFloat("bulletSpeed", 100);
     nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
     turnPlanetItem = (PlayerPrefs.GetInt("turnPlanetItem", 1) == 1);
   }

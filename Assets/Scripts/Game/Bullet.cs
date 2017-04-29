@@ -103,6 +103,7 @@ public class Bullet : MonoBehaviour {
     //mobile.radius = mob.radius;
     mobile.direction = mob.direction;
     initialSpeed = GameManager.Instance().baseBulletSpeed;
+    print(initialSpeed);
     speed = initialSpeed * mob.direction;
     mobile.refresh();
   }
