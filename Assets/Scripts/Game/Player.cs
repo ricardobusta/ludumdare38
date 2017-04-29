@@ -165,7 +165,7 @@ public class Player : MonoBehaviour {
   /// Script that executes when the animation hits the shooting frame, which actually releases the bullet and plays the fire sound.
   /// </summary>
   void ActualShoot() {
-    Bullet b = GameManager.Instance().GetFreeBullet();
+    Bullet b = GameManager.Instance.GetFreeBullet();
     if (b != null) {
       ammoLeft--;
       bulletCounter.SetBulletCount(ammoLeft);
@@ -249,7 +249,7 @@ public class Player : MonoBehaviour {
       return;
     }
     invulnerability = invulnerabilityTime;
-    GameManager.Instance().StartScreenShake();
+    GameManager.Instance.StartScreenShake();
     AudioManager.Play(hitSound);
     animator.SetTrigger("hit");
     playerLives -= i;

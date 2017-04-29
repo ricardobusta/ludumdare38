@@ -31,7 +31,7 @@ public class Bullet : MonoBehaviour {
   /// 
   /// </summary>
   private void Update() {
-    gm = GameManager.Instance();
+    gm = GameManager.Instance;
     if (gm.pause || gm.gameOver) { return; }
     mobile.Move(speed);
   }
@@ -40,11 +40,11 @@ public class Bullet : MonoBehaviour {
   /// 
   /// </summary>
   private void FixedUpdate() {
-    gm = GameManager.Instance();
+    gm = GameManager.Instance;
     if (gm.pause || gm.gameOver) { return; }
 
     if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
-      foreach (Player p in GameManager.Instance().players) {
+      foreach (Player p in GameManager.Instance.players) {
         if (stepCol.IsTouching(p.GetComponent<Collider2D>())) {
           var pCol = p.GetComponent<Collider2D>();
           var pMob = p.GetComponent<Mobile>();
@@ -65,7 +65,7 @@ public class Bullet : MonoBehaviour {
 
 
     if (hurtCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
-      foreach (Player p in GameManager.Instance().players) {
+      foreach (Player p in GameManager.Instance.players) {
         if (p.Invulnerable()) { continue; }
         if (hurtCol.IsTouching(p.GetComponent<Collider2D>())) {
           p.TakeDamage();
@@ -102,7 +102,7 @@ public class Bullet : MonoBehaviour {
     //mobile.angle = mob.angle + (mob.direction * bulletAngleOffset / mob.radius);
     //mobile.radius = mob.radius;
     mobile.direction = mob.direction;
-    initialSpeed = GameManager.Instance().baseBulletSpeed;
+    initialSpeed = GameManager.Instance.baseBulletSpeed;
     print(initialSpeed);
     speed = initialSpeed * mob.direction;
     mobile.refresh();

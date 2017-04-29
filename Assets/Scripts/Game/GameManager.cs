@@ -10,12 +10,10 @@ using UnityEngine.UI;
 /// </summary>
 public class GameManager : MonoBehaviour {
 
-
-  static GameManager _instance;
   //C# property implementation for singletons.
   //Deixei as duas implementações, depois ir trocando.
-  //public static GameManager Instance {get{ return _instance;}}
-  
+  public static GameManager Instance { get; private set; }
+
   public Bullet bulletPrefab;
 
   List<Bullet> bulletPool = new List<Bullet>();
@@ -46,12 +44,12 @@ public class GameManager : MonoBehaviour {
 
   public float baseBulletSpeed;
 
+  const string drawGameMessage = "Draw Game!";
+  const string winGameMessage = "Player {0} wins!";
+
   private void Awake() {
+    Instance = this;
     Options.Load();
-  }
-    
-  public static GameManager Instance() {
-    return _instance;
   }
 
   /// <summary>
@@ -60,16 +58,8 @@ public class GameManager : MonoBehaviour {
   /// <param name="go">Game Object to be respawned</param>
   /// <param name="seconds">Number of seconds on wait before respawn</param>
   public static void Respawn(GameObject go, float seconds) {
-    _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
+    Instance.StartCoroutine(Instance.RespawnCoroutine(go, seconds));
   }
-
-  ///// 
-  ///// </summary>
-  ///// <param name="go"></param>
-  ///// <param name="seconds"></param>
-  //public static void Respawn(GameObject go, float seconds) {
-  //  _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
-  //}
 
   /// <summary>
   /// Starts camera rotation coroutine
@@ -77,7 +67,7 @@ public class GameManager : MonoBehaviour {
   /// </summary>
   /// <returns></returns>
   public static void RotateScreen() {
-    _instance.StartCoroutine(_instance.RotateScreenCoroutine());
+    Instance.StartCoroutine(Instance.RotateScreenCoroutine());
   }
 
   /// <summary>
@@ -121,8 +111,7 @@ public class GameManager : MonoBehaviour {
   /// <summary>
   /// Starts the screen shake coroutine
   /// </summary>
-  public void StartScreenShake()
-  {
+  public void StartScreenShake() {
     StartCoroutine(ScreenShake());
   }
 
@@ -130,13 +119,11 @@ public class GameManager : MonoBehaviour {
   /// Shakes the screen on a 0.5s period.
   /// </summary>
   /// <returns></returns>
-  IEnumerator ScreenShake()
-  {
+  IEnumerator ScreenShake() {
     Vector3 basicCamPos = -Vector3.back * 10;
 
     float timer = 0.5f;
-    while (timer > 0)
-    {
+    while (timer > 0) {
       timer -= Time.deltaTime;
       Vector3 x = Random.insideUnitCircle * 0.1f;
       mainCamera.transform.position = x - basicCamPos;
@@ -149,30 +136,29 @@ public class GameManager : MonoBehaviour {
   /// Check if the game is over. The game is over when a player reaches zero lives.
   /// </summary>
   /// <returns>Return true the game over condition was reached, false otherwise.</returns>
-  /// 
-  /// </summary>
-  /// <returns></returns>
   public bool CheckGameOver() {
     int alive_count = 0;
-    bool uno = false;
+    // Boolean value that Check if there is any player with only one life left
+    //bool uno = false;
     for (int i = 0; i < playerCount; i++) {
       if (players[i].playerLives > 0) {
         alive_count++;
-        uno |= players[i].playerLives == 1;
+        //uno |= players[i].playerLives == 1;
       }
     }
     if (alive_count <= 1) {
       return true;
     }
-    if (alive_count <= 2 && uno) {
-      musicManager.SetPitch(1.5f);
-    }
+    // Accelerate the music when it's 1 life left.
+    //if (alive_count <= 2 && uno) {
+    //  musicManager.SetPitch(1.5f);
+    //}
     return false;
   }
 
-
-
-  // Use this for initialization  
+  /// <summary>
+  /// 
+  /// </summary>
   void Start() {
     bool nightMode = Options.nightMode;
     if (nightMode) {
@@ -183,7 +169,7 @@ public class GameManager : MonoBehaviour {
     playerHeightOffset = 0.2f * planetRadius + 0.3f;
     planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
     mainCamera.orthographicSize = 2.336f * planetRadius;
-    _instance = this;
+    Instance = this;
 
     baseBulletSpeed = 3 * Options.bulletSpeed;
     print(baseBulletSpeed);
@@ -235,19 +221,17 @@ public class GameManager : MonoBehaviour {
     bool draw = true;
     foreach (Player p in players) {
       if (p.playerLives > 0) {
-        //Ewww, hardcoded strings.
-        winnerText.text = "Player " + p.playerN + " wins!";
+        winnerText.text = string.Format(winGameMessage, p.playerN);
         winnerText.color = p.bulletColor;
         draw = false;
         return;
       }
     }
     if (draw) {
-      //Ewww, hardcoded strings[2].
-      winnerText.text = "Draw Game!";
+      winnerText.text = drawGameMessage;
     }
   }
- 
+
   /// <summary>
   /// Restarts the whole scene. 
   /// </summary>
