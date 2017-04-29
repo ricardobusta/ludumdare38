@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 /// <summary>
-/// Manages the game itself. 
+/// World management class (Singleton).
+/// J: Talvez fosse melhor desmembrar essa classe em algumas, but not sure.
 /// </summary>
 public class GameManager : MonoBehaviour {
 
-  static GameManager _instance;
 
+  static GameManager _instance;
+  //C# property implementation for singletons.
+  //Deixei as duas implementações, depois ir trocando.
+  //public static GameManager Instance {get{ return _instance;}}
+  
   public Bullet bulletPrefab;
 
   List<Bullet> bulletPool = new List<Bullet>();
@@ -44,33 +49,40 @@ public class GameManager : MonoBehaviour {
   private void Awake() {
     Options.Load();
   }
-
-  /// <summary>
-  /// 
-  /// </summary>
-  /// <returns></returns>
+    
   public static GameManager Instance() {
     return _instance;
   }
 
   /// <summary>
-  /// 
+  /// Starts the Respawn coroutine
   /// </summary>
-  /// <param name="go"></param>
-  /// <param name="seconds"></param>
+  /// <param name="go">Game Object to be respawned</param>
+  /// <param name="seconds">Number of seconds on wait before respawn</param>
   public static void Respawn(GameObject go, float seconds) {
     _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
   }
 
+  ///// 
+  ///// </summary>
+  ///// <param name="go"></param>
+  ///// <param name="seconds"></param>
+  //public static void Respawn(GameObject go, float seconds) {
+  //  _instance.StartCoroutine(_instance.RespawnCoroutine(go, seconds));
+  //}
+
   /// <summary>
-  /// 
+  /// Starts camera rotation coroutine
+  /// J: Talvez fosse melhor passar o ângulo de rotação como parâmetro ;)
   /// </summary>
+  /// <returns></returns>
   public static void RotateScreen() {
     _instance.StartCoroutine(_instance.RotateScreenCoroutine());
   }
 
   /// <summary>
-  /// 
+  /// Starts corroutine to rotate the camera 180 degrees
+  /// J: Talvez fosse melhor passar o ângulo de rotação como parâmetro ;)
   /// </summary>
   /// <returns></returns>
   public IEnumerator RotateScreenCoroutine() {
@@ -94,11 +106,10 @@ public class GameManager : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Starts unity corroutine to respawn a given game object after x seconds
   /// </summary>
-  /// <param name="go"></param>
-  /// <param name="seconds"></param>
-  /// <returns></returns>
+  /// <param name="go">Game Object to be respawned</param>
+  /// <param name="seconds">Number of seconds on wait before respawn</param>
   public IEnumerator RespawnCoroutine(GameObject go, float seconds) {
     print(go.name);
     print(seconds);
@@ -108,6 +119,36 @@ public class GameManager : MonoBehaviour {
   }
 
   /// <summary>
+  /// Starts the screen shake coroutine
+  /// </summary>
+  public void StartScreenShake()
+  {
+    StartCoroutine(ScreenShake());
+  }
+
+  /// <summary>
+  /// Shakes the screen on a 0.5s period.
+  /// </summary>
+  /// <returns></returns>
+  IEnumerator ScreenShake()
+  {
+    Vector3 basicCamPos = -Vector3.back * 10;
+
+    float timer = 0.5f;
+    while (timer > 0)
+    {
+      timer -= Time.deltaTime;
+      Vector3 x = Random.insideUnitCircle * 0.1f;
+      mainCamera.transform.position = x - basicCamPos;
+      yield return new WaitForEndOfFrame();
+    }
+    mainCamera.transform.position = Vector3.zero - basicCamPos;
+  }
+
+  /// <summary>
+  /// Check if the game is over. The game is over when a player reaches zero lives.
+  /// </summary>
+  /// <returns>Return true the game over condition was reached, false otherwise.</returns>
   /// 
   /// </summary>
   /// <returns></returns>
@@ -129,16 +170,9 @@ public class GameManager : MonoBehaviour {
     return false;
   }
 
-  //private void Update() {
-  //  playerHeightOffset = (0.6f / 4) * planetRadius;
-  //  planet.transform.localScale = Vector3.one * planetRadius / 2.14f;
-  //  mainCamera.orthographicSize = 2.336f * planetRadius;
-  //}
 
-  // Use this for initialization
-  /// <summary>
-  /// 
-  /// </summary>
+
+  // Use this for initialization  
   void Start() {
     bool nightMode = Options.nightMode;
     if (nightMode) {
@@ -181,7 +215,7 @@ public class GameManager : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Activates and returns a bullet from the bullet pool.
   /// </summary>
   /// <returns></returns>
   public Bullet GetFreeBullet() {
@@ -194,13 +228,14 @@ public class GameManager : MonoBehaviour {
   }
 
   /// <summary>
-  /// 
+  /// Ends a match, and shows the winner/draw message.
   /// </summary>
   public void Finish() {
     gameOverImage.gameObject.SetActive(true);
     bool draw = true;
     foreach (Player p in players) {
       if (p.playerLives > 0) {
+        //Ewww, hardcoded strings.
         winnerText.text = "Player " + p.playerN + " wins!";
         winnerText.color = p.bulletColor;
         draw = false;
@@ -208,36 +243,13 @@ public class GameManager : MonoBehaviour {
       }
     }
     if (draw) {
+      //Ewww, hardcoded strings[2].
       winnerText.text = "Draw Game!";
     }
   }
-
+ 
   /// <summary>
-  /// 
-  /// </summary>
-  public void StartScreenShake() {
-    StartCoroutine(ScreenShake());
-  }
-
-  /// <summary>
-  /// 
-  /// </summary>
-  /// <returns></returns>
-  IEnumerator ScreenShake() {
-    Vector3 basicCamPos = -Vector3.back * 10;
-
-    float timer = 0.5f;
-    while (timer > 0) {
-      timer -= Time.deltaTime;
-      Vector3 x = Random.insideUnitCircle * 0.1f;
-      mainCamera.transform.position = x - basicCamPos;
-      yield return new WaitForEndOfFrame();
-    }
-    mainCamera.transform.position = Vector3.zero - basicCamPos;
-  }
-
-  /// <summary>
-  /// 
+  /// Restarts the whole scene. 
   /// </summary>
   public void Restart() {
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
