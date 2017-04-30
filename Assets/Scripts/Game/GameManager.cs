@@ -10,42 +10,31 @@ using UnityEngine.UI;
 /// </summary>
 public class GameManager : MonoBehaviour {
 
-  //C# property implementation for singletons.
-  //Deixei as duas implementações, depois ir trocando.
-  public static GameManager Instance { get; private set; }
-
-  public Bullet bulletPrefab;
-
-  List<Bullet> bulletPool = new List<Bullet>();
-
+  [Header("Parameters")]
   public float planetRadius = 10;
   public float playerHeightOffset = 0.6f;
-
-  public Text winnerText;
-  public Image gameOverImage;
-
-  public GameObject planet;
-  public Camera mainCamera;
-
   public Color nightModeColor;
-
   public bool pause = false;
-
-  public GameObject starsContainer;
-  public GameObject[] stars;
-
   public bool gameOver = false;
-
   int playerCount;
-
-  public MusicManager musicManager;
-
-  public Player[] players;
-
   public float baseBulletSpeed;
-
   const string drawGameMessage = "Draw Game!";
   const string winGameMessage = "Player {0} wins!";
+
+  [Header("Structure")]
+  public Bullet bulletPrefab;
+  List<Bullet> bulletPool = new List<Bullet>();
+  public Text winnerText;
+  public Image gameOverImage;
+  public GameObject planet;
+  public Camera mainCamera;
+  public GameObject starsContainer;
+  public GameObject[] stars;
+  public MusicManager musicManager;
+  public GameObject pauseScreen;
+  public Player[] players;
+
+  public static GameManager Instance { get; private set; }
 
   private void Awake() {
     Instance = this;
@@ -53,7 +42,7 @@ public class GameManager : MonoBehaviour {
   }
 
   /// <summary>
-  /// Starts the Respawn coroutine
+  /// CoRoutine that starts a timer that re-enables the game object.
   /// </summary>
   /// <param name="go">Game Object to be respawned</param>
   /// <param name="seconds">Number of seconds on wait before respawn</param>
@@ -191,6 +180,7 @@ public class GameManager : MonoBehaviour {
     }
 
     gameOverImage.gameObject.SetActive(false);
+    pauseScreen.SetActive(false);
 
     starsContainer.transform.localRotation = Quaternion.Euler(0, 0, Random.Range(0.0f, 360.0f));
     starsContainer.transform.localScale = Vector3.one * planetRadius / 2.15f;
@@ -238,5 +228,21 @@ public class GameManager : MonoBehaviour {
   /// </summary>
   public void Restart() {
     SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+  }
+
+  private void Update() {
+    if (!pause && Input.GetButton("Submit")) {
+      pause = true;
+      pauseScreen.SetActive(true);
+    }
+  }
+
+  public void MainMenu() {
+    SceneManager.LoadScene("title_screen");
+  }
+
+  public void Continue() {
+    pause = false;
+    pauseScreen.SetActive(false);
   }
 }

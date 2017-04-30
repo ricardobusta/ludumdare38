@@ -36,12 +36,4 @@ public class GameOverScreen : MonoBehaviour {
       }
     }
   }
-
-  public void Replay() {
-    SceneManager.LoadScene("game_scene");
-  }
-
-  public void MainMenu() {
-    SceneManager.LoadScene("title_screen");
-  }
 }

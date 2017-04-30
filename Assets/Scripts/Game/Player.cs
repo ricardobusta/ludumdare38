@@ -286,7 +286,11 @@ public class Player : MonoBehaviour {
       return;
     }
 
-    if (gm.pause || gm.gameOver) { return; }
+    if (gm.pause || gm.gameOver) {
+      animator.speed = 0;
+      return;
+    }
+    animator.speed = 1;
 
     if (invulnerability > 0) {
       invulnerability -= Time.deltaTime;
