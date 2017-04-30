@@ -44,23 +44,44 @@ public class Mobile : MonoBehaviour {
     //rb.velocity = speed;
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="x"></param>
+  /// <param name="y"></param>
   public void fromCartesian(float x, float y) {
     radius = Mathf.Sqrt(x * x + y * y);
     angle = Mathf.Rad2Deg * -Mathf.Atan2(y, x);
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <param name="v"></param>
   public void fromCartesian(Vector3 v) {
     fromCartesian(v.x, v.y);
     refresh();
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
+  /// <returns></returns>
   public Vector2 toCartesian() {
     return new Vector2(radius * Mathf.Cos(-angle * Mathf.Deg2Rad), radius * Mathf.Sin(-angle * Mathf.Deg2Rad));
   }
 
+  /// <summary>
+  /// 
+  /// </summary>
   public void refresh() {
     Vector3 p = toCartesian();
-    transform.localRotation = Quaternion.Euler(0, 0, -angle - 90);
+    Quaternion rot = Quaternion.Euler(0, 0, -angle - 90);
+    if (!float.IsNaN(rot.x + rot.y + rot.z + rot.w)) {
+      transform.localRotation = rot;
+    } else {
+      print("QUATERNION BUG!!!");
+    }
     transform.position = p;
   }
 

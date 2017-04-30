@@ -110,6 +110,7 @@ public class Player : MonoBehaviour {
   /// 
   /// </summary>
   void HandleCollision() {
+    float r = mobile.radius;
     if (collider.GetContacts(playerFilter, obstacles) > 0) {
       ColliderDistance2D d = collider.Distance(obstacles[0]);
       //Debug.DrawLine(d.pointA, d.pointB);
@@ -117,8 +118,8 @@ public class Player : MonoBehaviour {
       var p2 = obstacles[0].GetComponent<Player>();
       var p2m = obstacles[0].GetComponent<Mobile>();
       var n = transform.up;
-      onGround = false;
-      goDown = true;
+      //onGround = false;
+      //goDown = true;
       var angle = Vector2.Angle(v, n);
       if ((angle > 170) && (p2m.radius < mobile.radius)) {
         var reflect = Vector2.Reflect(v, n).normalized;
@@ -134,6 +135,9 @@ public class Player : MonoBehaviour {
       } else {
         //Debug.DrawRay(mobile.toCartesian(), -v, Color.magenta);
         mobile.fromCartesian(mobile.toCartesian() - v);
+      }
+      if (onGround) {
+        mobile.radius = r;
       }
     }
   }
