@@ -285,6 +285,7 @@ public class Player : MonoBehaviour {
       gameObject.SetActive(false);
       return;
     }
+
     if (gm.pause || gm.gameOver) { return; }
 
     if (invulnerability > 0) {
@@ -309,9 +310,7 @@ public class Player : MonoBehaviour {
 
     bool jumping = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && v > 0);
     bool releaseJump = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
-    /*if (jumping) {
-      print(playerN);
-    }*/
+
     if (jumping) {
       print("jumping!");
     }
