@@ -85,6 +85,7 @@ public class Player : MonoBehaviour {
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
 
+  public bool mounting = false;
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
@@ -290,9 +291,19 @@ public class Player : MonoBehaviour {
       invulnerability -= Time.deltaTime;
     }
 
+    animator.SetBool("mounting", mounting);
+
     animator.SetBool("invulnerable", invulnerability > 0);
 
     float h = Input.GetAxisRaw("P" + playerN + "_Horizontal");
+
+    if (mounting) {
+      if (h != 0 && h != mobile.direction) {
+        mobile.direction = h;
+      }
+      h = mobile.direction;
+    }
+
     float v = Input.GetAxisRaw("P" + playerN + "_Vertical");
 
 
@@ -449,12 +460,8 @@ public class Player : MonoBehaviour {
     }
 
 
-    if (trueHSpeed != 0 || vSpeed != 0)
+    if (trueHSpeed != 0 || vSpeed != 0) {
       HandleCollision();
-    //}
-
-
-    //if (playerN == 1)
-    //  Debug.LogFormat("Player{5}: p({0},{1}) v({4},{3}) {2}",mobile.angle, mobile.radius, onGround,vSpeed,trueHSpeed, playerN);
+    }
   }
 }

@@ -176,9 +176,11 @@ public class GameManager : MonoBehaviour {
     playerCount = Options.numberOfPlayers;
     print(playerCount);
     float ang = 360.0f / playerCount;
+    print("Mounting" + Options.mounting);
     for (int i = 0; i < players.Length; i++) {
       players[i].SetActive(i < playerCount);
       players[i].Position((ang * i) - 90);
+      players[i].mounting = Options.mounting;
     }
 
     int bullet = playerCount * Options.playerBullets;

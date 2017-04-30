@@ -19,6 +19,8 @@ public class Options {
     bulletSpeed = PlayerPrefs.GetInt("bulletSpeed", 100);
     nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
     turnPlanetItem = (PlayerPrefs.GetInt("turnPlanetItem", 1) == 1);
+    mounting = (PlayerPrefs.GetInt("playersMounting", 0) == 1);
+    Debug.Log("Mounting: " + mounting);
   }
 
   public static float planetSize { get; private set; }
@@ -28,4 +30,5 @@ public class Options {
   public static float bulletSpeed { get; private set; }
   public static bool nightMode { get; private set; }
   public static bool turnPlanetItem { get; private set; }
+  public static bool mounting { get; private set; }
 }
