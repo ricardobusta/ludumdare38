@@ -23,7 +23,7 @@ public class OptionSlider : OptionGeneric {
   /// </summary>
   private void Start() {
     textName.text = optionName;
-    float f = PlayerPrefs.GetFloat(playerPrefsValue, defaultValue);
+    float f = PlayerPrefs.GetInt(playerPrefsValue, defaultValue);
     textValue.text = f.ToString() + suffix;
     slider.minValue = minValue;
     slider.maxValue = maxValue;
@@ -34,8 +34,8 @@ public class OptionSlider : OptionGeneric {
   /// 
   /// </summary>
   public void ValueChanged() {
-    float v = slider.value;
-    PlayerPrefs.SetFloat(playerPrefsValue, v);
+    int v = (int)slider.value;
+    PlayerPrefs.SetInt(playerPrefsValue, v);
     textValue.text = v.ToString() + suffix;
   }
 

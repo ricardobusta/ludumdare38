@@ -172,14 +172,13 @@ public class GameManager : MonoBehaviour {
     Instance = this;
 
     baseBulletSpeed = 3 * Options.bulletSpeed;
-    print(baseBulletSpeed);
 
     playerCount = Options.numberOfPlayers;
+    print(playerCount);
     float ang = 360.0f / playerCount;
-    print(ang);
     for (int i = 0; i < players.Length; i++) {
       players[i].SetActive(i < playerCount);
-      players[i].Position((ang * i) + 90);
+      players[i].Position((ang * i) - 90);
     }
 
     int bullet = playerCount * Options.playerBullets;

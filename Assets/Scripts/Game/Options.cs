@@ -12,11 +12,11 @@ public class Options {
   /// 
   /// </summary>
   public static void Load() {
-    planetSize = PlayerPrefs.GetFloat("planetSize", 100);
+    planetSize = PlayerPrefs.GetInt("planetSize", 100);
     playerLives = PlayerPrefs.GetInt("playerLives", 5);
     playerBullets = PlayerPrefs.GetInt("playerBullets", 6);
     numberOfPlayers = PlayerPrefs.GetInt("noOfPlayers", 2);
-    bulletSpeed = PlayerPrefs.GetFloat("bulletSpeed", 100);
+    bulletSpeed = PlayerPrefs.GetInt("bulletSpeed", 100);
     nightMode = (PlayerPrefs.GetInt("nightMode", 0) == 1);
     turnPlanetItem = (PlayerPrefs.GetInt("turnPlanetItem", 1) == 1);
   }

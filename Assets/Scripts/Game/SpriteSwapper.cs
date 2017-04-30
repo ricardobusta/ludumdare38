@@ -6,6 +6,7 @@ using System.Linq;
 /// <summary>
 /// Makes it easier to swap sprites at runtime.
 /// </summary>
+[ExecuteInEditMode]
 public class SpriteSwapper : MonoBehaviour {
 
   public float currentSprite;
@@ -28,7 +29,6 @@ public class SpriteSwapper : MonoBehaviour {
   /// </summary>
   private void LateUpdate() {
     // Swap out the sprite to be rendered by its name
-    print(currentSprite);
     this.spriteRenderer.sprite = spriteSheet[(int)Mathf.Ceil(currentSprite)];
   }
 }
