@@ -21,7 +21,7 @@ public class OptionSlider : OptionGeneric {
   /// <summary>
   /// 
   /// </summary>
-  private void Start() {
+  private void Awake() {
     textName.text = optionName;
     float f = PlayerPrefs.GetInt(playerPrefsValue, defaultValue);
     textValue.text = f.ToString() + suffix;
@@ -44,5 +44,12 @@ public class OptionSlider : OptionGeneric {
   /// </summary>
   public override void SetDefault() {
     slider.value = defaultValue;
+  }
+
+  public override bool OutOfRange() {
+    if (slider.value > maxValue || slider.value < minValue) {
+      return true;
+    }
+    return false;
   }
 }

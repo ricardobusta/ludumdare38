@@ -17,9 +17,9 @@ public class OptionCheckBox : OptionGeneric {
   /// <summary>
   /// 
   /// </summary>
-  private void Start() {
+  private void Awake() {
     textName.text = optionName;
-    bool b = (PlayerPrefs.GetInt(playerPrefsValue, defaultValue?1:0)==1);
+    bool b = (PlayerPrefs.GetInt(playerPrefsValue, defaultValue ? 1 : 0) == 1);
     toggle.isOn = b;
   }
 
@@ -28,7 +28,7 @@ public class OptionCheckBox : OptionGeneric {
   /// </summary>
   public void ValueChanged() {
     bool b = toggle.isOn;
-    PlayerPrefs.SetInt(playerPrefsValue, b?1:0);
+    PlayerPrefs.SetInt(playerPrefsValue, b ? 1 : 0);
   }
 
   /// <summary>
@@ -36,5 +36,9 @@ public class OptionCheckBox : OptionGeneric {
   /// </summary>
   public override void SetDefault() {
     toggle.isOn = defaultValue;
+  }
+
+  public override bool OutOfRange() {
+    return false;
   }
 }

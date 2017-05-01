@@ -15,8 +15,10 @@ abstract public class OptionGeneric : MonoBehaviour {
   /// If there is no option set, it will initialize it with default values.
   /// </summary>
   public void Initialize() {
-    if (!PlayerPrefs.HasKey(playerPrefsValue)) {
+    if (!PlayerPrefs.HasKey(playerPrefsValue) || OutOfRange()) {
       SetDefault();
     }
   }
+
+  public abstract bool OutOfRange();
 }
