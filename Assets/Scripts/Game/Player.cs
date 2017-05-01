@@ -38,12 +38,12 @@ public class Player : MonoBehaviour {
 
   // Variáveis de controle de pulo: considerar criar uma classe separada, ou ao menos um a sessão separada dentro dessa classe.
   // Player está no chão?
-  bool onGround = false;
+  public bool onGround = false;
   //Tou seriamente triggerado com o nome dessa variável.
   public Bullet onSomething = null;
   public bool goDown = true;
   bool ducking = false;
-  bool doubleJumping = false;
+  public bool doubleJumping = false;
   float doubleJumpingHeight = 0;
   //Moar pulo
   public float maxHSpeed = 180;
@@ -316,13 +316,13 @@ public class Player : MonoBehaviour {
     float v = Input.GetAxisRaw("P" + playerN + "_Vertical");
 
 
-    bool jumping = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && v > 0);
-    bool releaseJump = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
+    bool jumpingCommand = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && v > 0);
+    bool releaseJumpingCommand = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
 
-    if (jumping) {
+    if (jumpingCommand) {
       print("jumping!");
     }
-    if (releaseJump) {
+    if (releaseJumpingCommand) {
       print("releaseJump");
     }
 
@@ -349,7 +349,7 @@ public class Player : MonoBehaviour {
       doubleJumpingHeight = planetR + gm.playerHeightOffset;
     }
 
-    if (onSomething && jumping) {
+    if (onSomething && jumpingCommand) {
       ducking = false;
       animator.SetBool("jumping", true);
       vSpeed = maxVSpeed;
@@ -361,7 +361,7 @@ public class Player : MonoBehaviour {
       animator.SetBool("jumping", false);
     }
 
-    if (!onGround && !doubleJumping && jumping) {
+    if (!(onGround || onSomething) && !doubleJumping && jumpingCommand) {
       ducking = false;
       animator.SetBool("jumping", true);
       vSpeed = maxVSpeed;
@@ -381,7 +381,7 @@ public class Player : MonoBehaviour {
       mobile.radius = planetR + gm.playerHeightOffset - 1e-3f;
       goDown = false;
 
-      if (jumping) {
+      if (jumpingCommand) {
         ducking = false;
         animator.SetBool("jumping", true);
         vSpeed = maxVSpeed;
@@ -402,8 +402,8 @@ public class Player : MonoBehaviour {
     animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
-    if (releaseJump) {
-      print(releaseJump);
+    if (releaseJumpingCommand) {
+      print(releaseJumpingCommand);
       goDown = true;
     }
 
