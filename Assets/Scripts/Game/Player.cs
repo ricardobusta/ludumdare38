@@ -154,7 +154,7 @@ public class Player : MonoBehaviour {
   /// <summary>
   /// Initiate the firing animation. Don't actually shoot the bullet. That's what the animation do.
   /// </summary>
-  void Shoot() {
+  void FireAction() {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
@@ -169,7 +169,7 @@ public class Player : MonoBehaviour {
   /// <summary>
   /// Script that executes when the animation hits the shooting frame, which actually releases the bullet and plays the fire sound.
   /// </summary>
-  void ActualShoot() {
+  void FireBullet() {
     Bullet b = GameManager.Instance.GetFreeBullet();
     if (b != null) {
       ammoLeft--;
@@ -284,7 +284,7 @@ public class Player : MonoBehaviour {
   /// <summary>
   /// 
   /// </summary>
-  private void Update() {
+  public void HandleLogic() {
     if (dead) {
       gameObject.SetActive(false);
       return;
@@ -437,12 +437,12 @@ public class Player : MonoBehaviour {
       mobile.angle += onSomething.speed * Time.deltaTime / bMob.radius;
     }
 
-    Shoot();
+    FireAction();
     Melee();
     Dash();
   }
 
-  private void FixedUpdate() {
+  public void HandlePhysics() {
     if (dead) {
       gameObject.SetActive(false);
       return;

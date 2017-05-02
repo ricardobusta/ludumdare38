@@ -30,18 +30,15 @@ public class Bullet : MonoBehaviour {
   /// <summary>
   /// 
   /// </summary>
-  private void Update() {
-    gm = GameManager.Instance;
-    if (gm.pause || gm.gameOver) { return; }
+  public void HandleLogic() {
     mobile.Move(speed);
   }
 
   /// <summary>
   /// 
   /// </summary>
-  private void FixedUpdate() {
+  public void HandlePhysics() {
     gm = GameManager.Instance;
-    if (gm.pause || gm.gameOver) { return; }
 
     if (stepCol.IsTouchingLayers(LayerMask.GetMask("Player"))) {
       foreach (Player p in GameManager.Instance.players) {

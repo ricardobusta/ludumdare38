@@ -235,6 +235,28 @@ public class GameManager : MonoBehaviour {
       pause = true;
       pauseScreen.SetActive(true);
     }
+
+    foreach (Player p in players) {
+      p.HandleLogic();
+    }
+    if (pause || gameOver) { return; }
+    foreach (Bullet b in bulletPool) {
+      if (b.gameObject.activeSelf) {
+        b.HandleLogic();
+      }
+    }
+  }
+
+  private void FixedUpdate() {
+    foreach (Player p in players) {
+      p.HandlePhysics();
+    }
+    if (pause || gameOver) { return; }
+    foreach (Bullet b in bulletPool) {
+      if (b.gameObject.activeSelf) {
+        b.HandlePhysics();
+      }
+    }
   }
 
   public void MainMenu() {
