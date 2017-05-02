@@ -7,40 +7,19 @@ using UnityEngine.UI;
 /// Represents a playable character. Control it's movements and actions.
 /// </summary>
 public class Player : MonoBehaviour {
-  /// <summary>
-  /// Qual o número desse player
-  /// </summary>
+
+  [Header("Parameters")]
   public int playerN;
-
   public Color bulletColor;
-
   int maxPlayerLives;
-  public int playerLives = 3;
-
-  public int ammoLeft = 5;
-  /// <summary>
-  /// Mangaes the players' bullets
-  /// </summary>
-  public BulletCounter bulletCounter;
-  /// <summary>
-  /// Manages the players' portait
-  /// </summary>
-  public FaceManager faceManager;
-
   public AudioClip hitSound;
 
-  public Image flowerCDindicator;
-
-  Animator animator;
-  Mobile mobile;
-
-  public GameObject shootPoint;
-
-  // Variáveis de controle de pulo: considerar criar uma classe separada, ou ao menos um a sessão separada dentro dessa classe.
-  // Player está no chão?
+  [Header("Status")]
+  public int playerLives = 3;
+  public int ammoLeft = 5;
+  public bool mounting = false;
   public bool onGround = false;
-  //Tou seriamente triggerado com o nome dessa variável.
-  public Bullet onSomething = null;
+  public Bullet onBullet = null;
   public bool goDown = true;
   bool ducking = false;
   public bool doubleJumping = false;
@@ -56,36 +35,49 @@ public class Player : MonoBehaviour {
   public float vSpeed = 0;
   public float hSpeed = 0;
 
-  public float fireCD = 1;
-  float currentFireCD = 0;
 
+
+  //Variáveis de controle da invulnerabilidade;
+  public float invulnerabilityDuration = 1;
+  float invulnerabilityCurrent = 0;
+
+  bool firstTimeOnGround = false;
+
+  bool dead = false;
+
+  [Header("Control")]
+  public float horizontalInput = 0;
+  public float verticalInput = 0;
+  public bool meleeInput = false;
   public float meleeCD = 1;
   float currentMeleeCD = 0;
-
-  //Variáveis de controle do dash
+  public bool fireInput = false;
+  public float fireCD = 1;
+  float currentFireCD = 0;
+  //Dash Control
+  public bool dashInput = false;
   public float dashCD = 1;
   float currentDashCD = 0;
   public float dashDuration = 0.5f;
   float currentDashDuration = -1;
   float dashDirection = 0;
   public float dashSpeedMultiplier = 4;
+  //Jump Control
+  bool jumpInput = false;
+  bool jumpReleaseInput = false;
 
-  //Variáveis de controle da invulnerabilidade;
-  public float invulnerabilityTime = 1;
-  float invulnerability = 0;
-
-  bool firstTimeOnGround = false;
-
-  bool dead = false;
-
+  [Header("References")]
   public GameManager gm;
-
   new Collider2D collider;
   ContactFilter2D playerFilter = new ContactFilter2D();
   Collider2D[] obstacles = new Collider2D[10];
   RaycastHit2D[] rayResults = new RaycastHit2D[2];
-
-  public bool mounting = false;
+  public BulletCounter bulletCounter;
+  public FaceManager faceManager;
+  public Image flowerCDindicator;
+  Animator animator;
+  Mobile mobile;
+  public GameObject shootPoint;
 
   private void Awake() {
     mobile = GetComponent<Mobile>();
@@ -148,7 +140,7 @@ public class Player : MonoBehaviour {
   //Todo: Maybe transformar isso em property?
   /// <returns>Returns true if player is invunerable, false if it is not.</returns>  
   public bool Invulnerable() {
-    return invulnerability > 0;
+    return invulnerabilityCurrent > 0;
   }
 
   /// <summary>
@@ -158,7 +150,7 @@ public class Player : MonoBehaviour {
     if (currentFireCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentFireCD -= Time.deltaTime;
-    } else if (ammoLeft > 0 && Input.GetButton("P" + playerN + "_Fire")) {
+    } else if (ammoLeft > 0 && fireInput) {
       // Senão, deixe o jogador atirar
       animator.SetTrigger("fire");
       print("shoot!");
@@ -175,10 +167,10 @@ public class Player : MonoBehaviour {
       ammoLeft--;
       bulletCounter.SetBulletCount(ammoLeft);
       b.Activate(mobile, shootPoint);
-      if (onSomething && onSomething.isActiveAndEnabled) {
-        var bMob = onSomething.GetComponent<Mobile>();
+      if (onBullet && onBullet.isActiveAndEnabled) {
+        var bMob = onBullet.GetComponent<Mobile>();
         float rate = 0.33f * mobile.radius / bMob.radius;
-        b.speed = Mathf.Abs(b.initialSpeed) * mobile.direction + onSomething.speed * rate;
+        b.speed = Mathf.Abs(b.initialSpeed) * mobile.direction + onBullet.speed * rate;
         //onSomething.speed -= Mathf.Abs(speed) * mobile.direction;
         //bMob.refresh();
       }
@@ -195,7 +187,7 @@ public class Player : MonoBehaviour {
     if (currentMeleeCD > 0) {
       // Se o cooldown de tiro é positivo, decremente
       currentMeleeCD -= Time.deltaTime;
-    } else if (Input.GetButton("P" + playerN + "_Melee")) {
+    } else if (meleeInput) {
       currentMeleeCD = meleeCD;
       animator.SetTrigger("attack");
       AudioManager.Instance().PlayAttack();
@@ -216,7 +208,7 @@ public class Player : MonoBehaviour {
       if (currentDashCD > 0) {
         // Se o cooldown de dash é positivo, decremente
         currentDashCD -= Time.deltaTime;
-      } else if (Input.GetButtonDown("P" + playerN + "_Dash")) {
+      } else if (dashInput) {
         // Deixa jogador dashar
         currentDashCD = dashCD;
         currentDashDuration = dashDuration;
@@ -247,13 +239,13 @@ public class Player : MonoBehaviour {
   /// </summary>
   /// <param name="i">amount of damage taken</param>
   public void TakeDamage(int i = 1) {
-    if (invulnerability > 0) {
+    if (invulnerabilityCurrent > 0) {
       return;
     }
     if (animator.GetCurrentAnimatorStateInfo(0).IsName("Hit")) {
       return;
     }
-    invulnerability = invulnerabilityTime;
+    invulnerabilityCurrent = invulnerabilityDuration;
     GameManager.Instance.StartScreenShake();
     AudioManager.Play(hitSound);
     animator.SetTrigger("hit");
@@ -281,6 +273,16 @@ public class Player : MonoBehaviour {
     mobile.refresh();
   }
 
+  private void HandleControls() {
+    fireInput = Input.GetButton("P" + playerN + "_Fire");
+    dashInput = Input.GetButtonDown("P" + playerN + "_Dash");
+    horizontalInput = Input.GetAxisRaw("P" + playerN + "_Horizontal");
+    verticalInput = Input.GetAxisRaw("P" + playerN + "_Vertical");
+    meleeInput = Input.GetButton("P" + playerN + "_Melee");
+    jumpInput = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && verticalInput > 0);
+    jumpReleaseInput = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
+  }
+
   /// <summary>
   /// 
   /// </summary>
@@ -296,33 +298,27 @@ public class Player : MonoBehaviour {
     }
     animator.speed = 1;
 
-    if (invulnerability > 0) {
-      invulnerability -= Time.deltaTime;
+    if (invulnerabilityCurrent > 0) {
+      invulnerabilityCurrent -= Time.deltaTime;
     }
+
+    HandleControls();
 
     animator.SetBool("mounting", mounting);
 
-    animator.SetBool("invulnerable", invulnerability > 0);
-
-    float h = Input.GetAxisRaw("P" + playerN + "_Horizontal");
+    animator.SetBool("invulnerable", invulnerabilityCurrent > 0);
 
     if (mounting) {
-      if (h != 0 && h != mobile.direction) {
-        mobile.direction = h;
+      if (horizontalInput != 0 && horizontalInput != mobile.direction) {
+        mobile.direction = horizontalInput;
       }
-      h = mobile.direction;
+      horizontalInput = mobile.direction;
     }
 
-    float v = Input.GetAxisRaw("P" + playerN + "_Vertical");
-
-
-    bool jumpingCommand = Input.GetButtonDown("P" + playerN + "_Jump") || (Input.GetButtonDown("P" + playerN + "_Vertical") && v > 0);
-    bool releaseJumpingCommand = Input.GetButtonUp("P" + playerN + "_Jump") || (Input.GetButtonUp("P" + playerN + "_Vertical"));
-
-    if (jumpingCommand) {
+    if (jumpInput) {
       print("jumping!");
     }
-    if (releaseJumpingCommand) {
+    if (jumpReleaseInput) {
       print("releaseJump");
     }
 
@@ -340,16 +336,16 @@ public class Player : MonoBehaviour {
     }
 
     ducking = false;
-    if ((onGround || onSomething) && h == 0 && v < 0) {
+    if ((onGround || onBullet) && horizontalInput == 0 && verticalInput < 0) {
       ducking = true;
     }
 
-    if (onGround || onSomething) {
+    if (onGround || onBullet) {
       doubleJumping = false;
       doubleJumpingHeight = planetR + gm.playerHeightOffset;
     }
 
-    if (onSomething && jumpingCommand) {
+    if (onBullet && jumpInput) {
       ducking = false;
       animator.SetBool("jumping", true);
       vSpeed = maxVSpeed;
@@ -357,11 +353,11 @@ public class Player : MonoBehaviour {
       onGround = false;
     }
 
-    if (onSomething) {
+    if (onBullet) {
       animator.SetBool("jumping", false);
     }
 
-    if (!(onGround || onSomething) && !doubleJumping && jumpingCommand) {
+    if (!(onGround || onBullet) && !doubleJumping && jumpInput) {
       ducking = false;
       animator.SetBool("jumping", true);
       vSpeed = maxVSpeed;
@@ -370,7 +366,7 @@ public class Player : MonoBehaviour {
       goDown = false;
       doubleJumping = true;
       doubleJumpingHeight = mobile.radius;
-      onSomething = null;
+      onBullet = null;
     }
 
     if (onGround) {
@@ -381,19 +377,19 @@ public class Player : MonoBehaviour {
       mobile.radius = planetR + gm.playerHeightOffset - 1e-3f;
       goDown = false;
 
-      if (jumpingCommand) {
+      if (jumpInput) {
         ducking = false;
         animator.SetBool("jumping", true);
         vSpeed = maxVSpeed;
         AudioManager.Instance().PlayJump();
         onGround = false;
-        onSomething = null;
+        onBullet = null;
       }
       //                    << TODO arrumar esses valores de pulo aqui                 >>
-    } else if ((goDown || (Mathf.Abs(mobile.radius) >= doubleJumpingHeight + gm.playerHeightOffset)) && !onSomething) {
+    } else if ((goDown || (Mathf.Abs(mobile.radius) >= doubleJumpingHeight + gm.playerHeightOffset)) && !onBullet) {
       // Senão, aplique gravidade
       vSpeed -= gravity * Time.deltaTime;
-      if (v < 0) {
+      if (verticalInput < 0) {
         vSpeed -= gravity * 3f * Time.deltaTime;
       }
       goDown = true;
@@ -402,39 +398,39 @@ public class Player : MonoBehaviour {
     animator.SetBool("ducking", ducking);
 
     // Gravide aplica quando o botão solta
-    if (releaseJumpingCommand) {
-      print(releaseJumpingCommand);
+    if (jumpReleaseInput) {
+      print(jumpReleaseInput);
       goDown = true;
     }
 
     float d = Dash();
     if (d != 0) {
-      h = d;
+      horizontalInput = d;
     }
 
-    trueHSpeed = h * maxHSpeed;
+    trueHSpeed = horizontalInput * maxHSpeed;
     if (hSpeed > 0) {
       hSpeed = Mathf.Max(hSpeed - hSpeed * airDrag * Time.deltaTime, 0);
     } else if (hSpeed < 0) {
       hSpeed = Mathf.Min(hSpeed - hSpeed * airDrag * Time.deltaTime, 0);
     }
 
-    if (Mathf.Abs(h * maxHSpeed) > Mathf.Abs(hSpeed)) {
-      trueHSpeed = h * maxHSpeed;
+    if (Mathf.Abs(horizontalInput * maxHSpeed) > Mathf.Abs(hSpeed)) {
+      trueHSpeed = horizontalInput * maxHSpeed;
       hSpeed = 0;
     } else {
       trueHSpeed = hSpeed;
     }
 
     // Animar na horizontal se ele estiver se movendo
-    animator.SetBool("horizontal_moving", Mathf.Abs(h) > 0);
+    animator.SetBool("horizontal_moving", Mathf.Abs(horizontalInput) > 0);
 
     // Cálculo de posição vertical e horizontal
     mobile.Move(trueHSpeed, vSpeed);
 
-    if (onSomething && onSomething.isActiveAndEnabled) {
-      var bMob = onSomething.GetComponent<Mobile>();
-      mobile.angle += onSomething.speed * Time.deltaTime / bMob.radius;
+    if (onBullet && onBullet.isActiveAndEnabled) {
+      var bMob = onBullet.GetComponent<Mobile>();
+      mobile.angle += onBullet.speed * Time.deltaTime / bMob.radius;
     }
 
     FireAction();
@@ -451,19 +447,19 @@ public class Player : MonoBehaviour {
 
     float planetR = gm.planetRadius;
 
-    if (onSomething && onSomething.isActiveAndEnabled) {
+    if (onBullet && onBullet.isActiveAndEnabled) {
       var nCast = collider.Cast(-transform.up, rayResults, planetR);
       if (nCast > 0) {
         if (!rayResults[0].transform.name.Contains("Bullet")) {
-          onSomething = null;
+          onBullet = null;
         } else if (rayResults[0].distance > 0.35) {
-          onSomething = null;
+          onBullet = null;
         }
       } else {
-        onSomething = null;
+        onBullet = null;
       }
     } else {
-      onSomething = null;
+      onBullet = null;
     }
 
 

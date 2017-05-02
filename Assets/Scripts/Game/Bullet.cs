@@ -52,7 +52,7 @@ public class Bullet : MonoBehaviour {
           if (angle > 100) {
             pMob.radius = mobile.radius + gm.playerHeightOffset + 0.2f;
             pMob.refresh();
-            p.onSomething = this;
+            p.onBullet = this;
             p.vSpeed = 0;
             return;
           }
