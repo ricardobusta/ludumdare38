@@ -24,25 +24,21 @@ public class Player : MonoBehaviour {
   bool ducking = false;
   public bool doubleJumping = false;
   float doubleJumpingHeight = 0;
-  //Moar pulo
+  // Movement information
   public float maxHSpeed = 180;
   public float maxVSpeed = 3;
   private float gravity = 8f;
   private float airDrag = 3f;
-  private float trueHSpeed = 0;
 
-  // Velocidade atual do jogador
+  // Player final speed
   public float vSpeed = 0;
   public float hSpeed = 0;
-
-
+  private float trueHSpeed = 0;
 
   //Variáveis de controle da invulnerabilidade;
   public float invulnerabilityDuration = 1;
   float invulnerabilityCurrent = 0;
-
   bool firstTimeOnGround = false;
-
   bool dead = false;
 
   [Header("Control")]
@@ -270,6 +266,7 @@ public class Player : MonoBehaviour {
   public void Position(float angle) {
     mobile.radius = gm.planetRadius + gm.playerHeightOffset;
     mobile.angle = angle - 90;
+    onGround = true;
     mobile.refresh();
   }
 
@@ -315,13 +312,6 @@ public class Player : MonoBehaviour {
       horizontalInput = mobile.direction;
     }
 
-    if (jumpInput) {
-      print("jumping!");
-    }
-    if (jumpReleaseInput) {
-      print("releaseJump");
-    }
-
     float planetR = gm.planetRadius;
 
     // Está no chão se o raio for menor igual que o planeta + altura do jogador
@@ -329,10 +319,7 @@ public class Player : MonoBehaviour {
     onGround = (Mathf.Abs(mobile.radius) <= planetR + gm.playerHeightOffset);
 
     if (!wasOnGround && onGround) {
-      if (firstTimeOnGround) {
-        AudioManager.Instance().PlayLanding();
-      }
-      firstTimeOnGround = true;
+      AudioManager.Instance().PlayLanding();
     }
 
     ducking = false;
