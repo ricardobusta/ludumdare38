@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 224631081330874650}
   - component: {fileID: 114150072652895686}
   m_Layer: 5
-  m_Name: P4 BulletCounter
+  m_Name: Bullet Counter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,6 @@ MonoBehaviour:
   - {fileID: 1853824494280880}
   - {fileID: 1002884791456768}
   image: {fileID: 114844384659791872}
-  bulletCount: 0
 --- !u!114 &114271020815606024
 MonoBehaviour:
   m_ObjectHideFlags: 1

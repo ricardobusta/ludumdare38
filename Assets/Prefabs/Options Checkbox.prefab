@@ -224,7 +224,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 12800000, guid: 26c6f0fe9648a984ebc1bc4ea69e40e5, type: 3}
+    m_Font: {fileID: 12800000, guid: 26bc80f7c9ee24a46b7a72bf5b15a803, type: 3}
     m_FontSize: 32
     m_FontStyle: 0
     m_BestFit: 0

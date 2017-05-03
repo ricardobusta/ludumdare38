@@ -18,7 +18,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _AltTex:
-        m_Texture: {fileID: 2800000, guid: 7c68be2ae778e16429f680fa56a63301, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4723123f1512eb04ab47b65ec6fcb3d9, type: 3}
         m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -81,4 +81,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Repeat: {r: 2, g: 2, b: 0, a: 0}
+    - _Repeat: {r: 1, g: 1, b: 0, a: 0}
